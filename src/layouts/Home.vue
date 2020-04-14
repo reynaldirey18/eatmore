@@ -3,7 +3,7 @@
     <main style="app-main">
       <app-sidebar></app-sidebar>
       <app-header></app-header>
-      <v-content>
+      <v-content class="bg-color">
         <router-view></router-view>
       </v-content>
     </main>
@@ -32,5 +32,9 @@ app-main {
     min-height: 100vh;
     background-color: #faa;
   }
+}
+.bg-color{
+  background-color: #E5E5E5 !important;
+  min-height: 100vh;
 }
 </style>
