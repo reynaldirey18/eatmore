@@ -5,7 +5,7 @@
 </template>
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
-body{
+*, body{
   font-family: 'Rubik', sans-serif;
   font-style: normal;
   font-weight: normal;
