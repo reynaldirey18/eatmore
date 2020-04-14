@@ -11,7 +11,9 @@
             </template>
           </v-breadcrumbs>
         </div>
-        <router-view></router-view>
+        <div class="px-5 mb-10">
+          <router-view></router-view>
+        </div>
       </v-content>
     </main>
   </v-app>

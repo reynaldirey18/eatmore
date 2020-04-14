@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-5">
+  <div>
     <h1 class="title">Dashboard</h1>
       <v-card
         class="mx-auto mt-3"

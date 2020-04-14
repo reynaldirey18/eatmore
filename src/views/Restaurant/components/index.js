@@ -1,0 +1,8 @@
+export { default as BasicProfile } from './BasicProfile'
+export { default as Location } from './Location'
+export { default as BankAccount } from './BankAccount'
+export { default as BusinessHours } from './BusinessHours'
+export { default as SpecialBusinessHours } from './SpecialBusinessHours'
+export { default as Email } from './Email'
+export { default as Gallery } from './Gallery'
+export { default as Reviews } from './Review'
