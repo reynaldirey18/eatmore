@@ -12,38 +12,145 @@ export const sidebar = [
 export const mainMenu = [
   {
     icon: 'mdi-file-pdf',
-    name: 'Report'
+    name: 'Report',
+    children: [
+      {
+        name: 'Sales'
+      },
+      {
+        name: 'Transactions'
+      },
+      {
+        name: 'Promo'
+      },
+      {
+        name: 'Loyalty Point'
+      },
+      {
+        name: 'Inventory Stock'
+      },
+    ]
   },
   {
     icon: 'mdi-layers',
-    name: 'Products'
+    name: 'Products',
+    children: [
+      {
+        name: 'Products'
+      },
+      {
+        name: 'Add New Product'
+      },
+      {
+        name: 'Categories'
+      },
+      {
+        name: 'Recipes'
+      },
+      {
+        name: 'Modifiers'
+      },
+    ],
   },
   {
     icon: 'mdi-silverware',
-    name: 'Inventory'
+    name: 'Inventory',
+    children: [
+      {
+        name: 'Stock Forecasting'
+      },
+      {
+        name: 'Inventories'
+      },
+      {
+        name: 'Categories'
+      },
+      {
+        name: 'Stock Adjustment'
+      },
+      {
+        name: 'Warehouse'
+      },
+      {
+        name: 'Supplier'
+      },
+      {
+        name: 'Purchase Order (PO)'
+      },
+      {
+        name: 'Received Order'
+      },
+      {
+        name: 'Transfer Inventories'
+      },
+      {
+        name: 'Request Materials'
+      },
+      {
+        name: 'Stock Opname'
+      }
+    ],
   },
   {
     icon: 'mdi-timetable',
-    name: 'Promo'
+    name: 'Promo',
+    children: [],
   },
   {
     icon: 'mdi-account-circle',
-    name: 'Customer'
+    name: 'Customer',
+    children: [],
   },
   {
     icon: 'mdi-account-box',
-    name: 'Employees'
+    name: 'Employees',
+    children: [
+      {
+        name: 'Employee Summary'
+      },
+      {
+        name: 'Employee List'
+      },
+      {
+        name: 'Division Management'
+      },
+      {
+        name: 'Payroll Management'
+      },
+      {
+        name: 'Reimbursement'
+      },
+      {
+        name: 'Assign Employee Shift'
+      },
+      {
+        name: 'Loan'
+      }
+    ]
   },
   {
     icon: 'mdi-deskphone',
-    name: 'Accounting'
+    name: 'Accounting',
+    children: []
   },
   {
     icon: 'mdi-table',
-    name: 'Table Management'
+    name: 'Table Management',
+    children: [
+      {
+        name: 'Floor List'
+      },
+      {
+        name: 'Add New Floor'
+      },
+      {
+        name: 'Table List'
+      },
+    ]
   },
   {
     icon: 'mdi-settings',
-    name: 'System'
+    name: 'System',
+    children: [],
   }
 ]
