@@ -1,7 +1,7 @@
 <template>
     <div class="px-4 py-6">
         <h1 class="app-title">Basic Profile</h1>
-        <form>
+        <form @submit.prevent="handleFormSubmit">
             <v-row>
                 <v-col cols="3">
                     <app-file-upload
@@ -71,6 +71,9 @@
                     @keyup.tab="submitTag"
                 ></v-autocomplete>
             </div>
+            <div class="mt-8 d-flex justify-end align-end">
+                <v-btn @click.prevent="handleFormSubmit" color="#FDB526" dark><span class="text-capitalize">save change</span></v-btn>
+            </div>
         </form>
     </div>
 </template>
@@ -105,7 +108,6 @@ export default {
       this.$refs.file.click()
     },
     handleFileChange (e) {
-      console.log(e)
       const input = e.target || this.$refs.file
       const file = input.files ? input.files[0] : null
 
@@ -115,13 +117,11 @@ export default {
       this.businessLogo = file
     },
     onTagValueChange (e) {
-      console.log(e)
     },
     onTagInput (e) {
     },
     submitTag (e) {
       const value = e.target.value
-      console.log(value)
       if (value) {
         const stringToMatch = new RegExp(value, 'g')
         const filter = this.tagList.filter(item => {
@@ -139,6 +139,9 @@ export default {
           }
         }
       }
+    },
+    handleFormSubmit (e) {
+      console.log('submit')
     }
   }
 }
