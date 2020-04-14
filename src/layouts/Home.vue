@@ -3,7 +3,14 @@
     <main class="app-main">
       <app-sidebar></app-sidebar>
       <app-header></app-header>
-      <v-content class="bg-color">
+      <v-content class="app-content">
+        <div class="ml-0 mt-3">
+          <v-breadcrumbs :items="breadcrumbItems">
+            <template v-slot:divider>
+              <v-icon>mdi-chevron-right</v-icon>
+            </template>
+          </v-breadcrumbs>
+        </div>
         <router-view></router-view>
       </v-content>
     </main>
