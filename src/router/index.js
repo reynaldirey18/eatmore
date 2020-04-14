@@ -7,6 +7,7 @@ Vue.use(VueRouter)
 
 const LoginPage = () => import('@/views/Login')
 const DashboardPage = () => import('@/views/Dashboard')
+const RestaurantPage = () => import('@/views/Restaurant')
 
 const router = new VueRouter({
   mode: 'history',
@@ -35,6 +36,11 @@ const router = new VueRouter({
           path: '/dashboard',
           name: 'Dashboard',
           component: DashboardPage
+        },
+        {
+          path: '/restaurant',
+          name: 'Restaurant',
+          component: RestaurantPage
         }
       ]
     }

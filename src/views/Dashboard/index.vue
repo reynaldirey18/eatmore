@@ -1,6 +1,6 @@
 <template>
-  <div class="pa-5">
-    <h1>Dashboard</h1>
+  <div class="pl-5">
+    <h1 class="title">Dashboard</h1>
       <v-card
         class="mx-auto mt-3"
         outlined

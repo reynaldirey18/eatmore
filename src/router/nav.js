@@ -1,18 +1,20 @@
 export const sidebar = [
   {
     icon: 'mdi-speedometer',
-    name: 'Dashboard'
+    name: 'Dashboard',
+    to: '/dashboard'
   },
   {
     icon: 'mdi-store',
-    name: 'Restaurant'
+    name: 'Restaurant',
+    to: '/restaurant'
   }
 ]
 
 export const mainMenu = [
   {
     icon: 'mdi-file-pdf',
-    name: 'Report',
+    name: 'Reports',
     children: [
       {
         name: 'Sales'

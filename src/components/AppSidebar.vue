@@ -31,6 +31,7 @@
       <v-list-item link
         v-for="(sidebarItem, i) in sidebarData"
         :key="i"
+        :to="sidebarItem.to"
         >
         <v-list-item-icon class="pr-0 mr-3">
           <v-icon color="#FDB526">{{sidebarItem.icon}}</v-icon>
@@ -55,6 +56,7 @@
         <v-list-item link
           v-for="(mainMenuItemChild, a) in mainMenuItem.children"
           :key="a"
+          :to="mainMenuItemChild.to"
           >
           <v-list-item-content class="pl-10">
             <v-list-item-title>{{mainMenuItemChild.name}}</v-list-item-title>
