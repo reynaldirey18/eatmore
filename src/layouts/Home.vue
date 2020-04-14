@@ -11,7 +11,7 @@
             </template>
           </v-breadcrumbs>
         </div>
-        <div class="px-5">
+        <div class="px-5 mb-10">
           <router-view></router-view>
         </div>
       </v-content>
