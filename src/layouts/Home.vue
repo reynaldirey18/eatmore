@@ -37,7 +37,7 @@ export default {
             text: item.name,
             to: item.path,
             exact: true,
-            disabled: false
+            disabled: this.$route.name === item.name
           }
         })
       } else {
