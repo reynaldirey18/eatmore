@@ -73,17 +73,29 @@
         </v-row>
         <div class="ma-3">
           <h4 class="text-blood">Daily Gross Sales Amount</h4>
-          <dailyGross />
+          <v-card
+            outlined
+          >
+            <dailyGross style="width:100%" />
+          </v-card>
         </div>
         <div class="ma-3">
           <v-row>
             <v-col cols="6">
               <h4 class="text-blood">Day Of Week Gross Sales Ammount</h4>
-              <dayAmount />
+              <v-card
+                outlined
+              >
+                <dayAmount style="width:100%" />
+              </v-card>
             </v-col>
             <v-col cols="6">
               <h4 class="text-blood">Hourly Gross Ammount</h4>
-              <hourAmount />
+              <v-card
+                outlined
+              >
+                <hourAmount style="width:100%" />
+              </v-card>
             </v-col>
           </v-row>
         </div>

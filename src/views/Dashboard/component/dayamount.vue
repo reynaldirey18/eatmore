@@ -21,7 +21,8 @@ export default {
       chartOptions: {
         chart: {
           type: 'bar',
-          height: 350
+          height: 350,
+          width: '100%'
         },
         plotOptions: {
           bar: {

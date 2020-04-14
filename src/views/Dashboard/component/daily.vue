@@ -1,6 +1,6 @@
 <template>
   <div id="chart">
-    <apexchart type="area" height="350" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="area" style="max-width: 1300px" height="350" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 <script>
@@ -25,7 +25,7 @@ export default {
       chartOptions: {
         chart: {
           type: 'area',
-          width: '80%',
+          width: '90%',
           height: 350,
           zoom: {
             enabled: false
