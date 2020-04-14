@@ -73,7 +73,7 @@ export default {
   name: 'AppSidebar',
   data () {
     return {
-      drawer: true,
+      drawer: null,
       mini: false
     }
   },

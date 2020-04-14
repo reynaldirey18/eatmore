@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-5">
+  <div>
     <h1 class="app-title mb-5">Business Profile</h1>
 
     <v-card>
