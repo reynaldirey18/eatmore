@@ -5,7 +5,7 @@
       dense
       color="white"
       style="height:56px;border: 1px solid rgba(0, 0, 0, 0.05)"
-      elevation="1"
+      elevation="0"
       flat
     >
       <v-toolbar-title style="

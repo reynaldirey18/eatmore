@@ -20,7 +20,7 @@ const router = new VueRouter({
       children: [
         {
           path: '/login',
-          name: 'AppLoginPage',
+          name: 'Login',
           component: LoginPage
         }
       ]
@@ -33,7 +33,7 @@ const router = new VueRouter({
       children: [
         {
           path: '/dashboard',
-          name: 'AppDashboardPage',
+          name: 'Dashboard',
           component: DashboardPage
         }
       ]

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <main style="app-main">
+    <main class="app-main">
       <app-sidebar></app-sidebar>
       <app-header></app-header>
       <v-content class="bg-color">
@@ -18,19 +18,35 @@ export default {
   components: {
     AppSidebar,
     AppHeader
+  },
+  computed: {
+    breadcrumbItems () {
+      const isLength = this.$route.matched.length > 0
+      if (isLength) {
+        const breadcrumbArr = [...this.$route.matched]
+        breadcrumbArr.shift()
+        return breadcrumbArr.map(item => {
+          return {
+            text: item.name,
+            to: item.path,
+            exact: true,
+            disabled: false
+          }
+        })
+      } else {
+        return []
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-app-main {
-  display: flex;
-  flex-direction: row;
+.app-main {
   .app-content {
     position: relative;
-    margin-left: 300px;
     min-height: 100vh;
-    background-color: #faa;
+    background-color: #F4F5F6;
   }
 }
 .bg-color{

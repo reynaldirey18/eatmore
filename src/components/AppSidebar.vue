@@ -42,7 +42,7 @@
       <v-subheader class="pl-4 text-center">Main Menu</v-subheader>
       <v-list-group
         v-for="(mainMenuItem, i) in mainMenuData"
-        :key="i"
+        :key="'main menu ' + i"
         :value="false"
         color="#FDB526"
       >
