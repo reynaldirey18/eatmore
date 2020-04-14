@@ -19,18 +19,19 @@
           <v-tab
             v-for="(tabItem, i) in menuItems"
             :key="i"
+            @click="tabActive = i"
             style="
               width: 299px;
               justify-content: flex-start;
               padding: 30px 00px;
             "
           >
-              <v-list-item two-line class="py-5">
-                  <v-list-item-content>
-                      <v-list-item-title class="text-start text-capitalize app-title-small">{{tabItem.title}}</v-list-item-title>
-                      <v-list-item-subtitle class="text-start text-capitalize app-subtitle-small">{{tabItem.subtitle}}</v-list-item-subtitle>
-                  </v-list-item-content>
-              </v-list-item>
+            <v-list-item two-line class="py-1" :style="tabActive === i  ? 'background-color: #F2F2F2' : ''">
+                <v-list-item-content>
+                    <v-list-item-title class="text-start text-capitalize app-title-small">{{tabItem.title}}</v-list-item-title>
+                    <v-list-item-subtitle class="text-start text-capitalize app-subtitle-small">{{tabItem.subtitle}}</v-list-item-subtitle>
+                </v-list-item-content>
+            </v-list-item>
           </v-tab>
           <v-tab-item>
             <BasicProfile />
@@ -86,6 +87,7 @@ export default {
   },
   data () {
     return {
+      tabActive: 0,
       menuItems: [
         {
           title: 'Basic Profile',
