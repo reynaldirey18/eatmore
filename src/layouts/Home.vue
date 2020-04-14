@@ -58,4 +58,8 @@ export default {
     background-color: #F4F5F6;
   }
 }
+.bg-color{
+  background-color: #E5E5E5 !important;
+  min-height: 100vh;
+}
 </style>
