@@ -1,10 +1,12 @@
 <template>
   <v-app>
-    <main style="app-main">
+    <main class="app-main">
       <app-sidebar></app-sidebar>
       <app-header></app-header>
-      <v-content>
-        <router-view></router-view>
+      <v-content class="app-content">
+        <div class="ml-3 mt-3">
+          <router-view></router-view>
+        </div>
       </v-content>
     </main>
   </v-app>
@@ -23,14 +25,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-app-main {
-  display: flex;
-  flex-direction: row;
+.app-main {
   .app-content {
     position: relative;
-    margin-left: 300px;
     min-height: 100vh;
-    background-color: #faa;
+    background-color: #F4F5F6;
   }
 }
 </style>
