@@ -28,7 +28,7 @@ export const mainMenu = [
       },
       {
         name: 'Inventory Stock'
-      },
+      }
     ]
   },
   {
@@ -49,8 +49,8 @@ export const mainMenu = [
       },
       {
         name: 'Modifiers'
-      },
-    ],
+      }
+    ]
   },
   {
     icon: 'mdi-silverware',
@@ -89,17 +89,17 @@ export const mainMenu = [
       {
         name: 'Stock Opname'
       }
-    ],
+    ]
   },
   {
     icon: 'mdi-timetable',
     name: 'Promo',
-    children: [],
+    children: []
   },
   {
     icon: 'mdi-account-circle',
     name: 'Customer',
-    children: [],
+    children: []
   },
   {
     icon: 'mdi-account-box',
@@ -145,12 +145,12 @@ export const mainMenu = [
       },
       {
         name: 'Table List'
-      },
+      }
     ]
   },
   {
     icon: 'mdi-settings',
     name: 'System',
-    children: [],
+    children: []
   }
 ]

@@ -32,7 +32,7 @@
         v-for="(sidebarItem, i) in sidebarData"
         :key="i"
         >
-        <v-list-item-icon>
+        <v-list-item-icon class="pr-0 mr-3">
           <v-icon color="#FDB526">{{sidebarItem.icon}}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
@@ -40,17 +40,27 @@
         </v-list-item-content>
       </v-list-item>
       <v-subheader class="pl-4 text-center">Main Menu</v-subheader>
-      <v-list-item link
+      <v-list-group
         v-for="(mainMenuItem, i) in mainMenuData"
         :key="i"
-        >
-        <v-list-item-icon>
+        :value="false"
+        color="#FDB526"
+      >
+        <template v-slot:prependIcon>
           <v-icon color="#FDB526">{{mainMenuItem.icon}}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>{{mainMenuItem.name}}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
+        </template>
+        <template v-slot:activator>
+          <v-list-item-title style="margin-left:-15px">{{mainMenuItem.name}}</v-list-item-title>
+        </template>
+        <v-list-item link
+          v-for="(mainMenuItemChild, a) in mainMenuItem.children"
+          :key="a"
+          >
+          <v-list-item-content class="pl-10">
+            <v-list-item-title>{{mainMenuItemChild.name}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
     </v-list>
   </v-navigation-drawer>
 </template>
