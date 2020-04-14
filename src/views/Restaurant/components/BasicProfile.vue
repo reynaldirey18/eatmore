@@ -1,5 +1,5 @@
 <template>
-    <div class="px-4 pt-6">
+    <div class="px-4 py-6">
         <h1 class="app-title">Basic Profile</h1>
         <form>
             <v-row>
@@ -44,6 +44,33 @@
                 outlined
                 ></v-select>
             </div>
+            <div>
+                <p class="app-title-small" style="margin-bottom: -5px">Tags</p>
+                <v-autocomplete
+                    ref="tagAutocomplete"
+                    v-model="tags"
+                    :items="tagList"
+                    chips
+                    small-chips
+                    deletable-chips
+                    full-width
+                    hide-details
+                    hide-no-data
+                    hide-selected
+                    multiple
+                    single-line
+                    outlined
+                    dense
+                    flat
+                    placeholder="Eg. Cafe, Cake, Sweet, No smoking "
+                    auto-select-first
+                    :value="tagInputValue"
+                    @change="onTagValueChange"
+                    @input="onTagInput"
+                    @keyup.enter="submitTag"
+                    @keyup.tab="submitTag"
+                ></v-autocomplete>
+            </div>
         </form>
     </div>
 </template>
@@ -64,6 +91,8 @@ export default {
           value: 1
         }
       ],
+      tagList: ['Smooking Area', 'Contain Pork', 'Cafe', 'Cake', 'Sweet', 'No Smoking'],
+      tagInputValue: '',
       businessLogo: null,
       businessName: '',
       businessDescription: '',
@@ -84,6 +113,32 @@ export default {
     },
     onFileChange (file) {
       this.businessLogo = file
+    },
+    onTagValueChange (e) {
+      console.log(e)
+    },
+    onTagInput (e) {
+    },
+    submitTag (e) {
+      const value = e.target.value
+      console.log(value)
+      if (value) {
+        const stringToMatch = new RegExp(value, 'g')
+        const filter = this.tagList.filter(item => {
+          return !!item.match(stringToMatch)
+        })
+
+        if (filter.length === 0) {
+          const filterValue = this.tags.filter(item => {
+            return item === value
+          })
+          if (filterValue.length === 0) {
+            e.target.value = ''
+            this.tagList.push(value)
+            this.tags.push(value)
+          }
+        }
+      }
     }
   }
 }
