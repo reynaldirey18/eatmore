@@ -4,9 +4,14 @@
       <app-sidebar></app-sidebar>
       <app-header></app-header>
       <v-content class="app-content">
-        <div class="ml-3 mt-3">
-          <router-view></router-view>
+        <div class="ml-0 mt-3">
+          <v-breadcrumbs :items="breadcrumbItems">
+            <template v-slot:divider>
+              <v-icon>mdi-chevron-right</v-icon>
+            </template>
+          </v-breadcrumbs>
         </div>
+        <router-view></router-view>
       </v-content>
     </main>
   </v-app>
@@ -20,6 +25,25 @@ export default {
   components: {
     AppSidebar,
     AppHeader
+  },
+  computed: {
+    breadcrumbItems () {
+      const isLength = this.$route.matched.length > 0
+      if (isLength) {
+        const breadcrumbArr = [...this.$route.matched]
+        breadcrumbArr.shift()
+        return breadcrumbArr.map(item => {
+          return {
+            text: item.name,
+            to: item.path,
+            exact: true,
+            disabled: false
+          }
+        })
+      } else {
+        return []
+      }
+    }
   }
 }
 </script>
