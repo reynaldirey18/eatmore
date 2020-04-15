@@ -57,6 +57,9 @@
           <v-tab-item>
             <Reviews />
           </v-tab-item>
+          <v-tab-item>
+            <GoogleBusiness />
+          </v-tab-item>
       </v-tabs>
     </v-card>
   </div>
@@ -71,7 +74,8 @@ import {
   SpecialBusinessHours,
   Email,
   Gallery,
-  Reviews
+  Reviews,
+  GoogleBusiness
 } from './components'
 export default {
   name: 'AppRestaurant',
@@ -83,7 +87,8 @@ export default {
     SpecialBusinessHours,
     Email,
     Gallery,
-    Reviews
+    Reviews,
+    GoogleBusiness
   },
   data () {
     return {
