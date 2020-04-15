@@ -81,6 +81,9 @@ export default {
   methods: {
     handleFileChange (images) {
       this.images = [...this.images, ...images]
+    },
+    handleFormSubmit () {
+
     }
   },
   mounted () {
