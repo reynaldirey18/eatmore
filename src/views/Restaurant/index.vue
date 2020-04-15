@@ -40,6 +40,9 @@
             <Location />
           </v-tab-item>
           <v-tab-item>
+            <Gallery />
+          </v-tab-item>
+          <v-tab-item>
             <BankAccount />
           </v-tab-item>
           <v-tab-item>
@@ -50,9 +53,6 @@
           </v-tab-item>
           <v-tab-item>
             <Email />
-          </v-tab-item>
-          <v-tab-item>
-            <Gallery />
           </v-tab-item>
           <v-tab-item>
             <Reviews />
