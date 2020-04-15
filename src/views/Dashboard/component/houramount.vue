@@ -16,18 +16,19 @@ export default {
       moment: null,
       series: [
         {
-          name: 'Amount',
+          name: 'Am',
           data: [15000, 25000, 35000, 20300, 35000, 21000, 30000, 10000, 20000, 32000, 33000, 35000]
         },
         {
-          name: 'Amount',
+          name: 'Pm',
           data: [10000, 39000, 40000, 2300, 32000, 18000, 35000, 10000, 23000, 30000, 30000, 34000]
         }
       ],
       chartOptions: {
         chart: {
           type: 'bar',
-          height: '350'
+          height: '350',
+          width: '100%'
         },
         colors: ['#DE699A', '#3D87F4'],
         plotOptions: {
@@ -42,6 +43,9 @@ export default {
           style: {
             colors: ['#DE699A', '#3D87F4']
           }
+        },
+        legend: {
+          horizontalAlign: 'left'
         },
         stroke: {
           show: true,
