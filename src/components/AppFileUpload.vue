@@ -1,8 +1,10 @@
 <template>
     <div>
-        <div class="app-button-upload" @click="handleTriggerUpload">
-            <v-icon class="align-self-center">mdi-file-image</v-icon>
-            <div v-bind="imagePreview"></div>
+        <div class="app-button-upload" @click="handleTriggerUpload" :style="customStyle">
+            <slot name="innerDescription">
+              <v-icon class="align-self-center">mdi-file-image</v-icon>
+            </slot>
+            <div v-if="!noPreview" v-bind="imagePreview"></div>
         </div>
         <p class="text-center" style="width:140px">{{description}}</p>
         <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
@@ -12,10 +14,18 @@
 <script>
 export default {
   name: 'AppFileUpload',
-  props: ['accept', 'value', 'description'],
+  props: ['accept', 'value', 'description', 'fullWidth', 'width', 'height', 'noPreview'],
   data () {
     return {
       imagePreview: null
+    }
+  },
+  computed: {
+    customStyle () {
+      return {
+        width: this.width,
+        height: this.height
+      }
     }
   },
   watch: {
@@ -68,7 +78,7 @@ export default {
 <style lang="scss" scoped>
 .app-button-upload {
   display: flex;
-  width: 140px;
+  min-width: 140px;
   height: 140px;
   background: #F4F5F6;
   border: 1px dashed rgba(0, 0, 0, 0.2);
