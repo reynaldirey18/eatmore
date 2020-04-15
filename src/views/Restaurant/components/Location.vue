@@ -31,7 +31,7 @@
                 outlined
                 v-model="coordText"
             ></v-text-field>
-            <p>Priview :  Jl. Prof. Dr. Sutami 1209, Sukarasa. Kec. Sukasari, Bandung</p>
+            <p>{{"Preview: " + addressText || "&nbsp;"}}</p>
         </div>
         <div class="mt-8 d-flex justify-end align-end">
             <v-btn @click.prevent="handleFormSubmit" color="#FDB526" dark><span class="text-capitalize">save change</span></v-btn>
@@ -46,7 +46,16 @@ export default {
       map: null,
       marker: null,
       coordText: '',
-      mapCenter: { lat: -6.9034443, lng: 107.5731165 }
+      mapCenter: { lat: -6.9034443, lng: 107.5731165 },
+      addressText: ''
+    }
+  },
+  watch: {
+    coordText (newVal, oldVal) {
+      if (newVal !== oldVal) {
+        const [lat, lng] = newVal.split(',')
+        this.getAddress({ lat, lng })
+      }
     }
   },
   methods: {
@@ -56,6 +65,12 @@ export default {
       this.map.panTo({ lat, lng })
       this.marker.$markerObject.setPosition({ lat, lng })
       this.coordText = `${lat}, ${lng}`
+    },
+    getAddress (coord) {
+      this.$geocoder.send(coord, response => {
+        const addressText = response.results[0].formatted_address
+        this.addressText = addressText
+      })
     }
   },
   mounted () {
