@@ -43,19 +43,19 @@
             <Gallery />
           </v-tab-item>
           <v-tab-item>
-            <BankAccount />
-          </v-tab-item>
-          <v-tab-item>
             <BusinessHours />
           </v-tab-item>
           <v-tab-item>
             <SpecialBusinessHours />
           </v-tab-item>
           <v-tab-item>
+            <Reviews />
+          </v-tab-item>
+          <v-tab-item>
             <Email />
           </v-tab-item>
           <v-tab-item>
-            <Reviews />
+            <BankAccount />
           </v-tab-item>
           <v-tab-item>
             <GoogleBusiness />
