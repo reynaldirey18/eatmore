@@ -7,14 +7,14 @@
             <div v-if="!noPreview" v-bind="imagePreview"></div>
         </div>
         <p class="text-center" style="width:140px">{{description}}</p>
-        <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
+        <input :multiple="multiple" class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
     </div>
 </template>
 
 <script>
 export default {
   name: 'AppFileUpload',
-  props: ['accept', 'value', 'description', 'fullWidth', 'width', 'height', 'noPreview'],
+  props: ['accept', 'value', 'description', 'fullWidth', 'width', 'height', 'noPreview', 'multiple'],
   data () {
     return {
       imagePreview: null
@@ -53,8 +53,9 @@ export default {
     },
     handleFileChange (e) {
       const input = e.target || this.$refs.file
-      const file = input.files ? input.files[0] : null
-      if (file) {
+      const file = input.files ? this.multiple ? input.files : input.files[0] : null
+
+      if (!file.length) {
         const image = URL.createObjectURL(file)
         this.imagePreview = {
           style: `
@@ -68,8 +69,8 @@ export default {
 
             `
         }
-        this.$emit('onFileChange', file)
       }
+      this.$emit('onFileChange', file)
     }
   }
 }

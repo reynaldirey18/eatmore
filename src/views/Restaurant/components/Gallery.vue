@@ -1,7 +1,14 @@
 <template>
     <div class="px-4 py-6">
         <h1 class="app-title mb-10">Gallery</h1>
-        <app-file-upload id="uploader" width="100%" height="300px">
+        <app-file-upload
+          id="uploader"
+          :multiple="true"
+          :noPreview="true"
+          width="100%"
+          height="300px"
+          @onFileChange="handleFileChange"
+        >
           <template v-slot:innerDescription>
             <div class="d-flex flex-column justify-center">
               <v-icon class="align-self-center mb-7" style="font-size">mdi-folder-multiple-image</v-icon>
@@ -11,57 +18,20 @@
             </div>
           </template>
         </app-file-upload>
-        <div class="gallery-wrapper" :style="galleryWidth">
+        <div v-if="images.length > 0" class="gallery-wrapper" :style="galleryWidth">
           <div class="d-flex flex-row gallery">
-            <div class="gallery-item">
+            <div
+              class="gallery-item"
+              v-for="(image, i) in imageGallery"
+              :key="i"
+            >
               <v-img
-                src="https://picsum.photos/500/500?image=5"
-                lazy-src="https://picsum.photos/10/6?image=1"
-                aspect-ratio="1"
-                class="grey lighten-2"
-                width="251.33"
-                height="180"
-              >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular indeterminate color="dark lighten-5"></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-            </div>
-            <div class="gallery-item">
-              <v-img
-                src="https://picsum.photos/500/500?image=2"
-                lazy-src="https://picsum.photos/10/6?image=1"
-                aspect-ratio="1"
-                class="grey lighten-2"
-                width="251.33"
-                height="180"
-              >
-                <template v-slot:placeholder>
-                  <v-row
-                    class="fill-height ma-0"
-                    align="center"
-                    justify="center"
-                  >
-                    <v-progress-circular indeterminate color="dark lighten-5"></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-            </div>
-            <div class="gallery-item">
-              <v-img
-                src="https://bad.src/not/valid"
+                :src="image"
                 lazy-src=""
                 aspect-ratio="1"
                 class="grey lighten-2"
                 width="251.33"
                 height="180"
-                eager
               >
                 <template v-slot:placeholder>
                   <v-row
@@ -91,7 +61,8 @@ export default {
   },
   data () {
     return {
-      uploader: ''
+      uploader: '',
+      images: []
     }
   },
   computed: {
@@ -100,6 +71,16 @@ export default {
     },
     galleryWidth () {
       return { height: '180px', width: this.maxWidth + 'px' }
+    },
+    imageGallery () {
+      return this.images.map(item => {
+        return URL.createObjectURL(item)
+      })
+    }
+  },
+  methods: {
+    handleFileChange (images) {
+      this.images = [...this.images, ...images]
     }
   },
   mounted () {
