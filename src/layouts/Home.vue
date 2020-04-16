@@ -1,21 +1,19 @@
 <template>
   <v-app>
-    <main class="app-main">
-      <app-sidebar></app-sidebar>
-      <app-header></app-header>
-      <v-content class="app-content">
-        <div class="ml-0 mt-3">
-          <v-breadcrumbs :items="breadcrumbItems">
-            <template v-slot:divider>
-              <v-icon>mdi-chevron-right</v-icon>
-            </template>
-          </v-breadcrumbs>
-        </div>
-        <div class="px-5 mb-10">
-          <router-view></router-view>
-        </div>
-      </v-content>
-    </main>
+    <app-sidebar></app-sidebar>
+    <app-header></app-header>
+    <v-content class="app-content">
+      <div class="ml-0 mt-3">
+        <v-breadcrumbs :items="breadcrumbItems">
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
+        </v-breadcrumbs>
+      </div>
+      <div class="px-5 mb-10">
+        <router-view></router-view>
+      </div>
+    </v-content>
   </v-app>
 </template>
 
@@ -51,12 +49,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-main {
-  .app-content {
-    position: relative;
-    min-height: 100vh;
-    background-color: #F4F5F6;
-  }
+.app-content {
+  position: relative;
+  min-height: 100vh;
+  background-color: #F4F5F6;
 }
 .bg-color{
   background-color: #E5E5E5 !important;

@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-6">
-        <h1 class="app-title">Basic Profile</h1>
+        <h1 class="app-title mb-10">Basic Profile</h1>
         <form @submit.prevent="handleFormSubmit">
             <v-row>
                 <v-col cols="3">
@@ -19,7 +19,7 @@
                 </v-col>
             </v-row>
             <div>
-                <p class="app-title-small" style="margin-bottom: -5px">Business Name</p>
+                <p class="app-title-small ma-0">Business Name</p>
                 <v-text-field
                     label="Business Name"
                     placeholder="Eg. floor1 or floor for cafe & resto"
@@ -29,7 +29,7 @@
                 ></v-text-field>
             </div>
             <div>
-                <p class="app-title-small" style="margin-bottom: -5px">Business Description</p>
+                <p class="app-title-small ma-0">Business Description</p>
                 <v-textarea
                 outlined
                 dense
@@ -37,7 +37,7 @@
                 ></v-textarea>
             </div>
             <div>
-                <p class="app-title-small" style="margin-bottom: -5px">Business Type</p>
+                <p class="app-title-small ma-0">Business Type</p>
                 <v-select
                 dense
                 :items="businessTypeList"
@@ -45,7 +45,7 @@
                 ></v-select>
             </div>
             <div>
-                <p class="app-title-small" style="margin-bottom: -5px">Tags</p>
+                <p class="app-title-small ma-0">Tags</p>
                 <v-autocomplete
                     ref="tagAutocomplete"
                     v-model="tags"

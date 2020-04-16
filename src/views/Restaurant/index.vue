@@ -40,7 +40,7 @@
             <Location />
           </v-tab-item>
           <v-tab-item>
-            <BankAccount />
+            <Gallery />
           </v-tab-item>
           <v-tab-item>
             <BusinessHours />
@@ -49,13 +49,13 @@
             <SpecialBusinessHours />
           </v-tab-item>
           <v-tab-item>
+            <Reviews />
+          </v-tab-item>
+          <v-tab-item>
             <Email />
           </v-tab-item>
           <v-tab-item>
-            <Gallery />
-          </v-tab-item>
-          <v-tab-item>
-            <Reviews />
+            <BankAccount />
           </v-tab-item>
           <v-tab-item>
             <GoogleBusiness />
