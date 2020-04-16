@@ -8,6 +8,7 @@ Vue.use(VueRouter)
 const LoginPage = () => import('@/views/Login')
 const DashboardPage = () => import('@/views/Dashboard')
 const RestaurantPage = () => import('@/views/Restaurant')
+const ReportPage = () => import('@/views/Report')
 
 const router = new VueRouter({
   mode: 'history',
@@ -41,6 +42,11 @@ const router = new VueRouter({
           path: '/restaurant',
           name: 'Restaurant',
           component: RestaurantPage
+        },
+        {
+          path: '/Report/Sales',
+          name: 'Report',
+          component: ReportPage
         }
       ]
     }
