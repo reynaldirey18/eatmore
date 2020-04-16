@@ -64,8 +64,8 @@
                   </v-list-item-avatar>
 
                   <v-list-item-content class="justify-center">
-                    <v-list-item-title class="text-center" v-text="'Friday'"></v-list-item-title>
-                    <v-list-item-subtitle class="text-center" v-text="'20 April 2020'"></v-list-item-subtitle>
+                    <v-list-item-title class="text-center" v-text="formatedDateModal.day"></v-list-item-title>
+                    <v-list-item-subtitle class="text-center" v-text="formatedDateModal.date"></v-list-item-subtitle>
                   </v-list-item-content>
 
                   <v-list-item-action>
@@ -172,6 +172,12 @@ export default {
   computed: {
     formatedDateTitle () {
       return moment(this.value).format('MMMM, YYYY')
+    },
+    formatedDateModal () {
+      return {
+        day: moment(this.value).format('dddd'),
+        date: moment(this.value).format('DD MMMM YYYY')
+      }
     }
   }
 }
