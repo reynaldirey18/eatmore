@@ -43,7 +43,7 @@
 <script>
 import ChartCustomerGrowthMonthly from '@/views/Customer/components/ChartCustomerGrowthMonthly'
 export default {
-  name: 'Card Customer Summary',
+  name: 'CardCustomerSummary',
   components: {
     ChartCustomerGrowthMonthly
   }

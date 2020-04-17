@@ -7,7 +7,7 @@
 <script>
 import VueApexCharts from 'vue-apexcharts'
 export default {
-  name: 'Chart Customer Growth Monthly',
+  name: 'ChartCustomerGrowthMonthly',
   components: {
     apexchart: VueApexCharts
   },

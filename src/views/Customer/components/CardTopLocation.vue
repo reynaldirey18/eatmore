@@ -27,7 +27,7 @@
 <script>
 import AppPlaceAutocomplete from '@/components/AppPlaceAutocomplete'
 export default {
-  name: 'Card Top Location',
+  name: 'CardTopLocation',
   components: {
     AppPlaceAutocomplete
   },

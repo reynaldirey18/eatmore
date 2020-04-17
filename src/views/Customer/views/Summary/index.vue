@@ -17,7 +17,7 @@ import CardCustomerSummary from '@/views/Customer/components/CardCustomerSummary
 import CardTopCustomer from '@/views/Customer/components/CardTopCustomer'
 import CardTopLocation from '@/views/Customer/components/CardTopLocation'
 export default {
-  name: 'Customer Summary',
+  name: 'CustomerSummary',
   components: {
     CardCustomerSummary,
     CardTopCustomer,

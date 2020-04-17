@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: 'Card Top Customer',
+  name: 'CardTopCustomer',
   props: ['data']
 }
 </script>
