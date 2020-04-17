@@ -11,10 +11,12 @@
                     </app-file-upload>
                 </v-col>
                 <v-col cols="9">
-                    <p class="app-title-small">Business Logo</p>
-                    <p>This logo will appear when customer find your restaurant.</p>
-                    <p>Pro tips: Use logo with dimension 1:1</p>
-                    <v-btn @click="handleTriggerUpload"><span class="text--primary">Upload Image</span></v-btn>
+                    <p class="app-title-small pa-0 ma-0 mb-2">Business Logo</p>
+                    <div>
+                      <p class="pa-0 ma-0">This logo will appear when customer find your restaurant.</p>
+                      <p class="meteor-primary">Pro tips: Use logo with dimension 1:1</p>
+                    </div>
+                    <v-btn @click="handleTriggerUpload"><span class="blue2">Upload Image</span></v-btn>
                     <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
                 </v-col>
             </v-row>
@@ -70,6 +72,7 @@
                     @keyup.enter="submitTag"
                     @keyup.tab="submitTag"
                 ></v-autocomplete>
+                <p class="black20">This tag will help customer to find your restaurant</p>
             </div>
             <div class="mt-8 d-flex justify-end align-end">
                 <v-btn @click.prevent="handleFormSubmit" color="#FDB526" dark><span class="text-capitalize">save change</span></v-btn>
