@@ -13,6 +13,7 @@ const ReportPage = () => import('@/views/Report')
 // Customer
 const CustomerPage = () => import('@/views/Customer')
 const CustomerSummary = () => import('@/views/Customer/views/Summary')
+const CustomerData = () => import('@/views/Customer/views/Data')
 
 const router = new VueRouter({
   mode: 'history',
@@ -55,8 +56,13 @@ const router = new VueRouter({
           children: [
             {
               path: 'summary',
-              name: 'Summary',
+              name: 'Customer Summary',
               component: CustomerSummary
+            },
+            {
+              path: 'data',
+              name: 'Customer Data',
+              component: CustomerData
             }
           ]
         },

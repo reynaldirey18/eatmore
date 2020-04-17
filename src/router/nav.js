@@ -106,6 +106,10 @@ export const mainMenu = [
       {
         name: 'Summary',
         to: '/customer/summary'
+      },
+      {
+        name: 'Customer Data',
+        to: '/customer/data'
       }
     ]
   },
