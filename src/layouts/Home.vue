@@ -31,7 +31,6 @@ export default {
       const isLength = this.$route.matched.length > 0
       if (isLength) {
         const breadcrumbArr = [...this.$route.matched]
-        breadcrumbArr.shift()
         return breadcrumbArr.map(item => {
           return {
             text: item.name,
