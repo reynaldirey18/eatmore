@@ -17,7 +17,8 @@ export const mainMenu = [
     name: 'Reports',
     children: [
       {
-        name: 'Sales'
+        name: 'Sales',
+        to: '/Report/Sales'
       },
       {
         name: 'Transactions'

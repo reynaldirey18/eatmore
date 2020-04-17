@@ -28,7 +28,14 @@
 .text-blood{
   font-weight: 500 !important;
   font-size: 18px !important;
+  font-weight: bold;
   line-height: 20px !important;
+}
+.text-blood-sm{
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold;
+  color: #000000;
 }
 .text-green{
   font-size: 12px;
@@ -41,4 +48,11 @@
   line-height: 14px;
   /* red */
   color: #F32626;
+}
+.test-grey-sm{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 20px;
+  color: #999999;
 }
