@@ -11,6 +11,10 @@ const RestaurantPage = () => import('@/views/Restaurant')
 const ReportPage = () => import('@/views/Report')
 const Product = () => import('@/views/Product')
 
+// Customer
+const CustomerPage = () => import('@/views/Customer')
+const CustomerSummary = () => import('@/views/Customer/views/Summary')
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -29,8 +33,8 @@ const router = new VueRouter({
       ]
     },
     {
-      path: '',
-      name: 'Authenticated',
+      path: '/dashboard',
+      name: 'Dashboard',
       redirect: '/dashboard',
       component: HomeLayout,
       children: [
@@ -43,6 +47,19 @@ const router = new VueRouter({
           path: '/restaurant',
           name: 'Restaurant',
           component: RestaurantPage
+        },
+        {
+          path: '/customer',
+          name: 'Customer',
+          redirect: '/customer/summary',
+          component: CustomerPage,
+          children: [
+            {
+              path: 'summary',
+              name: 'Summary',
+              component: CustomerSummary
+            }
+          ]
         },
         {
           path: '/Report/Sales',

@@ -104,7 +104,12 @@ export const mainMenu = [
   {
     icon: 'mdi-account-circle',
     name: 'Customer',
-    children: []
+    children: [
+      {
+        name: 'Summary',
+        to: '/customer/summary'
+      }
+    ]
   },
   {
     icon: 'mdi-account-box',

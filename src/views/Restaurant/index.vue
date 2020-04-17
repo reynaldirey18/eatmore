@@ -3,16 +3,8 @@
     <h1 class="app-title mb-5">Business Profile</h1>
 
     <v-card>
-      <v-toolbar style="box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);" height="52" dense short flat color="white">
-        <v-toolbar-title class="app-subtitle" style="
-            background-color: #FBFBFB;
-            height: 52px;
-            line-height: 52px;
-            margin-left: -16px;
-            padding-left: 16px;
-            width: 299px;
-            box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.07);
-        ">Menu</v-toolbar-title>
+      <v-toolbar class="app-toolbar-menu" dense short flat color="white">
+        <v-toolbar-title class="app-subtitle app-toolbar-menu-title">Menu</v-toolbar-title>
         <v-toolbar-title class="pl-3 app-subtitle">Information</v-toolbar-title>
         </v-toolbar>
         <v-tabs hide-slider background-color="#FBFBFB" color="dark" vertical>
@@ -20,11 +12,7 @@
             v-for="(tabItem, i) in menuItems"
             :key="i"
             @click="tabActive = i"
-            style="
-              width: 299px;
-              justify-content: flex-start;
-              padding: 30px 00px;
-            "
+            class="app-toolbar-menu-tabs"
           >
             <v-list-item two-line class="py-1" :style="tabActive === i  ? 'background-color: #F2F2F2' : ''">
                 <v-list-item-content>
