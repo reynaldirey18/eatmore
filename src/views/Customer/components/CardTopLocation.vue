@@ -33,13 +33,25 @@ export default {
   },
   data () {
     return {
+      map: null,
+      place: null,
       mapCenter: { lat: -6.9034443, lng: 107.5731165 }
     }
   },
   methods: {
     setPlace (e) {
-      console.log(e)
+      const location = e.geometry.location
+      const lat = location.lat()
+      const lng = location.lng()
+
+      this.place = e
+      this.map.panTo({ lat, lng })
     }
+  },
+  mounted () {
+    this.$refs.map.$mapPromise.then(map => {
+      this.map = map
+    })
   }
 }
 </script>
