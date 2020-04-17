@@ -16,24 +16,26 @@
             <p class="green">+340 (+40%)</p>
           </v-tab>
           <div class="d-flex align-self-center" style="position: absolute; right: 24px">
-            <v-btn outlined color="#E6E6E6" class="mr-6">
+            <v-btn @click="filter = 'monthly'" outlined color="#E6E6E6" class="mr-6">
               <div class="d-flex justify-space-between">
                 <span class="black60 text-capitalize">Monthly</span>
-                <v-icon class="ml-3" color="#FDB526" small>mdi-radiobox-marked</v-icon>
+                <v-icon class="ml-3" v-bind="buttonFilter('monthly')" small>{{buttonFilter('monthly').text}}</v-icon>
               </div>
             </v-btn>
-            <v-btn outlined color="#E6E6E6">
+            <v-btn @click="filter = 'yearly'" outlined color="#E6E6E6">
               <div class="d-flex justify-space-between">
                 <span class="black60 text-capitalize">Yearly</span>
-                <v-icon class="ml-3" small>mdi-radiobox-blank</v-icon>
+                <v-icon class="ml-3" v-bind="buttonFilter('yearly')" small>{{buttonFilter('yearly').text}}</v-icon>
               </div>
             </v-btn>
           </div>
           <v-tab-item>
-            <chart-customer-growth-monthly></chart-customer-growth-monthly>
+            <chart-customer-growth-monthly v-if="filter === 'monthly'"></chart-customer-growth-monthly>
+            <chart-customer-growth-yearly v-else></chart-customer-growth-yearly>
           </v-tab-item>
           <v-tab-item>
-            <chart-customer-growth-monthly></chart-customer-growth-monthly>
+            <chart-customer-growth-monthly v-if="filter === 'monthly'"></chart-customer-growth-monthly>
+            <chart-customer-growth-yearly v-else></chart-customer-growth-yearly>
           </v-tab-item>
         </v-tabs>
       </div>
@@ -42,10 +44,31 @@
 
 <script>
 import ChartCustomerGrowthMonthly from '@/views/Customer/components/ChartCustomerGrowthMonthly'
+import ChartCustomerGrowthYearly from '@/views/Customer/components/ChartCustomerGrowthYearly'
 export default {
   name: 'CardCustomerSummary',
   components: {
-    ChartCustomerGrowthMonthly
+    ChartCustomerGrowthMonthly,
+    ChartCustomerGrowthYearly
+  },
+  data () {
+    return {
+      filter: 'monthly'
+    }
+  },
+  methods: {
+    buttonFilter (e) {
+      if (e === this.filter) {
+        return {
+          color: '#FDB526',
+          text: 'mdi-radiobox-marked'
+        }
+      } else {
+        return {
+          text: 'mdi-radiobox-blank'
+        }
+      }
+    }
   }
 }
 </script>
