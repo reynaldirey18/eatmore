@@ -6,17 +6,22 @@
       <v-col cols="6">
         <card-top-customer :data="topCustomer"></card-top-customer>
       </v-col>
+      <v-col cols="6">
+        <card-top-location></card-top-location>
+      </v-col>
     </v-row>
   </div>
 </template>
 <script>
 import CardCustomerSummary from '@/views/Customer/components/CardCustomerSummary'
 import CardTopCustomer from '@/views/Customer/components/CardTopCustomer'
+import CardTopLocation from '@/views/Customer/components/CardTopLocation'
 export default {
   name: 'Customer Summary',
   components: {
     CardCustomerSummary,
-    CardTopCustomer
+    CardTopCustomer,
+    CardTopLocation
   },
   data () {
     return {
