@@ -4,10 +4,6 @@
             <slot name="innerDescription">
               <v-icon class="align-self-center">mdi-file-excel</v-icon>
             </slot>
-            <slot name="innerDescription">
-              <p>Upload Spreedsheet Document</p>
-              <p>Document format can be .xls, .xlt, .xml</p>
-            </slot>
             <div v-if="!noPreview" v-bind="imagePreview"></div>
         </div>
         <input :multiple="multiple" class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
