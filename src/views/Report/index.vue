@@ -13,7 +13,7 @@
             width: 299px;
             box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.07);
         ">Menu</v-toolbar-title>
-        <v-toolbar-title class="pl-3 app-subtitle">Information</v-toolbar-title>
+        <v-toolbar-title class="pl-3 app-subtitle">Report</v-toolbar-title>
         </v-toolbar>
         <v-tabs hide-slider background-color="#FBFBFB" color="dark" vertical>
           <v-tab

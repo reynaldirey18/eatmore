@@ -9,6 +9,7 @@ const LoginPage = () => import('@/views/Login')
 const DashboardPage = () => import('@/views/Dashboard')
 const RestaurantPage = () => import('@/views/Restaurant')
 const ReportPage = () => import('@/views/Report')
+const Product = () => import('@/views/Product')
 
 const router = new VueRouter({
   mode: 'history',
@@ -47,6 +48,16 @@ const router = new VueRouter({
           path: '/Report/Sales',
           name: 'Report',
           component: ReportPage
+        },
+        {
+          path: '/products/add',
+          name: 'Products',
+          component: Product
+        },
+        {
+          path: '/products/list',
+          name: 'Products',
+          component: Product
         }
       ]
     }

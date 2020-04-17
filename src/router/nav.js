@@ -39,10 +39,12 @@ export const mainMenu = [
     name: 'Products',
     children: [
       {
-        name: 'Products'
+        name: 'Products',
+        to: '/products/list'
       },
       {
-        name: 'Add New Product'
+        name: 'Add New Product',
+        to: '/products/add'
       },
       {
         name: 'Categories'

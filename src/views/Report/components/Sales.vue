@@ -1,6 +1,8 @@
 <template>
     <div class="px-4 py-6">
-        <h1 class="app-title pb-5">Product Sell</h1>
+        <h1 class="app-title pb-5">Product Sell
+          <v-btn @click.prevent="handleFormSubmit" color="#FDB526" class="float-right" dark><span class="text-capitalize">Export</span></v-btn>
+        </h1>
         <form @submit.prevent="handleFormSubmit">
             <div>
                 <p class="app-title-small" style="margin-bottom: -5px">Filter Date Range</p>
@@ -122,13 +124,13 @@ export default {
     }
   },
   watch: {
-    dates (val) {
-      console.log(val)
-      const [year, month, day] = val[0].split('-')
-      const [year1, month1, day1] = val[1].split('-')
-      this.dates[0] = `${month}/${day}/${year}`
-      this.dates[1] = `${month1}/${day1}/${year1}`
-    }
+    // dates (val) {
+    //   console.log(val)
+    //   const [year, month, day] = val[0].split('-')
+    //   const [year1, month1, day1] = val[1].split('-')
+    //   this.dates[0] = `${month}/${day}/${year}`
+    //   this.dates[1] = `${month1}/${day1}/${year1}`
+    // }
   },
   methods: {
   }
