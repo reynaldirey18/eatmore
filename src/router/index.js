@@ -67,14 +67,22 @@ const router = new VueRouter({
           component: ReportPage
         },
         {
-          path: '/products/add',
-          name: 'Products',
-          component: Product
-        },
-        {
-          path: '/products/list',
-          name: 'Products',
-          component: Product
+          path: '',
+          name: 'Product',
+          redirect: '/products',
+          component: Product,
+          children: [
+            {
+              path: '/products/add',
+              name: 'Add New Product',
+              component: Product
+            },
+            {
+              path: '/products',
+              name: 'Products',
+              component: Product
+            }
+          ]
         }
       ]
     }

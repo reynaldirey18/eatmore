@@ -40,7 +40,7 @@ export const mainMenu = [
     children: [
       {
         name: 'Products',
-        to: '/products/list'
+        to: '/products'
       },
       {
         name: 'Add New Product',
