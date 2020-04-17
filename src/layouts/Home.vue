@@ -5,6 +5,14 @@
     <v-content class="app-content">
       <div class="ml-0 mt-3">
         <v-breadcrumbs :items="breadcrumbItems">
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item
+              :disabled="item.disabled"
+              :exact="item.exact"
+              :to="item.to">
+              <span :class="!item.disabled && 'meteor-primary'">{{ item.text }}</span>
+            </v-breadcrumbs-item>
+          </template>
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
           </template>
