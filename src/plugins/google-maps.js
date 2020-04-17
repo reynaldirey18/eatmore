@@ -5,7 +5,8 @@ import Geocoder from '@pderas/vue2-geocoder'
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: config.google_api_key
+    key: config.google_api_key,
+    libraries: 'places'
   }
 })
 
