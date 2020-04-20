@@ -112,6 +112,10 @@ export const mainMenu = [
       {
         name: 'Customer Data',
         to: '/customer/data'
+      },
+      {
+        name: 'Loyalty Program',
+        to: '/customer/loyalty-program'
       }
     ]
   },

@@ -15,6 +15,7 @@ const Product = () => import('@/views/Product')
 const CustomerPage = () => import('@/views/Customer')
 const CustomerSummary = () => import('@/views/Customer/views/Summary')
 const CustomerData = () => import('@/views/Customer/views/Data')
+const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')
 
 const router = new VueRouter({
   mode: 'history',
@@ -64,6 +65,11 @@ const router = new VueRouter({
               path: 'data',
               name: 'Customer Data',
               component: CustomerData
+            },
+            {
+              path: 'loyalty-program',
+              name: 'Customer Loyalty Program',
+              component: CustomerLoyalty
             }
           ]
         },
