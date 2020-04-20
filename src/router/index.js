@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import CleanLayout from '@/layouts/Clean'
 import HomeLayout from '@/layouts/Home'
+
+import CustomerPage from '@/views/Customer'
 
 Vue.use(VueRouter)
 
@@ -12,7 +15,6 @@ const ReportPage = () => import('@/views/Report')
 const Product = () => import('@/views/Product')
 
 // Customer
-const CustomerPage = () => import('@/views/Customer')
 const CustomerSummary = () => import('@/views/Customer/views/Summary')
 const CustomerData = () => import('@/views/Customer/views/Data')
 const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')

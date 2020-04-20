@@ -11,6 +11,7 @@ export default {
   name: 'PlaceAutocomplete',
   data () {
     return {
+      text: ''
     }
   },
   methods: {
