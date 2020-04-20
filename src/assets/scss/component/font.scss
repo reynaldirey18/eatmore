@@ -30,6 +30,7 @@
   font-size: 18px !important;
   font-weight: bold;
   line-height: 20px !important;
+  color: #000000;
 }
 .text-blood-sm{
   font-size: 14px;
@@ -38,7 +39,7 @@
   color: #000000;
 }
 .text-blood-xs{
-  font-size: 16px !important;
+  font-size: 12px !important;
   line-height: 20px !important;
   color: #000000;
 }
@@ -66,8 +67,22 @@
   line-height: 20px;
   color: #3D87F4;
 }
+.text-blue-sm{
+  font-size: 12px;
+  line-height: 20px;
+  color: #3D87F4;
+}
 .text-yellow{
   font-size: 14px;
   line-height: 20px;
   color: #C5870E
+}
+.text-grey-light{
+  color: #CCCCCC;
+}
+.text-regular{
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 21px;
 }
