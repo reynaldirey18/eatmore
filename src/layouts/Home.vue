@@ -39,14 +39,21 @@ export default {
       const isLength = this.$route.matched.length > 0
       if (isLength) {
         const breadcrumbArr = [...this.$route.matched]
-        return breadcrumbArr.map(item => {
-          return {
-            text: item.name,
-            to: item.path,
-            exact: true,
-            disabled: this.$route.name === item.name
+        let currentBreadcrumbValue = null
+        const breadcrumbComponent = breadcrumbArr.map(item => {
+          if (item.name === currentBreadcrumbValue) {
+            return false
+          } else {
+            currentBreadcrumbValue = item.name
+            return {
+              text: item.name,
+              to: item.path,
+              exact: true,
+              disabled: this.$route.name === item.name
+            }
           }
         })
+        return breadcrumbComponent.filter(item => item)
       } else {
         return []
       }
