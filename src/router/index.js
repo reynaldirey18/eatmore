@@ -14,8 +14,8 @@ const ReportPage = () => import('@/views/Report')
 const CustomerPage = () => import('@/views/Customer')
 const CustomerSummary = () => import('@/views/Customer/views/Summary')
 const CustomerData = () => import('@/views/Customer/views/Data')
-const CustomerLoyaltyProgram = () => import('@/views/Customer/views/LoyaltyProgram')
-const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
+// const CustomerLoyaltyProgram = () => import('@/views/Customer/views/LoyaltyProgram')
+// const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
 const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')
 
 // Products
