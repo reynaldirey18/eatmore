@@ -6,11 +6,11 @@
         <template v-slot:default>
           <thead style="background-color:#FDB52630">
             <tr>
-              <th class="text-left py-5" style="color:#FDB526">Title</th>
-              <th class="text-left py-5" style="color:#FDB526">Min Transaction</th>
-              <th class="text-left py-5" style="color:#FDB526">Start Period</th>
-              <th class="text-left py-5" style="color:#FDB526">End Period</th>
-              <th class="text-left py-5" style="color:#FDB526">Reward</th>
+              <th class="text-left py-3" style="color:#FDB526">Title</th>
+              <th class="text-left py-3" style="color:#FDB526">Min Transaction</th>
+              <th class="text-left py-3" style="color:#FDB526">Start Period</th>
+              <th class="text-left py-3" style="color:#FDB526">End Period</th>
+              <th class="text-left py-3" style="color:#FDB526">Reward</th>
             </tr>
           </thead>
           <tbody>
