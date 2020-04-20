@@ -1,6 +1,6 @@
 <template>
    <div id="chart">
-        <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+        <apexchart type="bar" style="max-width: 690px !important" height="350" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 <script>
@@ -28,7 +28,7 @@ export default {
         chart: {
           type: 'bar',
           height: '350',
-          width: '100%'
+          width: '90%'
         },
         colors: ['#DE699A', '#3D87F4'],
         plotOptions: {
