@@ -85,20 +85,30 @@
               </th>
             </tr>
             <tr style="background-color:#FDB52630">
-              <th class="text-left py-3" style="color:#FDB526">Title</th>
-              <th class="text-left py-3" style="color:#FDB526">Min Transaction</th>
-              <th class="text-left py-3" style="color:#FDB526">Start Period</th>
-              <th class="text-left py-3" style="color:#FDB526">End Period</th>
+              <th class="text-left py-3" style="color:#FDB526">Name</th>
+              <th class="text-left py-3" style="color:#FDB526">Customer ID</th>
+              <th class="text-left py-3" style="color:#FDB526">Period</th>
               <th class="text-left py-3" style="color:#FDB526">Reward</th>
+              <th class="text-left py-3" style="color:#FDB526">Status</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(reward, i) in rewardData" :key="reward.title + i">
-              <td class="py-5">{{ reward.title }}</td>
-              <td class="py-5">{{ reward.min_transaction }}</td>
-              <td class="py-5">{{ reward.start_period }}</td>
-              <td class="py-5">{{ reward.end_period }}</td>
-              <td class="py-5">{{ reward.reward }}</td>
+            <tr v-for="(customer, i) in eligibleCustomerData" :key="customer.name + i">
+              <td class="py-5">
+                {{ customer.name }}
+              </td>
+              <td class="py-5">
+                {{ customer.customer_id }}
+              </td>
+              <td class="py-5">
+                {{ customer.period }}
+                </td>
+              <td class="py-5">
+                {{ customer.reward }}
+                </td>
+              <td class="py-5">
+                {{ customer.status }}
+                </td>
             </tr>
           </tbody>
         </template>
@@ -151,34 +161,30 @@ export default {
           text: 'Promo'
         }
       ],
-      rewardData: [
+      eligibleCustomerData: [
         {
-          title: '50% Cashback',
-          min_transaction: 'Rp. 100.000',
-          start_period: 'Mar, 3, 2020',
-          end_period: 'Dec, 19, 2020',
-          reward: 'Voucher'
+          name: 'Fanklin Dawe',
+          customer_id: 'mahmud212',
+          transaction_amount: 'Rp. 730.013',
+          period: '21/02/20 - 22/02/20',
+          reward: 'Vocher',
+          status: 'Open'
         },
         {
-          title: '50% Cashback',
-          min_transaction: 'Rp. 100.000',
-          start_period: 'Mar, 3, 2020',
-          end_period: 'Dec, 19, 2020',
-          reward: 'Voucher'
+          name: 'Fanklin Dawe',
+          customer_id: 'mahmud212',
+          transaction_amount: 'Rp. 730.013',
+          period: '21/02/20 - 22/02/20',
+          reward: 'Vocher',
+          status: 'Redeemed'
         },
         {
-          title: '50% Cashback',
-          min_transaction: 'Rp. 100.000',
-          start_period: 'Mar, 3, 2020',
-          end_period: 'Dec, 19, 2020',
-          reward: 'Voucher'
-        },
-        {
-          title: '50% Cashback',
-          min_transaction: 'Rp. 100.000',
-          start_period: 'Mar, 3, 2020',
-          end_period: 'Dec, 19, 2020',
-          reward: 'Voucher'
+          name: 'Fanklin Dawe',
+          customer_id: 'mahmud212',
+          transaction_amount: 'Rp. 730.013',
+          period: '21/02/20 - 22/02/20',
+          reward: 'Vocher',
+          status: 'Expired'
         }
       ]
     }
