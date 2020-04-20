@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h1 class="app-title mb-5">Reward</h1>
+    <div class="d-flex">
+      <h1 class="app-title mb-5">Reward</h1>
+      <v-spacer></v-spacer>
+      <v-btn color="#FDB526" flat dark><span class="text-capitalize">Add New Rewards</span></v-btn>
+    </div>
     <v-card class="pb-6" outlined>
       <v-simple-table>
         <template v-slot:default>
@@ -24,6 +28,16 @@
           </tbody>
         </template>
       </v-simple-table>
+        <div class="d-flex">
+          <v-spacer></v-spacer>
+          <div>
+            <v-pagination
+              color="#FDB526"
+              v-model="page"
+              :length="4"
+            ></v-pagination>
+          </div>
+        </div>
     </v-card>
   </div>
 </template>
@@ -33,6 +47,7 @@ export default {
   name: 'LoyaltyReward Card',
   data () {
     return {
+      page: 1,
       rewardData: [
         {
           title: '50% Cashback',
