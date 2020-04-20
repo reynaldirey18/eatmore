@@ -79,8 +79,8 @@ const router = new VueRouter({
           component: ReportPage
         },
         {
-          path: '',
-          name: 'Product',
+          path: '/products',
+          name: 'Products',
           redirect: '/products',
           component: Product,
           children: [
