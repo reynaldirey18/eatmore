@@ -66,21 +66,30 @@
       <v-simple-table>
         <template v-slot:default>
           <thead>
+            <tr>
+              <th colspan="5">
+                <v-text-field
+                  height="50"
+                  class="mt-3 justify-end align-center"
+                  background-color="#FAFAFA"
+                  placeholder="Search"
+                  outlined
+                  dense
+                >
+                  <template v-slot:prepend-inner>
+                    <div style="margin-top: 7px">
+                      <v-icon>mdi-magnify</v-icon>
+                    </div>
+                  </template>
+                </v-text-field>
+              </th>
+            </tr>
             <tr style="background-color:#FDB52630">
               <th class="text-left py-3" style="color:#FDB526">Title</th>
               <th class="text-left py-3" style="color:#FDB526">Min Transaction</th>
               <th class="text-left py-3" style="color:#FDB526">Start Period</th>
               <th class="text-left py-3" style="color:#FDB526">End Period</th>
               <th class="text-left py-3" style="color:#FDB526">Reward</th>
-            </tr>
-            <tr>
-              <th colspan="5">
-                <v-text-field
-                  placeholder="Placeholder"
-                  outlined
-                  dense
-                ></v-text-field>
-              </th>
             </tr>
           </thead>
           <tbody>
