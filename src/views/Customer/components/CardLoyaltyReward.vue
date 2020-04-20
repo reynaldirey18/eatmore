@@ -69,6 +69,13 @@ export default {
           start_period: 'Mar, 3, 2020',
           end_period: 'Dec, 19, 2020',
           reward: 'Voucher'
+        },
+        {
+          title: '50% Cashback',
+          min_transaction: 'Rp. 100.000',
+          start_period: 'Mar, 3, 2020',
+          end_period: 'Dec, 19, 2020',
+          reward: 'Voucher'
         }
       ]
     }
