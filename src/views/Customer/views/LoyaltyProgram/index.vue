@@ -1,7 +1,11 @@
 <template>
   <div>
-    <card-loyalty-reward></card-loyalty-reward>
-    <card-eligible-customer></card-eligible-customer>
+    <div class="mb-8">
+      <card-loyalty-reward></card-loyalty-reward>
+    </div>
+    <div class="mb-8">
+      <card-eligible-customer></card-eligible-customer>
+    </div>
   </div>
 </template>
 
