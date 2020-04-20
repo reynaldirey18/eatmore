@@ -97,19 +97,26 @@
         </v-row>
       </div>
     </v-card>
-    <v-dialog v-model="dialog" persistent max-width="400">
+    <v-dialog v-model="dialog" persistent max-width="350">
       <v-card class="pa-2">
         <v-card-title class="headline text-blood-xs pl-0 pb-5">Upload Product Excel</v-card-title>
         <app-file-upload
             description="Maximum size 2 mb"
             @onFileChange="onFileChange"
             :value="docExcel">
+              <template v-slot:innerDescription>
+                <div class="d-flex flex-column justify-center">
+                  <v-icon class="align-self-center mb-2" style="font-size">mdi-file-excel</v-icon>
+                  <p class="app-subtitle text-center">Upload Spreedsheet Document</p>
+                  <p class="text-center">Document format can be .xls, .xlt, .xm</p>
+                </div>
+              </template>
         </app-file-upload>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
             @click.prevent="dialog = false"
-            color="#FDB526" class="text-center w-full"
+            color="#FDB526" class="text-center mt-3 w-full"
             width="100%"
             dark>
             <span class="text-capitalize">Upload Document</span>
