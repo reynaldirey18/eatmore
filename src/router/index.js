@@ -9,7 +9,6 @@ const LoginPage = () => import('@/views/Login')
 const DashboardPage = () => import('@/views/Dashboard')
 const RestaurantPage = () => import('@/views/Restaurant')
 const ReportPage = () => import('@/views/Report')
-const Product = () => import('@/views/Product')
 
 // Customer
 const CustomerPage = () => import('@/views/Customer')
@@ -17,7 +16,10 @@ const CustomerSummary = () => import('@/views/Customer/views/Summary')
 const CustomerData = () => import('@/views/Customer/views/Data')
 const CustomerLoyaltyProgram = () => import('@/views/Customer/views/LoyaltyProgram')
 const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
-
+// Products
+const ProductPage = () => import('@/views/Product')
+const Products = () => import('@/views/Product/view/Products')
+const AddProducts = () => import('@/views/Product/view/AddProduct')
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -88,17 +90,17 @@ const router = new VueRouter({
           path: '/products',
           name: 'Products',
           redirect: '/products',
-          component: Product,
+          component: ProductPage,
           children: [
             {
               path: '/products/add',
               name: 'Add New Product',
-              component: Product
+              component: AddProducts
             },
             {
               path: '/products',
               name: 'Products',
-              component: Product
+              component: Products
             }
           ]
         }
