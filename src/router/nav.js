@@ -114,12 +114,8 @@ export const mainMenu = [
         to: '/customer/data'
       },
       {
-        name: 'Loyalty Programs',
+        name: 'Loyalty Program',
         to: '/customer/loyalty-program'
-      },
-      {
-        name: 'Transaction History',
-        to: '/customer/transaction-history'
       }
     ]
   },
