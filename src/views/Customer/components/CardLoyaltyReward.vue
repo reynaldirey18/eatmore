@@ -14,7 +14,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="reward in rewardData" :key="reward.name">
+            <tr v-for="reward in rewardData" :key="reward.title">
               <td class="py-5">{{ reward.title }}</td>
               <td class="py-5">{{ reward.min_transaction }}</td>
               <td class="py-5">{{ reward.start_period }}</td>
