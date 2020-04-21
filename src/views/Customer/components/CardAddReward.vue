@@ -79,11 +79,16 @@
                   v-if="startTime.showTime"
                   v-model="startTime.time"
                   full-width
+                  color="#FDB526"
                 >
-                  <v-btn text color="primary" @click="handleStartTimeSubmit">OK</v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn text color="#FDB526" @click="handleStartTimeSubmit">OK</v-btn>
+                  <v-spacer></v-spacer>
                 </v-time-picker>
-                <v-date-picker v-else no-title v-model="startTime.date">
-                  <v-btn text color="primary" @click="handleStartTimeNext">Next</v-btn>
+                <v-date-picker color="#FDB526" v-else no-title v-model="startTime.date">
+                    <v-spacer></v-spacer>
+                    <v-btn text color="#FDB526" @click="handleStartTimeNext">Next</v-btn>
+                    <v-spacer></v-spacer>
                 </v-date-picker>
               </v-dialog>
           </div>
@@ -142,7 +147,7 @@ export default {
     handleStartTimeSubmit () {
       this.startTime.showTime = false
       this.$nextTick(() => {
-        const formatedDate = this.startTime.date + ' ' + this.startTime.time
+        const formatedDate = this.startTime.date + ' / ' + this.startTime.time
         this.$refs.dialog.save(formatedDate)
         this.startTime.datetime = formatedDate
       })
