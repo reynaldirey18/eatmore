@@ -1,14 +1,16 @@
 <template>
   <div>
-    <v-card class="pb-6" outlined>
-      <v-card-title class="app-title">Transaction Reports</v-card-title>
-    </v-card>
+    <card-transaction-report></card-transaction-report>
   </div>
 </template>
 
 <script>
+import CardTransactionReport from '@/views/Customer/components/CardTransactionReport'
 export default {
   name: 'TransactionHistory',
+  components: {
+    CardTransactionReport
+  },
   data () {
     return {
       data: ''
