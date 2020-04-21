@@ -22,6 +22,7 @@ const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')
 const ProductPage = () => import('@/views/Product')
 const Products = () => import('@/views/Product/view/Products')
 const AddProducts = () => import('@/views/Product/view/AddProduct')
+const EditProducts = () => import('@/views/Product/view/EditProduct')
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -93,6 +94,11 @@ const router = new VueRouter({
               path: '/products/add',
               name: 'Add New Product',
               component: AddProducts
+            },
+            {
+              path: '/products/edit',
+              name: 'Edit Product',
+              component: EditProducts
             },
             {
               path: '/products',

@@ -78,8 +78,8 @@
                 <td class="text-grey-sm" v-else-if="data.stock == 'Untracked'">{{data.stock}}</td>
                 <td class="text-red" v-else-if="data.stock == 'Out Of Stock'">{{data.stock}}</td>
                 <td class="text-yellow" v-else-if="data.stock == 'Warning'">{{data.stock}}</td>
-                <td class="pt-4"><p class="text-blue cursor-pointer">Quick Edit</p></td>
-                <td class="cursor-pointer" @click="dialog = true"><v-icon>mdi-dots-horizontal</v-icon></td>
+                <td class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">Quick Edit</p></td>
+                <td class="cursor-pointer"><router-link :to="'/products/edit'"> <v-icon>mdi-dots-horizontal</v-icon></router-link></td>
               </tr>
             </tbody>
           </template>
