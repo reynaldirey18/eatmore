@@ -1,0 +1,25 @@
+.app-toolbar-menu {
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05);
+  height: 52px;
+}
+.app-toolbar-menu-title {
+  background-color: #FBFBFB;
+  height: 49px;
+  line-height: 49px;
+  margin-left: -16px;
+  padding-left: 16px;
+  width: 299px;
+  box-shadow: inset -1px -2px 0px rgba(0, 0, 0, 0.07);
+}
+.app-toolbar-menu-tabs {
+  width: 299px;
+  justify-content: flex-start;
+  padding: 30px 0px;
+
+}
+.app-menu {
+  background-color: #FBFBFB;
+  padding-left: 16px;
+  width: 299px;
+  box-shadow: inset -1px -2px 0px rgba(0, 0, 0, 0.07);
+}
