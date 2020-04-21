@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import './plugins/google-maps'
+import './plugins/VeeValidate'
 import './assets/scss/main.scss' // Styles: SCSS
 Vue.use(require('vue-moment'))
 
