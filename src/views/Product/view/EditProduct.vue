@@ -426,7 +426,7 @@ export default {
           avatar: 'https://asset.winnetnews.com/image/cache/slide/post/image-bukan-janda-ini-status-asli-aurelie-moeremans-1580793251.jpg'
         }
       ],
-      productDy: false,
+      productDy: true,
       productDynamic: [0],
       VariantDynamic: [0]
     }
