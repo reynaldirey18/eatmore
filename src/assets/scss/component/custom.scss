@@ -6,3 +6,17 @@
   margin-left: auto;
   margin-right: auto;
 }
+.form-input {
+  margin-top: 20px;
+  .label-form {
+    font-weight: bold;
+  }
+  .icon-input {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+  }
+}
+.v-btn {
+  text-transform: capitalize;
+}
