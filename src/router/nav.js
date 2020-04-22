@@ -44,7 +44,7 @@ export const mainMenu = [
       },
       {
         name: 'Add New Product',
-        to: '/products/add'
+        to: '/products/add-product'
       },
       {
         name: 'Categories'

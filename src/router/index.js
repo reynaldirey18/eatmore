@@ -97,12 +97,12 @@ const router = new VueRouter({
           component: ProductPage,
           children: [
             {
-              path: '/products/add',
+              path: 'add-product',
               name: 'Add New Product',
               component: AddProducts
             },
             {
-              path: '/products/edit',
+              path: 'edit-product',
               name: 'Edit Product',
               component: EditProducts
             },
