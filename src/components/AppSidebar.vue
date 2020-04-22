@@ -54,6 +54,7 @@
           <v-list-item-title style="margin-left:-15px">{{mainMenuItem.name}}</v-list-item-title>
         </template>
         <v-list-item link
+          exact
           v-for="(mainMenuItemChild, a) in mainMenuItem.children"
           :key="a"
           :to="mainMenuItemChild.to"
