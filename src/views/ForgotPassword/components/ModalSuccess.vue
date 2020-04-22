@@ -4,22 +4,32 @@
       <img src="@/assets/img/success.png" alt="success">
       <h1 class="title-card">Link Sent!</h1>
       <p>We sent a link to reset your password</p>
-      <v-btn block color="#FDB526" dark class="button-success">Okay</v-btn>
+      <v-btn block color="#FDB526" dark class="button-success" @click="closeModal">Okay</v-btn>
     </div>
   </div>
 </template>
 
+<script>
+export default {
+  methods: {
+    closeModal () {
+      this.$emit('close', false)
+    }
+  }
+}
+</script>
+
 <style lang="scss" scoped>
 .modal {
-  height: 100vh;
-  background-color: #000;
-  opacity: .8;
-  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
   .card {
     padding: 40px;
     background-color: #fff;
     width: 25vw;
-    margin: auto;
     border-radius: 20px;
     text-align: center;
     img {

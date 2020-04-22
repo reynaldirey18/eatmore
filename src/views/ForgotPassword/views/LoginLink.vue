@@ -1,34 +1,54 @@
 <template>
-  <div class="send-link">
-    <div class="card">
-      <img src="@/assets/img/shield.png" alt="" class="img-shield center">
-      <div class="card-item">
-        <h1 class="title-card">Have Troubles Logging In?</h1>
-        <span>Enter your email and we'll send you a link to get back into your account.</span>
-        <div class="form-input">
-          <p class="label-form">Email</p>
-          <v-form ref="form">
-            <v-text-field
-              v-model="email"
-              type="email"
-              outlined
-              dense
-            >
-            </v-text-field>
-          </v-form>
+  <div>
+    <div class="send-link">
+      <div class="card">
+        <img src="@/assets/img/shield.png" alt="" class="img-shield center">
+        <div class="card-item">
+          <h1 class="title-card">Have Troubles Logging In?</h1>
+          <span>Enter your email and we'll send you a link to get back into your account.</span>
+          <div class="form-input">
+            <p class="label-form">Email</p>
+            <v-form ref="form">
+              <v-text-field
+                v-model="email"
+                type="email"
+                outlined
+                dense
+              >
+              </v-text-field>
+            </v-form>
+          </div>
         </div>
+        <v-btn block color="#FDB526" dark class="button-login" @click="sendLink">Send Login Link</v-btn>
+        <v-btn text class="back" color="#F32626" @click="getBack">Back</v-btn>
       </div>
-      <v-btn block color="#FDB526" dark class="button-login">Send Login Link</v-btn>
-      <v-btn text class="back" color="#F32626" @click="getBack">Back</v-btn>
+      <modal-success v-if="modal" @close="closeModal"></modal-success>
     </div>
+    <div class="background-modal" v-if="modal"></div>
   </div>
 </template>
 
 <script>
+import modalSuccess from '../components/ModalSuccess'
+
 export default {
+  data () {
+    return {
+      modal: false
+    }
+  },
+  components: {
+    modalSuccess
+  },
   methods: {
     getBack () {
       this.$router.push('/login')
+    },
+    sendLink () {
+      this.modal = true
+    },
+    closeModal (val) {
+      this.modal = val
     }
   }
 }
@@ -66,5 +86,16 @@ export default {
   height: 130px;
   margin-top: 30px;
   margin-bottom: 20px;
+}
+
+.background-modal {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: .8;
+}
+.modal-success {
 }
 </style>
