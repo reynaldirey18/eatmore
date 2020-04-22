@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="app-title">Log In</h1>
-    <p class="text-blue"><u>Don't have an account?</u></p>
+    <p class="text-blue" @click="setPage"><u>Don't have an account?</u></p>
     <div class="form-input">
       <p class="label-form">Username</p>
       <v-form ref="form">
@@ -44,6 +44,11 @@ export default {
       show1: false,
       password: null
     }
+  },
+  methods: {
+    setPage () {
+      this.$emit('signup', false)
+    }
   }
 }
 </script>
@@ -76,5 +81,13 @@ export default {
 
 .v-btn {
   text-transform: capitalize;
+}
+
+.text-blue {
+  cursor: pointer;
+}
+
+.text-blue:hover {
+  color: rgb(9, 82, 141);
 }
 </style>

@@ -4,8 +4,11 @@
       <img src="@/assets/img/Eatmore logo-01 1.png" alt="Eatmore logo" class="logo">
       <v-row>
         <v-col cols="12" md="6" lg="6" xl="6" class="form">
-          <div class="content-form">
-            <form-login></form-login>
+          <div class="content-form" v-if="login">
+            <form-login @signup="setPage"></form-login>
+          </div>
+          <div class="content-form" v-else>
+            <form-signup @login="setPage"></form-signup>
           </div>
         </v-col>
         <v-col cols="12" md="6" lg="6" xl="6" class="banner">
@@ -26,11 +29,23 @@
 
 <script>
 import formLogin from './components/FormLogin'
+import formSignup from './components/FormSignup'
 
 export default {
   name: 'LoginPage',
   components: {
-    formLogin
+    formLogin,
+    formSignup
+  },
+  data () {
+    return {
+      login: true
+    }
+  },
+  methods: {
+    setPage (val) {
+      this.login = val
+    }
   }
 }
 </script>
