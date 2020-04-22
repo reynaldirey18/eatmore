@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="9">
+      <v-col cols="8">
         <h1 class="title">Edit Product</h1>
       </v-col>
       <v-col cols="auto" class="text-red">
@@ -335,13 +335,19 @@
     <!-- modal Delete -->
     <v-dialog v-model="deleteDialog" persistent max-width="450">
       <v-card class="pa-2">
-        <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">Delete Product
+        <v-card-title class="text-blood pl-2 pt-1 pr-0 pb-3">Delete Product
           <v-spacer></v-spacer>
-          <v-icon class="float-right"
+          <v-icon class="float-right" color="grey"
           @click.prevent="deleteDialog = false">mdi-close</v-icon>
         </v-card-title>
-        <div></div>
-        <v-card-actions class="pa-0">
+        <div class="text-center pa-3">
+          <v-avatar size="142px" class="mb-4">
+            <img src="@/assets/img/delete.png">
+          </v-avatar>
+          <p class="text-blood">You Want To Delete This Product?</p>
+          <p class="text-grey-sm">Deleting this item will delete the ingredient in it as well</p>
+        </div>
+        <v-card-actions class="py-0 px-10">
           <v-spacer></v-spacer>
           <v-btn
             @click.prevent="addToping(selected)"
@@ -353,7 +359,7 @@
             <span class="text-capitalize text-blue">Close</span>
           </v-btn>
         </v-card-actions>
-        <v-card-actions class="pa-0 mt-3 justify-center text-center">
+        <v-card-actions class="py-0 px-10 mt-3 justify-center text-center">
             <v-btn text block color="#F32626">Yes! Delete this Product</v-btn>
         </v-card-actions>
       </v-card>

@@ -10,7 +10,7 @@
 
     <v-card>
       <v-toolbar class="app-toolbar-menu-2" dense short flat color="white">
-        <v-toolbar-title class="app-subtitle app-toolbar-menu-title-2">Photo Product</v-toolbar-title>
+        <v-toolbar-title style="width: 311px" class="app-subtitle app-toolbar-menu-title-2">Photo Product</v-toolbar-title>
         <v-toolbar-title class="pl-3 app-subtitle">Product Information</v-toolbar-title>
       </v-toolbar>
       <v-row class="ml-3">
@@ -382,7 +382,7 @@ export default {
           avatar: 'https://asset.winnetnews.com/image/cache/slide/post/image-bukan-janda-ini-status-asli-aurelie-moeremans-1580793251.jpg'
         }
       ],
-      productDy: false,
+      productDy: true,
       productDynamic: [0],
       VariantDynamic: [0]
     }
