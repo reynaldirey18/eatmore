@@ -3,7 +3,7 @@
     <div class="d-flex">
       <h1 class="app-title mb-5">Reward</h1>
       <v-spacer></v-spacer>
-      <v-btn color="#FDB526" flat dark><span class="text-capitalize">Add New Rewards</span></v-btn>
+      <v-btn color="#FDB526" @click.prevent="handleAddNewReward" dark><span class="text-capitalize">Add New Rewards</span></v-btn>
     </div>
     <v-card class="pb-6" outlined>
       <v-simple-table>
@@ -18,7 +18,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="reward in rewardData" :key="reward.title">
+            <tr v-for="(reward, i) in rewardData" :key="reward.title  + i">
               <td class="py-5">{{ reward.title }}</td>
               <td class="py-5">{{ reward.min_transaction }}</td>
               <td class="py-5">{{ reward.start_period }}</td>
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'LoyaltyReward Card',
+  name: 'LoyaltyRewardCard',
   data () {
     return {
       page: 1,
@@ -78,6 +78,11 @@ export default {
           reward: 'Voucher'
         }
       ]
+    }
+  },
+  methods: {
+    handleAddNewReward () {
+      this.$emit('setAddReward', true)
     }
   }
 }

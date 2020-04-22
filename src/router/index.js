@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import CleanLayout from '@/layouts/Clean'
 import HomeLayout from '@/layouts/Home'
+
+import CustomerPage from '@/views/Customer'
 
 Vue.use(VueRouter)
 
@@ -11,12 +14,10 @@ const RestaurantPage = () => import('@/views/Restaurant')
 const ReportPage = () => import('@/views/Report')
 
 // Customer
-const CustomerPage = () => import('@/views/Customer')
 const CustomerSummary = () => import('@/views/Customer/views/Summary')
 const CustomerData = () => import('@/views/Customer/views/Data')
-// const CustomerLoyaltyProgram = () => import('@/views/Customer/views/LoyaltyProgram')
-// const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
 const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')
+const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -76,6 +77,11 @@ const router = new VueRouter({
               path: 'loyalty-program',
               name: 'Customer Loyalty Program',
               component: CustomerLoyalty
+            },
+            {
+              path: 'transaction-history',
+              name: 'Transaction History',
+              component: CustomerTransactionHistory
             }
           ]
         },
