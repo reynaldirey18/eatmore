@@ -16,9 +16,8 @@ const ReportPage = () => import('@/views/Report')
 // Customer
 const CustomerSummary = () => import('@/views/Customer/views/Summary')
 const CustomerData = () => import('@/views/Customer/views/Data')
-// const CustomerLoyaltyProgram = () => import('@/views/Customer/views/LoyaltyProgram')
-// const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
 const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')
+const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -77,6 +76,11 @@ const router = new VueRouter({
               path: 'loyalty-program',
               name: 'Customer Loyalty Program',
               component: CustomerLoyalty
+            },
+            {
+              path: 'transaction-history',
+              name: 'Transaction History',
+              component: CustomerTransactionHistory
             }
           ]
         },
