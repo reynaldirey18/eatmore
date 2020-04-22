@@ -51,7 +51,8 @@ export const mainMenu = [
         to: '/products/categories'
       },
       {
-        name: 'Recipes'
+        name: 'Recipes',
+        to: '/products/recipes'
       },
       {
         name: 'Modifiers'
