@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="7">
+      <v-col cols="6">
         <h1 class="title">Dashboard</h1>
       </v-col>
-      <v-col cols="2" class="text-blue">
+      <v-col cols="auto" class="text-blue">
         <p class="pt-2 cursor-pointer">Download Excel Sample Format</p>
       </v-col>
       <v-col cols="auto">
@@ -78,8 +78,12 @@
                 <td class="text-grey-sm" v-else-if="data.stock == 'Untracked'">{{data.stock}}</td>
                 <td class="text-red" v-else-if="data.stock == 'Out Of Stock'">{{data.stock}}</td>
                 <td class="text-yellow" v-else-if="data.stock == 'Warning'">{{data.stock}}</td>
-                <td class="pt-4"><p class="text-blue cursor-pointer">Quick Edit</p></td>
-                <td class="cursor-pointer" @click="dialog = true"><v-icon>mdi-dots-horizontal</v-icon></td>
+                <td class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">Quick Edit</p></td>
+                <td class="cursor-pointer">
+                  <v-btn icon @click="goToEdit()">
+                    <v-icon>mdi-dots-horizontal</v-icon>
+                  </v-btn>
+                </td>
               </tr>
             </tbody>
           </template>
@@ -206,6 +210,11 @@ export default {
     },
     onFileChange (file) {
       this.docExcel = file
+    },
+    goToEdit () {
+      setTimeout(() => {
+        this.$router.push('/products/edit-product')
+      }, 1000)
     }
   }
 }

@@ -28,6 +28,8 @@ const CustomerTransactionHistory = () => import('@/views/Customer/views/Transact
 const ProductPage = () => import('@/views/Product')
 const Products = () => import('@/views/Product/view/Products')
 const AddProducts = () => import('@/views/Product/view/AddProduct')
+const EditProducts = () => import('@/views/Product/view/EditProduct')
+const categories = () => import('@/views/Product/view/Categories')
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -118,9 +120,19 @@ const router = new VueRouter({
           component: ProductPage,
           children: [
             {
-              path: '/products/add',
+              path: 'add-product',
               name: 'Add New Product',
               component: AddProducts
+            },
+            {
+              path: 'edit-product',
+              name: 'Edit Product',
+              component: EditProducts
+            },
+            {
+              path: 'categories',
+              name: 'Categories',
+              component: categories
             },
             {
               path: '/products',
