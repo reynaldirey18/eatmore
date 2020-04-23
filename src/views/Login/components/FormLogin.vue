@@ -32,7 +32,7 @@
         ></v-text-field>
       </v-form>
     </div>
-    <p class="text-blue"><u>Forgot password</u></p>
+    <p class="text-blue" @click="forgotPass"><u>Forgot password</u></p>
     <v-btn block color="#FDB526" dark class="button-login">Login</v-btn>
   </div>
 </template>
@@ -48,6 +48,9 @@ export default {
   methods: {
     setPage () {
       this.$emit('signup', false)
+    },
+    forgotPass () {
+      this.$router.push('/forgot-password')
     }
   }
 }
@@ -59,28 +62,12 @@ export default {
   font-weight: bold;
 }
 
-.form-input {
-  margin-top: 20px;
-  .label-form {
-    font-weight: bold;
-  }
-  .icon-input {
-    position: absolute;
-    right: 15px;
-    top: 10px;
-  }
-}
-
 .button-login {
   margin-top: 20px;
 }
 
 .v-form {
   color: #CCCCCC !important;
-}
-
-.v-btn {
-  text-transform: capitalize;
 }
 
 .text-blue {

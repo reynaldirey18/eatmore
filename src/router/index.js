@@ -9,9 +9,14 @@ import CustomerPage from '@/views/Customer'
 Vue.use(VueRouter)
 
 const LoginPage = () => import('@/views/Login')
+const ForgotPassword = () => import('@/views/ForgotPassword')
 const DashboardPage = () => import('@/views/Dashboard')
 const RestaurantPage = () => import('@/views/Restaurant')
 const ReportPage = () => import('@/views/Report')
+
+// Forgot Password
+const LoginLink = () => import('@/views/ForgotPassword/views/LoginLink')
+const NewPassword = () => import('@/views/ForgotPassword/views/NewPassword')
 
 // Customer
 const CustomerSummary = () => import('@/views/Customer/views/Summary')
@@ -39,6 +44,23 @@ const router = new VueRouter({
           path: '/login',
           name: 'Login',
           component: LoginPage
+        },
+        {
+          path: '/forgot-password',
+          name: 'Forgot Password',
+          component: ForgotPassword,
+          children: [
+            {
+              path: '/forgot-password',
+              name: 'Send Login Link',
+              component: LoginLink
+            },
+            {
+              path: '/new-password',
+              name: 'New Password',
+              component: NewPassword
+            }
+          ]
         }
       ]
     },
