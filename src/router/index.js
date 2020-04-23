@@ -10,6 +10,7 @@ Vue.use(VueRouter)
 
 const LoginPage = () => import('@/views/Login')
 const ForgotPassword = () => import('@/views/ForgotPassword')
+const OutletRegistration = () => import('@/views/OutletRegistration')
 const DashboardPage = () => import('@/views/Dashboard')
 const RestaurantPage = () => import('@/views/Restaurant')
 const ReportPage = () => import('@/views/Report')
@@ -61,6 +62,11 @@ const router = new VueRouter({
               component: NewPassword
             }
           ]
+        },
+        {
+          path: '/outlet-registration',
+          name: 'Outlet Registration',
+          component: OutletRegistration
         }
       ]
     },
