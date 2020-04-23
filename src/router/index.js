@@ -24,6 +24,7 @@ const ProductPage = () => import('@/views/Product')
 const Products = () => import('@/views/Product/view/Products')
 const AddProducts = () => import('@/views/Product/view/AddProduct')
 const EditProducts = () => import('@/views/Product/view/EditProduct')
+const categories = () => import('@/views/Product/view/Categories')
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -105,6 +106,11 @@ const router = new VueRouter({
               path: 'edit-product',
               name: 'Edit Product',
               component: EditProducts
+            },
+            {
+              path: 'categories',
+              name: 'Categories',
+              component: categories
             },
             {
               path: '/products',
