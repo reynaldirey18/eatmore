@@ -1,30 +1,137 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+import CleanLayout from '@/layouts/Clean'
+import HomeLayout from '@/layouts/Home'
+
+import CustomerPage from '@/views/Customer'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // layouting
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+const LoginPage = () => import('@/views/Login')
+const ForgotPassword = () => import('@/views/ForgotPassword')
+const DashboardPage = () => import('@/views/Dashboard')
+const RestaurantPage = () => import('@/views/Restaurant')
+const ReportPage = () => import('@/views/Report')
 
+// Forgot Password
+const LoginLink = () => import('@/views/ForgotPassword/views/LoginLink')
+const NewPassword = () => import('@/views/ForgotPassword/views/NewPassword')
+
+// Customer
+const CustomerSummary = () => import('@/views/Customer/views/Summary')
+const CustomerData = () => import('@/views/Customer/views/Data')
+const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')
+const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
+
+// Products
+const ProductPage = () => import('@/views/Product')
+const Products = () => import('@/views/Product/view/Products')
+const AddProducts = () => import('@/views/Product/view/AddProduct')
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes: [
+    {
+      path: '',
+      redirect: '/login',
+      name: 'UnAuthenticated',
+      component: CleanLayout,
+      children: [
+        {
+          path: '/login',
+          name: 'Login',
+          component: LoginPage
+        },
+        {
+          path: '/forgot-password',
+          name: 'Forgot Password',
+          component: ForgotPassword,
+          children: [
+            {
+              path: '/forgot-password',
+              name: 'Send Login Link',
+              component: LoginLink
+            },
+            {
+              path: '/new-password',
+              name: 'New Password',
+              component: NewPassword
+            }
+          ]
+        }
+      ]
+    },
+    {
+      path: '/dashboard',
+      name: 'Dashboard',
+      redirect: '/dashboard',
+      component: HomeLayout,
+      children: [
+        {
+          path: '/dashboard',
+          name: 'Dashboard',
+          component: DashboardPage
+        },
+        {
+          path: '/restaurant',
+          name: 'Restaurant',
+          component: RestaurantPage
+        },
+        {
+          path: '/customer',
+          name: 'Customer',
+          redirect: '/customer/summary',
+          component: CustomerPage,
+          children: [
+            {
+              path: 'summary',
+              name: 'Customer Summary',
+              component: CustomerSummary
+            },
+            {
+              path: 'data',
+              name: 'Customer Data',
+              component: CustomerData
+            },
+            {
+              path: 'loyalty-program',
+              name: 'Customer Loyalty Program',
+              component: CustomerLoyalty
+            },
+            {
+              path: 'transaction-history',
+              name: 'Transaction History',
+              component: CustomerTransactionHistory
+            }
+          ]
+        },
+        {
+          path: '/Report/Sales',
+          name: 'Report',
+          component: ReportPage
+        },
+        {
+          path: '/products',
+          name: 'Products',
+          redirect: '/products',
+          component: ProductPage,
+          children: [
+            {
+              path: '/products/add',
+              name: 'Add New Product',
+              component: AddProducts
+            },
+            {
+              path: '/products',
+              name: 'Products',
+              component: Products
+            }
+          ]
+        }
+      ]
+    }
+  ]
 })
 
 export default router
