@@ -6,6 +6,21 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.form-input {
+  margin-top: 20px;
+  .label-form {
+    font-weight: bold;
+  }
+  .icon-input {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+  }
+}
+.v-btn {
+  text-transform: capitalize;
+  
 .app-box-grey{
   box-shadow: rgba(0, 0, 0, 0.07) -1px -1px 0px inset;
   background: #FBFBFB;
