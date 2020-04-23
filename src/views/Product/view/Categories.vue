@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col cols="12">
-        <h1 class="title">Dashboard</h1>
+        <h1 class="title">Categories</h1>
       </v-col>
     </v-row>
     <v-card class="ml-3">

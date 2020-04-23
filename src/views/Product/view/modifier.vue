@@ -2,7 +2,14 @@
   <div>
     <v-row>
       <v-col cols="12">
-        <h1 class="title">Recipes</h1>
+        <h1 class="title">Modifiers
+          <v-btn
+            @click.prevent="handleFormSubmit"
+            color="#FDB526" class="text-center float-right"
+            dark>
+            <span class="text-capitalize">Add New Topping</span>
+          </v-btn>
+        </h1>
       </v-col>
     </v-row>
 
@@ -14,8 +21,8 @@
             width="303.27px"
             height="202px"
         />
-        <p class="text-blood">No Recipe In Here</p>
-        <p>Add your catalog product and start to selling</p>
+        <p class="text-blood">No Modifier In Here</p>
+        <p>Add Modifier, so Your Product has more chooises</p>
       </div>
       <div v-if="product.length > 1">
         <v-simple-table fixed-header height="auto">
@@ -23,7 +30,7 @@
             <thead>
               <tr>
                 <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Recipe Name</div></th>
-                <th class="text-center" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Quality/Unit</div></th>
+                <th class="text-center" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Price</div></th>
                 <th class="text-center" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Ingredient Amount</div></th>
                 <th class="text-center" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Ingredient Stock</div></th>
                 <th class="text-center" style="background-color: rgba(253, 181, 38, 0.1);"></th>
@@ -35,7 +42,7 @@
                 <td>
                   <v-row>
                     <v-col cols="2">
-                      <v-img src="https://cdn.idntimes.com/content-images/post/20191220/73017677-2248225938749972-2951715633794400605-n-1-9a82bb25cb27a28a5ba980bed5b11493_600x400.jpg" style="width:90px; height:48px" aspect-ratio="1.7"></v-img>
+                      <v-img src="https://cdn.popbela.com/content-images/post/20191203/untitled-design-16-2f73e051e25e4e34e4278b2254445e90_750x500.jpg" style="width:90px; height:48px" aspect-ratio="1.7"></v-img>
                     </v-col>
                     <v-col cols="10">
                       <span class="text-blood">{{data.name}}</span><br>
@@ -43,7 +50,7 @@
                     </v-col>
                   </v-row>
                 </td>
-                <td class="text-center">{{data.quality}}</td>
+                <td class="text-center">{{data.price}}</td>
                 <td class="text-center">{{data.amount}}</td>
                 <td class="text-green text-center" v-if="data.stock == 'In Stock'">{{data.stock}}</td>
                 <td class="text-grey-sm text-center" v-else-if="data.stock == 'Untracked'">{{data.stock}}</td>
@@ -59,17 +66,6 @@
             </tbody>
           </template>
         </v-simple-table>
-        <v-row>
-          <v-col cols="8">
-          </v-col>
-          <v-col cols="4">
-            <v-pagination
-              v-model="page"
-              :length="5"
-              color="#FDB526"
-            ></v-pagination>
-          </v-col>
-        </v-row>
       </div>
     </v-card>
     <v-dialog v-model="dialog" persistent max-width="350">
@@ -128,7 +124,7 @@ export default {
           id: 1,
           name: 'Fried Rice Chiken Noya',
           number: 'NS-256-raw',
-          quality: '1/pcs',
+          price: 'Rp 1.000.000',
           amount: '4',
           stock: 'In Stock'
         },
@@ -136,15 +132,15 @@ export default {
           id: 2,
           name: 'Rendang',
           number: 'NS-256-raw',
-          quality: 'Multiple Variants',
-          amount: 'Multiple Variants',
+          price: 'Rp 9.999.999',
+          amount: '7',
           stock: 'In Stock'
         },
         {
           id: 3,
           name: 'Rujak Cikur',
           number: 'NS-256-raw',
-          quality: '1/pcs',
+          price: 'Rp 1.330.000',
           amount: '4',
           stock: 'In Stock'
         },
@@ -152,7 +148,7 @@ export default {
           id: 4,
           name: 'Pepes Lauk',
           number: 'NS-256-raw',
-          quality: '1/pcs',
+          price: 'Rp 5.000.000',
           amount: '4',
           stock: 'In Stock'
         },
@@ -160,7 +156,7 @@ export default {
           id: 5,
           name: 'Ayam Lado Merah',
           number: 'NS-256-raw',
-          quality: '1/pcs',
+          price: 'Rp 6.000.000',
           amount: '4',
           stock: 'In Stock'
         }
@@ -183,9 +179,9 @@ export default {
       this.docExcel = file
     },
     goToEdit () {
-      setTimeout(() => {
-        this.$router.push('/products/edit-recipes')
-      }, 1000)
+      // setTimeout(() => {
+      //   this.$router.push('/products/edit-recipes')
+      // }, 1000)
     }
   }
 }

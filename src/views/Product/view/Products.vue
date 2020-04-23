@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col cols="6">
-        <h1 class="title">Dashboard</h1>
+        <h1 class="title">Products</h1>
       </v-col>
       <v-col cols="auto" class="text-blue">
         <p class="pt-2 cursor-pointer">Download Excel Sample Format</p>
