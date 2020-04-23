@@ -1,13 +1,24 @@
 <template>
   <div>
-    <h1 class="app-title mb-5">Add New Product
-    <v-btn
-      @click.prevent="handleFormSubmit"
-      color="#FDB526" class="text-center float-right"
-      dark>
-      <span class="text-capitalize">Save Product</span>
-    </v-btn></h1>
-
+    <v-row>
+      <v-col cols="8">
+        <h1 class="title">Edit Product</h1>
+      </v-col>
+      <v-col cols="auto" class="text-red">
+        <p class="pt-3 cursor-pointer" @click="deleteDialog = true">Delete Product</p>
+      </v-col>
+      <v-col cols="auto" class="text-blue mt-2">
+        <span class="pt-10 cursor-pointer">Discard Changes</span>
+      </v-col>
+      <v-col cols="auto">
+        <v-btn
+          @click.prevent="handleFormSubmit"
+          color="#FDB526" class="text-center w-full"
+          dark>
+          <span class="text-capitalize">Save Changes</span>
+        </v-btn>
+      </v-col>
+    </v-row>
     <v-card>
       <v-toolbar class="app-toolbar-menu-2" dense short flat color="white">
         <v-toolbar-title style="width: 311px" class="app-subtitle app-toolbar-menu-title-2">Photo Product</v-toolbar-title>
@@ -321,6 +332,38 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <!-- modal Delete -->
+    <v-dialog v-model="deleteDialog" persistent max-width="450">
+      <v-card class="pa-2">
+        <v-card-title class="text-blood pl-2 pt-1 pr-0 pb-3">Delete Product
+          <v-spacer></v-spacer>
+          <v-icon class="float-right" color="grey"
+          @click.prevent="deleteDialog = false">mdi-close</v-icon>
+        </v-card-title>
+        <div class="text-center pa-3">
+          <v-avatar size="142px" class="mb-4">
+            <img src="@/assets/img/delete.png">
+          </v-avatar>
+          <p class="text-blood">You Want To Delete This Product?</p>
+          <p class="text-grey-sm">Deleting this item will delete the ingredient in it as well</p>
+        </div>
+        <v-card-actions class="py-0 px-10">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="addToping(selected)"
+            width="100%"
+            depressed
+            color="#F5F5F5"
+            block
+            dark>
+            <span class="text-capitalize text-blue">Close</span>
+          </v-btn>
+        </v-card-actions>
+        <v-card-actions class="py-0 px-10 mt-3 justify-center text-center">
+            <v-btn text block color="#F32626">Yes! Delete this Product</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -333,6 +376,7 @@ export default {
   },
   data () {
     return {
+      deleteDialog: false,
       search: '',
       item: [],
       selected: [],
