@@ -55,7 +55,8 @@ export const mainMenu = [
         to: '/products/recipes'
       },
       {
-        name: 'Modifiers'
+        name: 'Modifiers',
+        to: '/products/modifiers'
       }
     ]
   },
