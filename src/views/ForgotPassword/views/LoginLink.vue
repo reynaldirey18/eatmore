@@ -22,30 +22,40 @@
         <v-btn block color="#FDB526" dark class="button-login" @click="sendLink">Send Login Link</v-btn>
         <v-btn text class="back" color="#F32626" @click="getBack">Back</v-btn>
       </div>
-      <modal-success v-if="modal" @close="closeModal"></modal-success>
+      <v-dialog v-model="dialog" persistent max-width="350">
+        <v-card class="pa-8 pb-10">
+          <img src="@/assets/img/success.png" alt="success">
+          <v-card-title class="title-card">Link Sent!</v-card-title>
+          <p>We sent a link to reset your password</p>
+          <v-card-actions class="pa-0">
+            <v-spacer></v-spacer>
+            <v-btn
+              @click.prevent="dialog = false"
+              color="#FDB526" class="mt-3 w-full"
+              width="100%"
+              dark>
+              <span class="text-capitalize">Okay</span>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
-    <div class="background-modal" v-if="modal"></div>
   </div>
 </template>
 
 <script>
-import modalSuccess from '../components/ModalSuccess'
-
 export default {
   data () {
     return {
-      modal: false
+      dialog: false
     }
-  },
-  components: {
-    modalSuccess
   },
   methods: {
     getBack () {
       this.$router.push('/login')
     },
     sendLink () {
-      this.modal = true
+      this.dialog = true
     },
     closeModal (val) {
       this.modal = val
@@ -81,21 +91,24 @@ export default {
     margin-top: 20px;
   }
 }
-
 .img-shield {
   height: 130px;
   margin-top: 30px;
   margin-bottom: 20px;
 }
-
-.background-modal {
-  position: absolute;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
-  opacity: .8;
-}
-.modal-success {
+.v-card {
+  text-align: center;
+  border-radius: 20px !important;
+  display: flex;
+  flex-direction: column;
+  img {
+    height: 180px;
+    width: 180px;
+    margin: 0 auto;
+  }
+  .title-card {
+    margin: 0 auto;
+    font-weight: 700;
+  }
 }
 </style>
