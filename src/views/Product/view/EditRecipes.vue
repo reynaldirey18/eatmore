@@ -110,7 +110,7 @@
             </v-col>
             <v-col cols="12">
               <div>
-                <p class="text-blood">Add Variant</p>
+                <p class="text-blood">Ingredients</p>
                 <div
                 :key="index.id"
                 v-for="(row, index) in IngrediantsDy">
@@ -159,7 +159,7 @@
                   @click.prevent="dialog = true"
                   color="#FAFAFA" class="text-center w-full"
                   dark>
-                  <span class="text-blue-sm">Add Variants</span>
+                  <span class="text-blue-sm">Add Ingredients</span>
                 </v-btn>
               </div>
             </v-col>

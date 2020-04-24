@@ -4,7 +4,7 @@
       <v-col cols="12">
         <h1 class="title">Modifiers
           <v-btn
-            @click.prevent="handleFormSubmit"
+            @click.prevent="gotoAdd()"
             color="#FDB526" class="text-center float-right"
             dark>
             <span class="text-capitalize">Add New Topping</span>
@@ -178,10 +178,10 @@ export default {
     onFileChange (file) {
       this.docExcel = file
     },
-    goToEdit () {
-      // setTimeout(() => {
-      //   this.$router.push('/products/edit-recipes')
-      // }, 1000)
+    gotoAdd () {
+      setTimeout(() => {
+        this.$router.push('/products/add-modifiers')
+      }, 1000)
     }
   }
 }

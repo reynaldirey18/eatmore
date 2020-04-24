@@ -43,3 +43,9 @@
     color: #000000;
   }
 }
+.toggle.v-input--is-disabled.v-text-field--outline .v-input__slot {
+  border-color: #eb000061;
+}
+.theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}

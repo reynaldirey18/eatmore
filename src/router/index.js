@@ -33,6 +33,7 @@ const categories = () => import('@/views/Product/view/Categories')
 const recipes = () => import('@/views/Product/view/Recipes')
 const editRecipes = () => import('@/views/Product/view/EditRecipes')
 const modifier = () => import('@/views/Product/view/modifier')
+const addModifier = () => import('@/views/Product/view/addModifier')
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -151,6 +152,11 @@ const router = new VueRouter({
               path: 'modifiers',
               name: 'Modifiers',
               component: modifier
+            },
+            {
+              path: 'add-modifiers',
+              name: 'Add Modifiers',
+              component: addModifier
             },
             {
               path: '/products',
