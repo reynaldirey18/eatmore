@@ -28,7 +28,7 @@
               <v-form ref="form">
                 <v-text-field
                   v-model="name"
-                  label="Eg Sushi Sushanti"
+                  placeholder="Eg Sushi Sushanti"
                   outlined
                   dense
                 >
@@ -41,7 +41,7 @@
                 <v-text-field
                   v-model="email"
                   type="email"
-                  label="makanlagi@gmail.com"
+                  placeholder="makanlagi@gmail.com"
                   outlined
                   dense
                 >
@@ -81,7 +81,7 @@
           <v-form ref="form">
             <v-text-field
               v-model="contact"
-              label="Eg 08291049124"
+              placeholder="Eg 08291049124"
               outlined
               dense
             >
@@ -107,7 +107,7 @@
           </div>
         </div>
         <v-btn block color="#FDB526" dark @click="nextStep" class="mt-6">Continue</v-btn>
-        <v-btn text block color="#F32626" @click="getBack" class="mt-2">Back</v-btn>
+        <v-btn text block color="#F32626" class="mt-2">Back</v-btn>
       </v-list-item-content>
     </v-card>
   </div>
@@ -155,6 +155,9 @@ export default {
       if (val === 2) {
         this.delivery = !this.delivery
       }
+    },
+    nextStep () {
+      this.$emit('continue', 2)
     }
   }
 }
