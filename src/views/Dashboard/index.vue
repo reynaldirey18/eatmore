@@ -104,38 +104,51 @@
         class="mx-auto mt-3"
         outlined
       >
-        <v-simple-table fixed-header height="300px">
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Product</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Item Sold</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Gross Sales</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Net Sales</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Gross Profit</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="data in product" :key="data.id">
-                <td>
-                  <v-row>
-                    <v-col cols="2">
-                      <v-img src="https://tabloidnyata.com/wp-content/uploads/2017/08/aurelie-ello-696x418.jpg" style="width:100%; height:48px" aspect-ratio="1.7"></v-img>
-                    </v-col>
-                    <v-col cols="10">
-                      <span class="text-blood">{{data.name}}</span><br>
-                      <span>{{data.number}}</span>
-                    </v-col>
-                  </v-row>
-                </td>
-                <td>{{ data.item }}</td>
-                <td>Rp {{ data.gross }}</td>
-                <td>{{ data.net }}</td>
-                <td>{{ data.profit }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
+        <div class="pa-10 text-center center" v-if="product.length < 1">
+          <v-img
+              class="center"
+              :src="eatmoreLogo"
+              width="303.27px"
+              height="202px"
+          />
+          <p class="text-blood">No product In Here</p>
+        </div>
+        <div v-if="product.length > 1">
+          <v-data-table
+            :headers="headers"
+            :items="product"
+            :search="search"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+          >
+            <template v-slot:item.name="{item}">
+              <v-row>
+                <v-col cols="2">
+                  <v-img src="https://cdn-brilio-net.akamaized.net/news/2020/04/20/182842/1212446-resep-takjil-buka-puasa.jpg" style="width:90px; height:48px; border-radius: 4px;" aspect-ratio="1.7"></v-img>
+                </v-col>
+                <v-col cols="10">
+                  <span class="text-blood">{{item.name}}</span><br>
+                  <span>{{item.number}}</span>
+                </v-col>
+              </v-row>
+            </template>
+          </v-data-table>
+          <div class="d-flex justify-space-between mt-3">
+            <div class="ma-4">
+            Show {{itemsPerPage}} of {{product.length}} Products
+            </div>
+            <div>
+            <v-pagination
+              v-model="page"
+              color="#FDB526"
+              :length="pageCount">
+            </v-pagination>
+            </div>
+          </div>
+        </div>
       </v-card>
   </div>
 </template>
@@ -149,12 +162,33 @@ export default {
     dayAmount,
     hourAmount
   },
+  computed: {
+    eatmoreLogo () {
+      return require('@/assets/img/NotFound.png')
+    }
+  },
   data: function () {
     return {
+      search: '',
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 10,
+      headers: [
+        {
+          text: 'Product',
+          align: 'start',
+          sortable: false,
+          value: 'name'
+        },
+        { text: 'Item Sold', value: 'item' },
+        { text: 'Gross Sales', value: 'gross' },
+        { text: 'Net Sales', value: 'net' },
+        { text: 'Gros Profit', value: 'profit' }
+      ],
       product: [
         {
           id: 1,
-          name: 'Fried Rice Chiken Noya',
+          name: 'Takjil Sop Buah',
           number: 'NS-256-raw',
           item: 10,
           gross: '1.000.000',

@@ -35,6 +35,10 @@ const recipes = () => import('@/views/Product/view/Recipes')
 const editRecipes = () => import('@/views/Product/view/EditRecipes')
 const modifier = () => import('@/views/Product/view/modifier')
 const addModifier = () => import('@/views/Product/view/addModifier')
+// inventories
+const inventoriesPage = () => import('@/views/inventories')
+const inventories = () => import('@/views/inventories/view/inventories')
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -168,6 +172,19 @@ const router = new VueRouter({
               path: '/products',
               name: 'Products',
               component: Products
+            }
+          ]
+        },
+        {
+          path: '/inventories',
+          name: 'inventories',
+          redirect: '/inventories',
+          component: inventoriesPage,
+          children: [
+            {
+              path: '/inventories',
+              name: 'inventories',
+              component: inventories
             }
           ]
         }

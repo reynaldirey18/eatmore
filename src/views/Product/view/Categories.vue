@@ -43,32 +43,36 @@
             <p>Add category to orgenize your product</p>
           </div>
           <div v-if="product.length > 1">
-            <v-simple-table fixed-header height="auto">
-              <template v-slot:default>
-                <thead>
-                  <tr>
-                    <th class="text-left text-orange" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Category Title</div></th>
-                    <th class="text-center  text-orange" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Category ID</div></th>
-                    <th class="text-center text-orange" style="background-color: rgba(253, 181, 38, 0.1);"><div class="text-orange">Product Count</div></th>
-                    <th class="text-center  text-orange" style="background-color: rgba(253, 181, 38, 0.1);"></th>
-                    <th class="text-center text-orange" style="background-color: rgba(253, 181, 38, 0.1);"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="data in product" :key="data.id">
-                    <td class="text-blood-sm">{{data.name}}</td>
-                    <td class="text-center text-grey-sm">{{data.categoryId}}</td>
-                    <td class="text-center text-blood-sm">{{data.count}}</td>
-                    <td class="text-center">
-                      <v-btn text @click="editCategory(data.name)" color="primary">Edit</v-btn>
-                    </td>
-                    <td  class="text-center">
-                      <v-btn @click.prevent="deleteDialog = true" text color="error">Delete</v-btn>
-                    </td>
-                  </tr>
-                </tbody>
+            <!-- new datatable -->
+            <v-data-table
+              :headers="headers"
+              :items="product"
+              :search="search"
+              :page.sync="page"
+              :items-per-page="itemsPerPage"
+              hide-default-footer
+              class="elevation-1"
+              @page-count="pageCount = $event"
+            >
+              <template v-slot:item.actions="{item}">
+                <v-btn text @click="editCategory(item.name)" color="primary">Edit</v-btn>
               </template>
-            </v-simple-table>
+              <template v-slot:item.other>
+                <v-btn @click.prevent="deleteDialog = true" text color="error">Delete</v-btn>
+              </template>
+            </v-data-table>
+            <div class="d-flex justify-space-between mt-3">
+              <div class="ma-4">
+              Show {{itemsPerPage}} of {{product.length}} Products
+              </div>
+              <div>
+              <v-pagination
+                v-model="page"
+                color="#FDB526"
+                :length="pageCount">
+              </v-pagination>
+              </div>
+            </div>
           </div>
         </v-col>
       </v-row>
@@ -157,12 +161,22 @@ export default {
   },
   data () {
     return {
-      page: 1,
       docExcel: null,
       dialog: false,
       deleteDialog: false,
       categoryEdit: null,
       editCategoryD: false,
+      search: '',
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 10,
+      headers: [
+        { text: 'Category Title', value: 'name' },
+        { text: 'Category ID', value: 'categoryId' },
+        { text: 'Product Count', value: 'count' },
+        { text: '', value: 'actions', sortable: false },
+        { text: '', value: 'other', sortable: false }
+      ],
       product: [
         {
           id: 1,

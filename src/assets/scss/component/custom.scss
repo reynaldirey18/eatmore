@@ -49,3 +49,15 @@
 .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+// table
+.theme--light.v-data-table thead tr:last-child th{
+  background-color: rgba(253, 181, 38, 0.1);
+}
+.theme--light.v-data-table thead tr th {
+  font-size: 14px;
+  line-height: 20px;
+  color: #C5870E
+}
+.v-application .elevation-1 {
+  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05) !important;
+}

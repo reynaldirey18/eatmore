@@ -43,62 +43,57 @@
         </v-btn>
       </div>
       <div v-if="product.length > 1">
-        <v-simple-table fixed-header height="auto">
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Product Name</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Price</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Category</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Variant</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Tax</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);">Stock</th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);"></th>
-                <th class="text-left" style="background-color: rgba(253, 181, 38, 0.1);"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="data in product" :key="data.id">
-                <td>
-                  <v-row>
-                    <v-col cols="2">
-                      <v-img src="https://asset.winnetnews.com/image/cache/slide/post/image-doyan-jengkol-ketahui-manfaat-dan-dampak-untuk-kamu.jpg" style="width:90px; height:48px" aspect-ratio="1.7"></v-img>
-                    </v-col>
-                    <v-col cols="10">
-                      <span class="text-blood">{{data.name}}</span><br>
-                      <span>{{data.number}}</span>
-                    </v-col>
-                  </v-row>
-                </td>
-                <td class="">Rp.1.000.000</td>
-                <td class="">{{data.category}}</td>
-                <td>{{data.variant}}</td>
-                <td class="">10%</td>
-                <td class="text-green" v-if="data.stock == 'In Stock'">{{data.stock}}</td>
-                <td class="text-grey-sm" v-else-if="data.stock == 'Untracked'">{{data.stock}}</td>
-                <td class="text-red" v-else-if="data.stock == 'Out Of Stock'">{{data.stock}}</td>
-                <td class="text-yellow" v-else-if="data.stock == 'Warning'">{{data.stock}}</td>
-                <td class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">Quick Edit</p></td>
-                <td class="cursor-pointer">
-                  <v-btn icon @click="goToEdit()">
-                    <v-icon>mdi-dots-horizontal</v-icon>
-                  </v-btn>
-                </td>
-              </tr>
-            </tbody>
+        <v-data-table
+          :headers="headers"
+          :items="product"
+          :search="search"
+          :page.sync="page"
+          :items-per-page="itemsPerPage"
+          hide-default-footer
+          class="elevation-1"
+          @page-count="pageCount = $event"
+        >
+          <template v-slot:item.name="{item}">
+            <v-row>
+              <v-col cols="2" class="pa-1">
+                <v-img src="https://goodminds.id/handsome/wp-content/uploads/2019/04/18.-Ragam-Menu-Takjil-Buka-Puasa-yang-Praktis-dan-Menyegarkan.jpg" style="width:120px; height:48px; border-radius: 4px;" aspect-ratio="1.7"></v-img>
+              </v-col>
+              <v-col cols="10">
+                <span class="text-blood">{{item.name}}</span><br>
+                <span>{{item.number}}</span>
+              </v-col>
+            </v-row>
           </template>
-        </v-simple-table>
-        <v-row>
-          <v-col cols="8">
-          </v-col>
-          <v-col cols="4">
-            <v-pagination
-              v-model="page"
-              :length="5"
-              color="#FDB526"
-            ></v-pagination>
-          </v-col>
-        </v-row>
+
+          <template v-slot:item.stock="{item}">
+            <div>
+              <div class="text-green" v-if="item.stock == 'In Stock'">{{item.stock}}</div>
+              <div class="text-grey-sm" v-else-if="item.stock == 'Untracked'">{{item.stock}}</div>
+              <div class="text-red" v-else-if="item.stock == 'Out Of Stock'">{{item.stock}}</div>
+              <div class="text-yellow" v-else-if="item.stock == 'Warning'">{{item.stock}}</div>
+            </div>
+          </template>
+          <template v-slot:item.actions>
+            <div class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">Quick Edit</p></div>
+          </template>
+          <template v-slot:item.other>
+            <v-btn icon @click="goToEdit()">
+              <v-icon>mdi-dots-horizontal</v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
+        <div class="d-flex justify-space-between mt-3">
+          <div class="ma-4">
+          Show {{itemsPerPage}} of {{product.length}} Products
+          </div>
+          <div>
+          <v-pagination
+            v-model="page"
+            color="#FDB526"
+            :length="pageCount">
+          </v-pagination>
+          </div>
+        </div>
       </div>
     </v-card>
     <v-dialog v-model="dialog" persistent max-width="350">
@@ -149,16 +144,35 @@ export default {
   },
   data () {
     return {
+      search: '',
       page: 1,
+      pageCount: 0,
+      itemsPerPage: 10,
       docExcel: null,
       dialog: false,
+      headers: [
+        {
+          text: 'Product Name',
+          align: 'start',
+          sortable: false,
+          value: 'name'
+        },
+        { text: 'Price', value: 'price' },
+        { text: 'Category', value: 'category' },
+        { text: 'Variant', value: 'variant' },
+        { text: 'Tax', value: 'tax' },
+        { text: 'Stock', value: 'stock' },
+        { text: '', value: 'actions', sortable: false },
+        { text: '', value: 'other', sortable: false }
+      ],
       product: [
         {
           id: 1,
-          name: 'Semur Jengkol',
+          name: 'ES Serut',
           number: 'NS-256-raw',
           category: 'Appetaizer',
           variant: '-',
+          tax: '3',
           stock: 'In Stock'
         },
         {
@@ -167,6 +181,7 @@ export default {
           number: 'NS-256-raw',
           category: 'Main-dish',
           variant: '2',
+          tax: '3',
           stock: 'Untracked'
         },
         {
