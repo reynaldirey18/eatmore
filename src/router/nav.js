@@ -105,7 +105,7 @@ export const mainMenu = [
     children: [
       {
         name: 'New Promo',
-        to: '/promo/new-promo'
+        to: '/promo/list-promo'
       },
       {
         name: 'Edit Promo',
