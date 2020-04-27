@@ -16,7 +16,7 @@
             <span>Diskon 50%</span>
             <span>Valid Date 22-11-2020</span>
           </div>
-          <v-btn color="#FDB526" dark block>Join Promo</v-btn>
+          <v-btn color="#FDB526" dark block @click="seeDetail">Join Promo</v-btn>
         </v-col>
         <v-col cols="4">
           <div class="picture d-flex">
@@ -27,7 +27,7 @@
             <span>Potongan Harga Rp. 23.000</span>
             <span>Valid Date 20-11-2020</span>
           </div>
-          <v-btn color="#FDB526" dark block>Join Promo</v-btn>
+          <v-btn color="#FDB526" dark block @click="seeDetail">Join Promo</v-btn>
         </v-col>
         <v-col cols="4">
           <div class="picture d-flex">
@@ -38,7 +38,7 @@
             <span>Potongan Harga Rp. 23.000</span>
             <span>Valid Date 19-11-2020</span>
           </div>
-          <v-btn color="#FDB526" dark block>Join Promo</v-btn>
+          <v-btn color="#FDB526" dark block @click="seeDetail">Join Promo</v-btn>
         </v-col>
       </v-row>
     </v-card>
@@ -156,6 +156,9 @@ export default {
   methods: {
     handleClick (val) {
       this.$router.push('/promo/detail-promo/' + val.id)
+    },
+    seeDetail () {
+      this.$router.push('/promo/detail-promo/1')
     }
   }
 }
