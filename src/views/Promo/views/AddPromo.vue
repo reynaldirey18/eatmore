@@ -20,7 +20,6 @@
           <v-text-field
             v-model="title"
             placeholder="Eg. Special Offer Holiday"
-            filled
             outlined
             dense
           >
@@ -41,6 +40,82 @@
             <p>Pro tips: Use photo Banner with high resolution</p>
           </v-col>
           <v-col cols="3"></v-col>
+          <v-col cols="6">
+            <div>
+              <p class="label-form">Start Promo</p>
+              <v-dialog
+                ref="dialog"
+                v-model="startTime.visible"
+                :return-value.sync="startTime.datetime"
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="startTime.datetime"
+                    outlined
+                    dense
+                    readonly
+                    v-on="on"
+                  >
+                  <template v-slot:prepend-inner>
+                    <div class="icon-input">
+                      <v-icon size="20" color="#FDB526">mdi-calendar-month</v-icon>
+                    </div>
+                  </template>
+                  </v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="startTime.showTime"
+                  v-model="startTime.time"
+                  full-width
+                  color="#FDB526"
+                >
+                  <v-btn text color="#FDB526" @click="handleStartTimeSubmit" class="center">OK</v-btn>
+                </v-time-picker>
+                <v-date-picker v-else no-title v-model="startTime.date" color="#FDB526">
+                  <v-btn text color="#FDB526" @click="handleStartTimeNext" class="center">Next</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </div>
+          </v-col>
+          <v-col cols="6">
+            <div>
+              <p class="label-form">End Promo</p>
+              <v-dialog
+                ref="dialog"
+                v-model="startTime.visible"
+                :return-value.sync="startTime.datetime"
+                width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="startTime.datetime"
+                    outlined
+                    dense
+                    readonly
+                    v-on="on"
+                  >
+                  <template v-slot:prepend-inner>
+                    <div class="icon-input">
+                      <v-icon size="20" color="#FDB526">mdi-calendar-month</v-icon>
+                    </div>
+                  </template>
+                  </v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="startTime.showTime"
+                  v-model="startTime.time"
+                  full-width
+                  color="#FDB526"
+                >
+                  <v-btn text color="#FDB526" @click="handleStartTimeSubmit" class="center">OK</v-btn>
+                </v-time-picker>
+                <v-date-picker v-else no-title v-model="startTime.date" color="#FDB526">
+                  <v-btn text color="#FDB526" @click="handleStartTimeNext" class="center">Next</v-btn>
+                </v-date-picker>
+              </v-dialog>
+            </div>
+          </v-col>
         </v-row>
       </div>
     </v-card>
@@ -59,7 +134,14 @@ export default {
     return {
       type: ['Premium', 'Regular'],
       title: null,
-      image: null
+      image: null,
+      startTime: {
+        date: null,
+        time: null,
+        datetime: '',
+        showTime: false,
+        visible: false
+      }
     }
   },
   methods: {
@@ -73,10 +155,30 @@ export default {
     },
     onFileChange (file) {
       this.image = file
+    },
+    handleStartTimeNext () {
+      this.startTime.showTime = true
+      this.$nextTick(() => {
+      })
+    },
+    handleStartTimeSubmit () {
+      this.startTime.showTime = false
+      this.$nextTick(() => {
+        const formatedDate = this.startTime.date + ' / ' + this.startTime.time
+        this.$refs.dialog.save(formatedDate)
+        this.startTime.datetime = formatedDate
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.v-text-field {
+  .v-input__control {
+    .v-input__slot {
+      background-color: #FAFAFA !important;
+    }
+  }
+}
 </style>
