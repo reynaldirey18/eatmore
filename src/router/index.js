@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import CleanLayout from '@/layouts/Clean'
 import HomeLayout from '@/layouts/Home'
 
+import PromoPage from '@/views/Promo'
 import CustomerPage from '@/views/Customer'
 
 Vue.use(VueRouter)
@@ -24,6 +25,9 @@ const CustomerSummary = () => import('@/views/Customer/views/Summary')
 const CustomerData = () => import('@/views/Customer/views/Data')
 const CustomerLoyalty = () => import('@/views/Customer/views/LoyaltyProgram')
 const CustomerTransactionHistory = () => import('@/views/Customer/views/TransactionHistory')
+
+// Promo
+const ListPromo = () => import('@/views/Promo/views/ListPromo')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -99,6 +103,19 @@ const router = new VueRouter({
           path: '/restaurant',
           name: 'Restaurant',
           component: RestaurantPage
+        },
+        {
+          path: '/promo',
+          name: 'Promo',
+          redirect: '/promo/list-promo',
+          component: PromoPage,
+          children: [
+            {
+              path: 'list-promo',
+              name: 'List Promo',
+              component: ListPromo
+            }
+          ]
         },
         {
           path: '/customer',

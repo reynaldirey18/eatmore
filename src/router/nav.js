@@ -105,7 +105,19 @@ export const mainMenu = [
   {
     icon: 'mdi-timetable',
     name: 'Promo',
-    children: []
+    children: [
+      {
+        name: 'New Promo',
+        to: '/promo/list-promo'
+      },
+      {
+        name: 'Edit Promo',
+        to: '/promo/edit-promo'
+      },
+      {
+        name: 'Text'
+      }
+    ]
   },
   {
     icon: 'mdi-account-circle',
