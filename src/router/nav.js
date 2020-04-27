@@ -68,7 +68,8 @@ export const mainMenu = [
         name: 'Stock Forecasting'
       },
       {
-        name: 'Inventories'
+        name: 'Inventories',
+        to: '/inventories'
       },
       {
         name: 'Categories'

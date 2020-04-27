@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col cols="12">
-        <h1 class="title">Modifiers
+        <h1 class="title">Inventories
           <v-btn
             @click.prevent="gotoAdd()"
             color="#FDB526" class="text-center float-right"
@@ -14,20 +14,20 @@
     </v-row>
 
     <v-card class="mt-5" style="height:auto;">
-      <div class="pa-10 text-center center" v-if="product.length < 1">
+      <div class="pa-10 text-center center" v-if="desserts.length < 1">
         <v-img
             class="center"
             :src="eatmoreLogo"
             width="303.27px"
             height="202px"
         />
-        <p class="text-blood">No Modifier In Here</p>
-        <p>Add Modifier, so Your Product has more chooises</p>
+        <p class="text-blood">No Inventory In Here</p>
+        <p>Start to adding your inventory to track your bussiness</p>
       </div>
-      <div v-if="product.length > 1">
+      <div v-if="desserts.length > 1">
         <v-data-table
           :headers="headers"
-          :items="product"
+          :items="desserts"
           :search="search"
           :page.sync="page"
           :items-per-page="itemsPerPage"
@@ -46,6 +46,15 @@
               </v-col>
             </v-row>
           </template>
+
+          <template v-slot:item.stock="{item}">
+            <div>
+              <div class="text-green" v-if="item.stock == 'In Stock'">{{item.stock}}</div>
+              <div class="text-grey-sm" v-else-if="item.stock == 'Untracked'">{{item.stock}}</div>
+              <div class="text-red" v-else-if="item.stock == 'Out Of Stock'">{{item.stock}}</div>
+              <div class="text-yellow" v-else-if="item.stock == 'Warning'">{{item.stock}}</div>
+            </div>
+          </template>
           <template v-slot:item.stock="{item}">
             <div>
               <div class="text-green" v-if="item.stock == 'In Stock'">{{item.stock}}</div>
@@ -55,7 +64,7 @@
             </div>
           </template>
           <template v-slot:item.actions>
-            <div class="pt-4"><p class="text-blue cursor-pointer"  @click="goToEdit()">Quick Edit</p></div>
+            <div class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">Quick Edit</p></div>
           </template>
           <template v-slot:item.other>
             <v-btn icon @click="goToEdit()">
@@ -65,7 +74,7 @@
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{product.length}} Products
+          Show {{itemsPerPage}} of {{desserts.length}} Products
           </div>
           <div>
           <v-pagination
@@ -77,46 +86,13 @@
         </div>
       </div>
     </v-card>
-    <v-dialog v-model="dialog" persistent max-width="350">
-      <v-card class="pa-2">
-        <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">Upload Product Excel
-          <v-spacer></v-spacer>
-          <v-icon class="float-right"
-          @click.prevent="dialog = false">mdi-close</v-icon>
-        </v-card-title>
-        <app-file-upload
-            description="Maximum size 2 mb"
-            @onFileChange="onFileChange"
-            :value="docExcel">
-              <template v-slot:innerDescription>
-                <div class="d-flex flex-column justify-center">
-                  <v-icon class="align-self-center mb-2" style="font-size">mdi-file-excel</v-icon>
-                  <p class="app-subtitle text-center">Upload Spreedsheet Document</p>
-                  <p class="text-center">Document format can be .xls, .xlt, .xm</p>
-                </div>
-              </template>
-        </app-file-upload>
-        <v-card-actions class="pa-0">
-          <v-spacer></v-spacer>
-          <v-btn
-            @click.prevent="dialog = false"
-            color="#FDB526" class="text-center mt-3 w-full"
-            width="100%"
-            dark>
-            <span class="text-capitalize">Upload Document</span>
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 
 <script>
-import AppFileUpload from '@/components/AppDocUpload'
 export default {
   name: 'product',
   components: {
-    AppFileUpload
   },
   computed: {
     eatmoreLogo () {
@@ -129,55 +105,44 @@ export default {
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
+      dropdown_font: false,
       headers: [
-        { text: 'Recipe Name', value: 'name' },
-        { text: 'Price', align: 'center', value: 'price' },
-        { text: 'Ingredient Amount', align: 'center', value: 'amount' },
-        { text: 'Ingredient Stock', align: 'center', value: 'stock' },
-        { text: '', value: 'actions', align: 'end', sortable: false },
+        {
+          text: 'Product Name',
+          align: 'start',
+          sortable: false,
+          value: 'name'
+        },
+        { text: 'Type', value: 'type' },
+        { text: 'In Stock', value: 'inStock' },
+        { text: 'Unit', value: 'unit' },
+        { text: 'Stock', value: 'stock' },
+        { text: '', value: 'actions', sortable: false },
         { text: '', value: 'other', sortable: false }
       ],
-      docExcel: null,
-      dialog: false,
-      product: [
+      desserts: [
         {
-          id: 1,
-          name: 'Fried Rice Chiken Noya',
-          number: 'NS-256-raw',
-          price: 'Rp 1.000.000',
-          amount: '4',
+          name: 'Frozen Yogurt',
+          number: 'NDXA-123-k',
+          type: 'Raw',
+          inStock: '42',
+          unit: 'Kilogram (Kg)',
           stock: 'In Stock'
         },
         {
-          id: 2,
-          name: 'Rendang',
-          number: 'NS-256-raw',
-          price: 'Rp 9.999.999',
-          amount: '7',
+          name: 'Frozen Yogurt',
+          number: 'NDXA-123-k',
+          type: 'Raw',
+          inStock: '42',
+          unit: 'Kilogram (Kg)',
           stock: 'In Stock'
         },
         {
-          id: 3,
-          name: 'Rujak Cikur',
-          number: 'NS-256-raw',
-          price: 'Rp 1.330.000',
-          amount: '4',
-          stock: 'In Stock'
-        },
-        {
-          id: 4,
-          name: 'Pepes Lauk',
-          number: 'NS-256-raw',
-          price: 'Rp 5.000.000',
-          amount: '4',
-          stock: 'In Stock'
-        },
-        {
-          id: 5,
-          name: 'Ayam Lado Merah',
-          number: 'NS-256-raw',
-          price: 'Rp 6.000.000',
-          amount: '4',
+          name: 'Frozen Yogurt',
+          number: 'NDXA-123-k',
+          type: 'Raw',
+          inStock: '42',
+          unit: 'Kilogram (Kg)',
           stock: 'In Stock'
         }
       ]
