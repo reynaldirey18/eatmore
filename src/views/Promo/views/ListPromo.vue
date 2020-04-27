@@ -51,6 +51,7 @@
         hide-default-footer
         class="elevation-1"
         @page-count="pageCount = $event"
+        @click:row="handleClick($event)"
       >
         <template v-slot:item.status="{item}">
           <div>
@@ -150,6 +151,11 @@ export default {
           status: 'Expired'
         }
       ]
+    }
+  },
+  methods: {
+    handleClick (val) {
+      this.$router.push('/promo/detail-promo/' + val.id)
     }
   }
 }
