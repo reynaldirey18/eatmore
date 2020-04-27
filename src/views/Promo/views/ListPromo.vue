@@ -2,7 +2,7 @@
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
       <h1 class="app-title">Promo</h1>
-      <v-btn color="#FDB526" dark small width="160px">New Promo</v-btn>
+      <v-btn color="#FDB526" dark small width="160px" @click="addPromo">New Promo</v-btn>
     </div>
     <v-card class="pa-6 mt-6" outlined>
       <span class="app-subtitle-small">Eatmore Promo</span>
@@ -159,6 +159,9 @@ export default {
     },
     seeDetail () {
       this.$router.push('/promo/detail-promo/1')
+    },
+    addPromo () {
+      this.$router.push('/promo/add-promo')
     }
   }
 }
