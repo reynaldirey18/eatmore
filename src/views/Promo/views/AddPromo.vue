@@ -236,6 +236,7 @@
             outlined
             hide-details
           ></v-text-field>
+          <p class="mt-1">Discount Rp.12.000</p>
           <div class="my-5" style="max-height: 300px; overflow-x:auto">
             <v-data-table
               :headers="headers"
