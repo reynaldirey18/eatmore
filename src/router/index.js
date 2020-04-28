@@ -28,6 +28,7 @@ const CustomerTransactionHistory = () => import('@/views/Customer/views/Transact
 
 // Promo
 const ListPromo = () => import('@/views/Promo/views/ListPromo')
+const DetailPromo = () => import('@/views/Promo/views/DetailPromo')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -108,6 +109,11 @@ const router = new VueRouter({
               path: 'list-promo',
               name: 'List Promo',
               component: ListPromo
+            },
+            {
+              path: 'detail-promo/:id',
+              name: 'Detail Promo',
+              component: DetailPromo
             }
           ]
         },
