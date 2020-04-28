@@ -199,10 +199,78 @@
         placeholder="Eg. Minimum Order Rp. 150.000"
         ></v-textarea>
       </div>
-      <div class="inform pa-4 pb-1">
+      <div class="inform pa-4 pb-1" v-if="selectedCondition == 1">
         <p class="app-subtitle-small">If the merchant uses a promo based on a minimum transaction, then automatically all products will be deducted according to the transaction filled by the merchant</p>
       </div>
+      <v-btn
+        block
+        @click="dialog = true"
+        class="mt-2"
+        color="#FDB526"
+        dark
+        v-if="selectedCondition == 2"
+      >
+        Add Products
+      </v-btn>
     </v-card>
+    <!-- modal -->
+    <v-dialog v-model="dialog" persistent max-width="400">
+      <v-card class="pa-4">
+        <div class="title-modal">
+          <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">
+            Add Products
+            <v-spacer></v-spacer>
+            <v-icon class="float-right"
+            @click.prevent="dialog = false">mdi-close</v-icon>
+          </v-card-title>
+        </div>
+        <div>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            class="mt-4"
+            placeholder="Search Product.."
+            single-line
+            dense
+            filled
+            outlined
+            hide-details
+          ></v-text-field>
+          <div class="my-5" style="max-height: 300px; overflow-x:auto">
+            <v-data-table
+              :headers="headers"
+              :items="products"
+              :search="search"
+              :items-per-page="itemsPerPage"
+              hide-default-header
+              hide-default-footer
+              class="elevation-1"
+              @page-count="pageCount = $event"
+            >
+              <template v-slot:item.name="{item}">
+                <div class="d-flex flex-row">
+                  <div class="image-products mr-4">
+                    <img :src="item.image" alt="Image Product">
+                  </div>
+                  <div>
+                    <p class="app-title-small mb-1 mt-1">{{item.name}}</p>
+                    <p class="mb-1">{{item.price}}</p>
+                  </div>
+                </div>
+              </template>
+              <template v-slot:item.other="{item}">
+                <v-checkbox v-model="selectedProducts" :value="item" class="float-right"></v-checkbox>
+              </template>
+            </v-data-table>
+          </div>
+        </div>
+        <v-card-actions class="pa-0">
+          <v-btn block @click="dialog = false" class="pt-0 mt-1" color="#FDB526" dark>
+            Add Products
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -216,6 +284,7 @@ export default {
   },
   data () {
     return {
+      dialog: false,
       selectedType: 1,
       type: [
         {
@@ -246,7 +315,70 @@ export default {
         datetime: '',
         showTime: false,
         visible: false
-      }
+      },
+      search: null,
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 1000,
+      headers: [
+        {
+          text: '',
+          align: 'start',
+          sortable: false,
+          value: 'name'
+        },
+        {
+          text: '',
+          value: 'other',
+          align: 'center',
+          sortable: false
+        }
+      ],
+      selectedProducts: [],
+      products: [
+        {
+          id: 1,
+          name: 'Strawberry Jam',
+          price: 'Rp. 130.000',
+          image: 'https://danbeasleyharling-wordpress.s3.eu-west-2.amazonaws.com/2019/07/strawberry-jam-square.jpg'
+        },
+        {
+          id: 2,
+          name: 'Bobba',
+          price: 'Rp. 70.000',
+          image: 'https://i.pinimg.com/originals/e4/88/4b/e4884b7c8c96236fd20350b85a2a8cd8.jpg'
+        },
+        {
+          id: 3,
+          name: 'Fried Rice Chicken Noya',
+          price: 'Rp. 43.000',
+          image: 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2018/3/29/0/RX-Kraft_Chicken-Fried-Rice-Sticks_s4x3.jpg.rend.hgtvcom.826.620.suffix/1522358458773.jpeg'
+        },
+        {
+          id: 4,
+          name: 'Lobster Abi Cocktail',
+          price: 'Rp. 32.000',
+          image: 'https://www.recipetineats.com/wp-content/uploads/2017/12/Prawn-Dipping-Sauces-7-1.jpg'
+        },
+        {
+          id: 5,
+          name: 'Green Salad',
+          price: 'Rp. 127.280',
+          image: 'https://www.eatingsimpledish.com/wp-content/uploads/2019/05/green-salad-2.jpg'
+        },
+        {
+          id: 6,
+          name: 'Curry Rice Soup',
+          price: 'Rp. 35.750',
+          image: 'https://thevegan8.com/wp-content/uploads/2016/10/1-pot-curry-rice-soup-500x500.jpg'
+        }
+      ]
+    }
+  },
+  watch: {
+    selectedProducts (newVal) {
+      console.log(newVal)
+      console.log(this.selectedProducts)
     }
   },
   methods: {
@@ -297,26 +429,25 @@ export default {
   }
 }
 .label-currency {
-  z-index: 999;
+  z-index: 1;
 }
 .input-currency {
   margin-left: -4px;
 }
-// .input-currency {
-//   .rupiah {
-//     background-color: #FFFFFF;
-//     border: 1px solid rgba(0, 0, 0, 0.1);
-//     width: 45px;
-//     height: 40px;
-//     border-radius: 4px 0 0 4px;
-//     margin-right: -4px;
-//     z-index: 999;
-//     p {
-//       margin: auto;
-//     }
-//   }
-//   .v-input__control {
-//     width: 280px !important;
-//   }
-// }
+.title-modal {
+  border-bottom: 1px solid rgb(212, 212, 212);
+}
+.app-title-small {
+  font-weight: bold;
+}
+.image-products {
+  width: 48px;
+  height: 48px;
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+}
 </style>
