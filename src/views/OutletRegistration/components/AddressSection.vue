@@ -35,7 +35,16 @@
               v-model="address"
               outlined
               dense
-              disabled
+              readonly
+            >
+            </v-text-field>
+          </v-form>
+          <p class="label-form">Detail Address</p>
+          <v-form ref="form">
+            <v-text-field
+              v-model="detailAddress"
+              outlined
+              dense
             >
             </v-text-field>
           </v-form>
