@@ -33,9 +33,19 @@
           <v-form ref="form">
             <v-text-field
               v-model="address"
+              id="address"
               outlined
               dense
               disabled
+            >
+            </v-text-field>
+          </v-form>
+          <p class="label-form">Detail Address</p>
+          <v-form ref="form">
+            <v-text-field
+              v-model="detailAddress"
+              outlined
+              dense
             >
             </v-text-field>
           </v-form>
@@ -165,5 +175,8 @@ input.introInput {
   border-radius: 5px;
   padding: 10px;
   width: 100%;
+}
+#address {
+  color: #000000 !important;
 }
 </style>
