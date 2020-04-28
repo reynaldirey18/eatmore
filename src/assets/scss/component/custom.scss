@@ -58,6 +58,12 @@
   line-height: 20px;
   color: #C5870E
 }
-.v-application .elevation-1 {
-  box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05) !important;
+.v-application {
+  .elevation-1 {
+    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05) !important;
+  }
+  .primary--text{
+    color: #C5870E !important;
+    ceret-color: #C5870E !important;
+  }
 }

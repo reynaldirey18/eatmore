@@ -72,7 +72,8 @@ export const mainMenu = [
         to: '/inventories'
       },
       {
-        name: 'Categories'
+        name: 'Categories',
+        to: '/inventories/categories-inventory'
       },
       {
         name: 'Stock Adjustment'
@@ -81,7 +82,8 @@ export const mainMenu = [
         name: 'Warehouse'
       },
       {
-        name: 'Supplier'
+        name: 'Supplier',
+        to: '/inventories/supplier'
       },
       {
         name: 'Purchase Order (PO)'
