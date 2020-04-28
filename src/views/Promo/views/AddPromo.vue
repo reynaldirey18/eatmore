@@ -12,6 +12,7 @@
         <p class="label-form">Type Promo</p>
         <v-select
           :items="type"
+          v-model="selectedType"
           outlined
           dense
         ></v-select>
@@ -26,7 +27,7 @@
           </v-text-field>
         </v-form>
         <v-row>
-          <v-col cols="6">
+          <v-col cols="6" v-if="selectedType == 1">
             <app-file-upload
               height="212px"
               @onFileChange="onFileChange"
@@ -35,11 +36,11 @@
             <v-btn @click="handleTriggerUpload" block><span class="blue2">Upload Image</span></v-btn>
             <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
           </v-col>
-          <v-col cols="3">
+          <v-col cols="3" v-if="selectedType == 1">
             <p class="text-grey-light">Maximum size 3 mb</p>
             <p>Pro tips: Use photo Banner with high resolution</p>
           </v-col>
-          <v-col cols="3"></v-col>
+          <v-col cols="3" v-if="selectedType == 1"></v-col>
           <v-col cols="6">
             <div>
               <p class="label-form">Start Promo</p>
@@ -215,7 +216,17 @@ export default {
   },
   data () {
     return {
-      type: ['Premium', 'Regular'],
+      selectedType: 1,
+      type: [
+        {
+          text: 'Premium',
+          value: 1
+        },
+        {
+          text: 'Regular',
+          value: 2
+        }
+      ],
       selectedCondition: 1,
       condition: [
         {
