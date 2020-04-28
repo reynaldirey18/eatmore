@@ -122,11 +122,12 @@
             <p class="label-form">Promo Conditional</p>
             <v-select
               :items="condition"
+              v-model="selectedCondition"
               outlined
               dense
             ></v-select>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="4" v-if="selectedCondition == 1">
             <p class="label-form">Minimum Purchase</p>
             <v-row>
               <v-col cols="2" class="label-currency pa-0 pl-3">
@@ -147,7 +148,7 @@
               </v-col>
             </v-row>
           </v-col>
-          <v-col cols="4">
+          <v-col cols="4" v-if="selectedCondition == 1">
             <p class="label-form">Promo Based</p>
             <v-row>
               <v-col cols="2" class="label-currency pa-0 pl-3">
@@ -159,6 +160,27 @@
                 <v-form ref="form">
                   <v-text-field
                     v-model="promoBased"
+                    placeholder="Eg. 17.000"
+                    outlined
+                    dense
+                  >
+                  </v-text-field>
+                </v-form>
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col cols="4" v-if="selectedCondition == 2">
+            <p class="label-form">Discount</p>
+            <v-row>
+              <v-col cols="2" class="label-currency pa-0 pl-3">
+                <div class="rupiah d-flex">
+                  <p>Rp</p>
+                </div>
+              </v-col>
+              <v-col cols="10" class="input-currency pa-0">
+                <v-form ref="form">
+                  <v-text-field
+                    v-model="discount"
                     placeholder="Eg. 17.000"
                     outlined
                     dense
@@ -194,7 +216,17 @@ export default {
   data () {
     return {
       type: ['Premium', 'Regular'],
-      condition: ['Promo By Minimum Transaction', 'Promo By Each Product'],
+      selectedCondition: 1,
+      condition: [
+        {
+          text: 'Promo By Minimum Transaction',
+          value: 1
+        },
+        {
+          text: 'Promo By Each Product',
+          value: 2
+        }
+      ],
       title: null,
       image: null,
       startTime: {
@@ -204,6 +236,11 @@ export default {
         showTime: false,
         visible: false
       }
+    }
+  },
+  watch: {
+    selectedCondition (newVal) {
+      console.log(newVal)
     }
   },
   methods: {
