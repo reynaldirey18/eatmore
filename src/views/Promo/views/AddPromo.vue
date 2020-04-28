@@ -249,11 +249,6 @@ export default {
       }
     }
   },
-  watch: {
-    selectedCondition (newVal) {
-      console.log(newVal)
-    }
-  },
   methods: {
     handleTriggerUpload () {
       this.$refs.file.click()
