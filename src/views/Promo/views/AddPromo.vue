@@ -128,27 +128,45 @@
           </v-col>
           <v-col cols="4">
             <p class="label-form">Minimum Purchase</p>
-            <v-form ref="form">
-              <v-text-field
-                v-model="purchase"
-                placeholder="Eg. 17.000"
-                outlined
-                dense
-              >
-              </v-text-field>
-            </v-form>
+            <v-row>
+              <v-col cols="2" class="label-currency pa-0 pl-3">
+                <div class="rupiah d-flex">
+                  <p>Rp</p>
+                </div>
+              </v-col>
+              <v-col cols="10" class="input-currency pa-0">
+                <v-form ref="form">
+                  <v-text-field
+                    v-model="purchase"
+                    placeholder="Eg. 17.000"
+                    outlined
+                    dense
+                  >
+                  </v-text-field>
+                </v-form>
+              </v-col>
+            </v-row>
           </v-col>
           <v-col cols="4">
             <p class="label-form">Promo Based</p>
-            <v-form ref="form">
-              <v-text-field
-                v-model="promoBased"
-                placeholder="Eg. 17.000"
-                outlined
-                dense
-              >
-              </v-text-field>
-            </v-form>
+            <v-row>
+              <v-col cols="2" class="label-currency pa-0 pl-3">
+                <div class="rupiah d-flex">
+                  <p>Rp</p>
+                </div>
+              </v-col>
+              <v-col cols="10" class="input-currency pa-0 pr-2">
+                <v-form ref="form">
+                  <v-text-field
+                    v-model="promoBased"
+                    placeholder="Eg. 17.000"
+                    outlined
+                    dense
+                  >
+                  </v-text-field>
+                </v-form>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
         <p class="label-form">Promo Terms</p>
@@ -225,4 +243,37 @@ export default {
 .inform {
   background-color: #F5F5F5;
 }
+.rupiah {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 45px;
+  height: 40px;
+  border-radius: 4px 0 0 4px;
+  p {
+    margin: auto;
+  }
+}
+.label-currency {
+  z-index: 999;
+}
+.input-currency {
+  margin-left: -4px;
+}
+// .input-currency {
+//   .rupiah {
+//     background-color: #FFFFFF;
+//     border: 1px solid rgba(0, 0, 0, 0.1);
+//     width: 45px;
+//     height: 40px;
+//     border-radius: 4px 0 0 4px;
+//     margin-right: -4px;
+//     z-index: 999;
+//     p {
+//       margin: auto;
+//     }
+//   }
+//   .v-input__control {
+//     width: 280px !important;
+//   }
+// }
 </style>
