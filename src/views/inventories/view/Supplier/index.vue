@@ -145,12 +145,12 @@ export default {
   methods: {
     gotoAdd () {
       setTimeout(() => {
-        this.$router.push('/inventories/add-inventory')
+        this.$router.push('/inventories/add-supplier')
       }, 1000)
     },
     goToEdit () {
       setTimeout(() => {
-        this.$router.push('/inventories/edit-inventory')
+        this.$router.push('/inventories/edit-supplier')
       }, 1000)
     }
   }

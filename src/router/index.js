@@ -48,6 +48,9 @@ const categoriesInvent = () => import('@/views/inventories/view/categories')
 const supplier = () => import('@/views/inventories/view/Supplier')
 const addSupplier = () => import('@/views/inventories/view/Supplier/addSuplier')
 const editSupplier = () => import('@/views/inventories/view/Supplier/editSuplier')
+const purchaseOrder = () => import('@/views/inventories/view/purchase order')
+const addPurchaseOrder = () => import('@/views/inventories/view/purchase order/addPurchase')
+const previewPurchaseOrder = () => import('@/views/inventories/view/purchase order/preview')
 
 const router = new VueRouter({
   mode: 'history',
@@ -230,14 +233,29 @@ const router = new VueRouter({
               component: supplier
             },
             {
-              path: 'supplier',
+              path: 'add-supplier',
               name: 'Add Supplier',
               component: addSupplier
             },
             {
-              path: 'supplier',
+              path: 'edit-supplier',
               name: 'Edit Supplier',
               component: editSupplier
+            },
+            {
+              path: 'purchase-order',
+              name: 'Purchase Order(PO)',
+              component: purchaseOrder
+            },
+            {
+              path: 'previewPO',
+              name: 'View Purchase Order',
+              component: previewPurchaseOrder
+            },
+            {
+              path: 'add-purchase-order',
+              name: 'Add Purchase Order',
+              component: addPurchaseOrder
             }
           ]
         }
