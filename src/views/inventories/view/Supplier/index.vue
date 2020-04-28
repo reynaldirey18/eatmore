@@ -61,7 +61,7 @@
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{Supplierlist.length}} Products
+          Show {{itemsPerPage}} of {{Supplierlist.length}} Supplier
           </div>
           <div>
           <v-pagination

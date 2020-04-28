@@ -63,7 +63,7 @@
             </v-data-table>
             <div class="d-flex justify-space-between mt-3">
               <div class="ma-4">
-              Show {{itemsPerPage}} of {{product.length}} Products
+              Show {{itemsPerPage}} of {{product.length}} Categories
               </div>
               <div>
               <v-pagination

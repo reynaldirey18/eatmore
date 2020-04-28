@@ -86,7 +86,7 @@
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{desserts.length}} Products
+          Show {{itemsPerPage}} of {{desserts.length}} Inventories
           </div>
           <div>
           <v-pagination
