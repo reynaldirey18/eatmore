@@ -71,3 +71,10 @@
   position: relative;
   font-size: 34px !important;
 }
+.checkbox {
+  .theme--light.v-label {
+    color: black !important;
+    font-size: 14px !important;
+    margin-top: 3px;
+  }
+}

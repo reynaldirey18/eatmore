@@ -2,7 +2,7 @@
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
       <h1 class="app-title">Employee List</h1>
-      <v-btn color="#FDB526" dark small width="160px">Add New Employee</v-btn>
+      <v-btn color="#FDB526" dark small width="160px" @click="goToAdd">Add New Employee</v-btn>
     </div>
     <v-card class="pa-6 mt-6 d-flex" outlined min-height="400px">
       <div class="not-found d-flex flex-column" v-if="employee.length < 1">
@@ -19,6 +19,11 @@ export default {
   data () {
     return {
       employee: []
+    }
+  },
+  methods: {
+    goToAdd () {
+      this.$router.push('/employee/add-employee')
     }
   }
 }
