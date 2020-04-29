@@ -202,15 +202,28 @@
       <div class="inform pa-4 pb-1" v-if="selectedCondition == 1">
         <p class="app-subtitle-small">If the merchant uses a promo based on a minimum transaction, then automatically all products will be deducted according to the transaction filled by the merchant</p>
       </div>
+      <div class="products" v-if="selectedCondition == 2 && selectedProducts.length > 0">
+        <div class="form-input">
+          <p class="label-form">Products</p>
+        </div>
+        <div class="prod-items mt-4 d-flex flex-row" v-for="prod in selectedProducts" :key="prod">
+          <img :src="prod.image" alt="Image Product">
+          <div class="detail-prod ml-3">
+            <p class="app-title-small mb-1 mt-1">{{prod.name}}</p>
+            <p class="mb-1">{{prod.price}}</p>
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
+        </div>
+      </div>
       <v-btn
         block
         @click="dialog = true"
         class="mt-2"
-        color="#FDB526"
+        color="#FAFAFA"
         dark
         v-if="selectedCondition == 2"
       >
-        Add Products
+        <span class="text-blue-sm">Add Products</span>
       </v-btn>
     </v-card>
     <!-- modal -->
@@ -470,6 +483,17 @@ export default {
   img {
     width: 48px;
     height: 48px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+}
+.products {
+  .form-input {
+    margin-top: 0;
+  }
+  img {
+    width: 80px;
+    height: 80px;
     border-radius: 4px;
     object-fit: cover;
   }
