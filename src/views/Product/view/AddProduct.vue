@@ -364,7 +364,6 @@ export default {
           sortable: false,
           value: 'avatar'
         },
-        { text: '', value: 'name' },
         { text: '', value: 'other', sortable: false }
       ],
       TaxList: [

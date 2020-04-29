@@ -16,7 +16,7 @@
         <v-overflow-btn
           class="my-2"
           :items="dropdown_font"
-          label="Overflow Btn"
+          label="Outlet"
           target="#dropdown-example"
           background-color="white"
           :elevation="0"
@@ -33,7 +33,8 @@ export default {
   name: 'AppHeader',
   data () {
     return {
-      account: null
+      account: null,
+      dropdown_font: ['Outlet 1', 'Outlet 2']
     }
   }
 }

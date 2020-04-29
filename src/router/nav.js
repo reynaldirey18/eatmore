@@ -90,7 +90,8 @@ export const mainMenu = [
         to: '/inventories/purchase-order'
       },
       {
-        name: 'Received Order'
+        name: 'Received Order',
+        to: '/inventories/recived-order'
       },
       {
         name: 'Transfer Inventories'
