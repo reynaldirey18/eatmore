@@ -1,15 +1,27 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12">
-        <h1 class="title">Inventories
-          <v-btn
-            @click.prevent="gotoAdd()"
-            color="#FDB526" class="text-center float-right"
-            dark>
-            <span class="text-capitalize">Add New Topping</span>
-          </v-btn>
-        </h1>
+      <v-col cols="6">
+        <h1 class="title">Inventories</h1>
+      </v-col>
+      <v-col cols="auto" class="text-blue">
+        <p class="pt-2 cursor-pointer">Download Excel Sample Format</p>
+      </v-col>
+      <v-col cols="auto">
+        <v-btn
+          @click.prevent="handleFormSubmit"
+          color="#333333" class="text-center"
+          dark>
+          <span class="text-capitalize">Upload Excel File</span>
+        </v-btn>
+      </v-col>
+      <v-col cols="auto">
+        <v-btn
+          @click.prevent="gotoAdd()"
+          color="#FDB526" class="text-center w-full"
+          dark>
+          <span class="text-capitalize">Add New Inventory</span>
+        </v-btn>
       </v-col>
     </v-row>
 
@@ -165,7 +177,12 @@ export default {
     },
     gotoAdd () {
       setTimeout(() => {
-        this.$router.push('/products/add-modifiers')
+        this.$router.push('/inventories/add-inventory')
+      }, 1000)
+    },
+    goToEdit () {
+      setTimeout(() => {
+        this.$router.push('/inventories/edit-inventory')
       }, 1000)
     }
   }

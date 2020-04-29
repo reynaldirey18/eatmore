@@ -44,6 +44,12 @@ const addModifier = () => import('@/views/Product/view/addModifier')
 // inventories
 const inventoriesPage = () => import('@/views/inventories')
 const inventories = () => import('@/views/inventories/view/inventories')
+const addInventories = () => import('@/views/inventories/view/addInventory')
+const editInventories = () => import('@/views/inventories/view/editInventory')
+const categoriesInvent = () => import('@/views/inventories/view/categories')
+const supplier = () => import('@/views/inventories/view/Supplier')
+const addSupplier = () => import('@/views/inventories/view/Supplier/addSuplier')
+const editSupplier = () => import('@/views/inventories/view/Supplier/editSuplier')
 
 const router = new VueRouter({
   mode: 'history',
@@ -214,6 +220,36 @@ const router = new VueRouter({
               path: '/inventories',
               name: 'inventories',
               component: inventories
+            },
+            {
+              path: 'add-inventory',
+              name: 'Add Inventory',
+              component: addInventories
+            },
+            {
+              path: 'edit-inventory',
+              name: 'Edit Inventory',
+              component: editInventories
+            },
+            {
+              path: 'categories-inventory',
+              name: 'Categories',
+              component: categoriesInvent
+            },
+            {
+              path: 'supplier',
+              name: 'supplier',
+              component: supplier
+            },
+            {
+              path: 'supplier',
+              name: 'Add Supplier',
+              component: addSupplier
+            },
+            {
+              path: 'supplier',
+              name: 'Edit Supplier',
+              component: editSupplier
             }
           ]
         }

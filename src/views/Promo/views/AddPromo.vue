@@ -117,6 +117,67 @@
             </div>
           </v-col>
         </v-row>
+        <v-row class="condition">
+          <v-col cols="4">
+            <p class="label-form">Promo Conditional</p>
+            <v-select
+              :items="condition"
+              outlined
+              dense
+            ></v-select>
+          </v-col>
+          <v-col cols="4">
+            <p class="label-form">Minimum Purchase</p>
+            <v-row>
+              <v-col cols="2" class="label-currency pa-0 pl-3">
+                <div class="rupiah d-flex">
+                  <p>Rp</p>
+                </div>
+              </v-col>
+              <v-col cols="10" class="input-currency pa-0">
+                <v-form ref="form">
+                  <v-text-field
+                    v-model="purchase"
+                    placeholder="Eg. 17.000"
+                    outlined
+                    dense
+                  >
+                  </v-text-field>
+                </v-form>
+              </v-col>
+            </v-row>
+          </v-col>
+          <v-col cols="4">
+            <p class="label-form">Promo Based</p>
+            <v-row>
+              <v-col cols="2" class="label-currency pa-0 pl-3">
+                <div class="rupiah d-flex">
+                  <p>Rp</p>
+                </div>
+              </v-col>
+              <v-col cols="10" class="input-currency pa-0 pr-2">
+                <v-form ref="form">
+                  <v-text-field
+                    v-model="promoBased"
+                    placeholder="Eg. 17.000"
+                    outlined
+                    dense
+                  >
+                  </v-text-field>
+                </v-form>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+        <p class="label-form">Promo Terms</p>
+        <v-textarea
+        outlined
+        dense
+        placeholder="Eg. Minimum Order Rp. 150.000"
+        ></v-textarea>
+      </div>
+      <div class="inform pa-4 pb-1">
+        <p class="app-subtitle-small">If the merchant uses a promo based on a minimum transaction, then automatically all products will be deducted according to the transaction filled by the merchant</p>
       </div>
     </v-card>
   </div>
@@ -133,6 +194,7 @@ export default {
   data () {
     return {
       type: ['Premium', 'Regular'],
+      condition: ['Promo By Minimum Transaction', 'Promo By Each Product'],
       title: null,
       image: null,
       startTime: {
@@ -194,14 +256,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.v-text-field {
-  .v-input__control {
-    .v-input__slot {
-      background-color: #FAFAFA !important;
-    }
+.condition {
+  margin-top: -30px;
+  margin-bottom: -20px;
+}
+.inform {
+  background-color: #F5F5F5;
+}
+.rupiah {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 45px;
+  height: 40px;
+  border-radius: 4px 0 0 4px;
+  p {
+    margin: auto;
   }
 }
 .v-date-picker-title__year {
   font-size: 18px !important;
+}
+.label-currency {
+  z-index: 999;
+}
+.input-currency {
+  margin-left: -4px;
 }
 </style>

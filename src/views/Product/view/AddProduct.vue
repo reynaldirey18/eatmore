@@ -281,6 +281,7 @@
             v-model="search"
             append-icon="mdi-magnify"
             label="Eg: Egg"
+            color="#fdb526"
             single-line
             dense
             filled
@@ -288,25 +289,31 @@
             hide-details
           ></v-text-field>
         <div class="my-5" style="max-height: 364px; overflow-x:auto">
-          <v-list three-line flat>
-            <v-list-item-group v-model="item" color="primary">
-              <v-list-item
-                v-for="(item, i) in toppingsList"
-                :key="i"
-              >
-                <v-list-item-avatar class="img-popup mt-7">
-                  <v-img :src="item.avatar"></v-img>
-                </v-list-item-avatar>
-                <v-list-item-content class="py-5">
-                  <v-list-item-title v-html="item.name"></v-list-item-title>
-                  <v-list-item-subtitle v-html="item.code"></v-list-item-subtitle>
-                </v-list-item-content>
-                <v-list-item-action class="py-5">
-                  <v-checkbox v-model="selected" :value="item"></v-checkbox>
-                </v-list-item-action>
-              </v-list-item>
-            </v-list-item-group>
-          </v-list>
+          <v-data-table
+            :headers="headers"
+            :items="toppingsList"
+            :search="search"
+            :items-per-page="itemsPerPage"
+            hide-default-header
+            hide-default-footer
+            class="elevation-1"
+            @page-count="pageCount = $event"
+          >
+            <template v-slot:item.avatar="{item}">
+              <v-row>
+                <v-col cols="2" class="pa-1">
+                  <v-img src="https://goodminds.id/handsome/wp-content/uploads/2019/04/18.-Ragam-Menu-Takjil-Buka-Puasa-yang-Praktis-dan-Menyegarkan.jpg" style="width:120px; height:48px; border-radius: 4px;" aspect-ratio="1.7"></v-img>
+                </v-col>
+                <v-col cols="10">
+                  <span class="text-blood">{{item.name}}</span><br>
+                  <span>{{item.code}}</span>
+                </v-col>
+              </v-row>
+            </template>
+            <template v-slot:item.other="{item}">
+              <v-checkbox v-model="selected" :value="item"></v-checkbox>
+            </template>
+          </v-data-table>
         </div>
         </div>
         <v-card-actions class="pa-0">
@@ -333,6 +340,9 @@ export default {
   },
   data () {
     return {
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 1000,
       search: '',
       item: [],
       selected: [],
@@ -347,6 +357,16 @@ export default {
       price: [],
       tagList: ['JunkFood', 'Chicken', 'Contain Park'],
       tagInputValue: '',
+      headers: [
+        {
+          text: '',
+          align: 'start',
+          sortable: false,
+          value: 'avatar'
+        },
+        { text: '', value: 'name' },
+        { text: '', value: 'other', sortable: false }
+      ],
       TaxList: [
         {
           text: 'PPN (10%)',
@@ -364,9 +384,6 @@ export default {
           text: 'Appetizer',
           value: 1
         }
-      ],
-      headers: [
-        { text: 'Product', value: 'name' }
       ],
       toppingsList: [
         {
