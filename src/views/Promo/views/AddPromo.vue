@@ -69,12 +69,12 @@
                   v-if="startTime.showTime"
                   v-model="startTime.time"
                   full-width
-                  color="#FDB526"
+                  format="24hr"
                 >
-                  <v-btn text color="#FDB526" @click="handleStartTimeSubmit" class="center">OK</v-btn>
+                  <v-btn text @click="handleStartTimeSubmit" class="center">OK</v-btn>
                 </v-time-picker>
-                <v-date-picker v-else no-title v-model="startTime.date" color="#FDB526">
-                  <v-btn text color="#FDB526" @click="handleStartTimeNext" class="center">Next</v-btn>
+                <v-date-picker v-else v-model="startTime.date">
+                  <v-btn text @click="handleStartTimeNext" class="center">Next</v-btn>
                 </v-date-picker>
               </v-dialog>
             </div>
@@ -83,14 +83,14 @@
             <div>
               <p class="label-form">End Promo</p>
               <v-dialog
-                ref="dialog"
-                v-model="startTime.visible"
-                :return-value.sync="startTime.datetime"
+                ref="dialog2"
+                v-model="endTime.visible"
+                :return-value.sync="endTime.datetime"
                 width="290px"
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
-                    v-model="startTime.datetime"
+                    v-model="endTime.datetime"
                     outlined
                     dense
                     readonly
@@ -104,15 +104,15 @@
                   </v-text-field>
                 </template>
                 <v-time-picker
-                  v-if="startTime.showTime"
-                  v-model="startTime.time"
+                  v-if="endTime.showTime"
+                  v-model="endTime.time"
                   full-width
-                  color="#FDB526"
+                  format="24hr"
                 >
-                  <v-btn text color="#FDB526" @click="handleStartTimeSubmit" class="center">OK</v-btn>
+                  <v-btn text @click="handleEndTimeSubmit" class="center">OK</v-btn>
                 </v-time-picker>
-                <v-date-picker v-else no-title v-model="startTime.date" color="#FDB526">
-                  <v-btn text color="#FDB526" @click="handleStartTimeNext" class="center">Next</v-btn>
+                <v-date-picker v-else v-model="endTime.date">
+                  <v-btn text @click="handleEndTimeNext" class="center">Next</v-btn>
                 </v-date-picker>
               </v-dialog>
             </div>
@@ -317,6 +317,13 @@ export default {
         showTime: false,
         visible: false
       },
+      endTime: {
+        date: null,
+        time: null,
+        datetime: '',
+        showTime: false,
+        visible: false
+      },
       search: null,
       page: 1,
       pageCount: 0,
@@ -406,6 +413,19 @@ export default {
         this.$refs.dialog.save(formatedDate)
         this.startTime.datetime = formatedDate
       })
+    },
+    handleEndTimeNext () {
+      this.endTime.showTime = true
+      this.$nextTick(() => {
+      })
+    },
+    handleEndTimeSubmit () {
+      this.endTime.showTime = false
+      this.$nextTick(() => {
+        const formatedDate = this.endTime.date + ' / ' + this.endTime.time
+        this.$refs.dialog2.save(formatedDate)
+        this.endTime.datetime = formatedDate
+      })
     }
   }
 }
@@ -428,6 +448,9 @@ export default {
   p {
     margin: auto;
   }
+}
+.v-date-picker-title__year {
+  font-size: 18px !important;
 }
 .label-currency {
   z-index: 1;

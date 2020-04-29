@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h1 class="app-title">Detail Promo</h1>
+      <h1 class="app-title">New Promo</h1>
     </div>
     <v-card class="pa-4 mt-6" outlined>
       <div class="picture d-flex">
