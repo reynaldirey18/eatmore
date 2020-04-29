@@ -30,6 +30,7 @@ const CustomerTransactionHistory = () => import('@/views/Customer/views/Transact
 const ListPromo = () => import('@/views/Promo/views/ListPromo')
 const DetailPromo = () => import('@/views/Promo/views/DetailPromo')
 const AddPromo = () => import('@/views/Promo/views/AddPromo')
+const EditPromoEatmore = () => import('@/views/Promo/views/EditEatmore')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -126,6 +127,11 @@ const router = new VueRouter({
               path: 'add-promo',
               name: 'Add Promo',
               component: AddPromo
+            },
+            {
+              path: 'edit-promo-eatmore/:id',
+              name: 'Edit Promo Eatmore',
+              component: EditPromoEatmore
             }
           ]
         },
