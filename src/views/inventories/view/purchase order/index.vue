@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="10">
+      <v-col cols="10" class="mr-12">
         <h1 class="title">Purchase Order</h1>
       </v-col>
       <v-col cols="auto">
@@ -36,10 +36,10 @@
           @page-count="pageCount = $event"
         >
           <template v-slot:item.actions>
-            <div class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">View PO</p></div>
+            <div class="pt-4"><p class="text-blue cursor-pointer"   @click="goToPreview()">View PO</p></div>
           </template>
           <template v-slot:item.other>
-            <v-btn icon @click="goToEdit()">
+            <v-btn icon @click="goToPreview()">
               <v-icon>mdi-dots-horizontal</v-icon>
             </v-btn>
           </template>
@@ -140,9 +140,9 @@ export default {
         this.$router.push('/inventories/add-purchase-order')
       }, 1000)
     },
-    goToEdit () {
+    goToPreview () {
       setTimeout(() => {
-        this.$router.push('/inventories/edit-supplier')
+        this.$router.push('/inventories/previewPO')
       }, 1000)
     }
   }

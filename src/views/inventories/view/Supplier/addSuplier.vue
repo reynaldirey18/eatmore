@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="9">
+      <v-col cols="9" class="mr-12">
         <h1 class="title">Add New Supplier</h1>
       </v-col>
       <v-col cols="auto">

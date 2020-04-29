@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12">
+      <v-col cols="12" class="mr-12">
         <h1 class="title">Categories</h1>
       </v-col>
     </v-row>

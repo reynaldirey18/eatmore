@@ -37,18 +37,18 @@
                   <p class="app-title-small ma-0 text-white">PO Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip>
                   </p>
                   <v-menu
-                    ref="menu"
-                    v-model="menu"
+                    v-model="menu2"
                     :close-on-content-click="false"
-                    :return-value.sync="date"
+                    :nudge-right="40"
                     transition="scale-transition"
                     offset-y
                     min-width="290px"
                   >
                     <template v-slot:activator="{ on }">
                       <v-text-field
-                        v-model="date"
-                        label="Picker in menu"
+                        v-model="computedDateFormattedMomentjs"
+                        :value="computedDateFormattedMomentjs"
+                        label="Picker without buttons"
                         append-icon="mdi-calendar"
                         readonly
                         single-line
@@ -58,15 +58,11 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="date" no-title scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                      <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                    </v-date-picker>
+                    <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
                 <v-col cols="6">
-                  <p class="app-title-small ma-0">PO Date</p>
+                  <p class="app-title-small ma-0">PO Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip></p>
                   <v-text-field
                       label="Supplier ID"
                       placeholder="Eg. Tandoori Chicken"
@@ -95,12 +91,11 @@
               <p class="text-blood ma-0">Delivery</p>
               <v-row>
                 <v-col cols="4">
-                  <p class="app-title-small ma-0">Delivery Date</p>
+                  <p class="app-title-small ma-0">Delivery Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip></p>
                   <v-menu
-                    ref="menu"
                     v-model="menu"
                     :close-on-content-click="false"
-                    :return-value.sync="date"
+                    :nudge-right="40"
                     transition="scale-transition"
                     offset-y
                     min-width="290px"
@@ -108,7 +103,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
-                        label="Picker in menu"
+                        label="Picker without buttons"
                         append-icon="mdi-calendar"
                         readonly
                         single-line
@@ -118,20 +113,15 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="date" no-title scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                      <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                    </v-date-picker>
+                    <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
                   </v-menu>
                 </v-col>
                 <v-col cols="4">
-                  <p class="app-title-small ma-0">Loading Date</p>
+                  <p class="app-title-small ma-0">Loading Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip></p>
                   <v-menu
-                    ref="menu"
-                    v-model="menu"
+                    v-model="menu3"
                     :close-on-content-click="false"
-                    :return-value.sync="date"
+                    :nudge-right="40"
                     transition="scale-transition"
                     offset-y
                     min-width="290px"
@@ -139,7 +129,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
-                        label="Picker in menu"
+                        label="Picker without buttons"
                         append-icon="mdi-calendar"
                         readonly
                         single-line
@@ -149,20 +139,15 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="date" no-title scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                      <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                    </v-date-picker>
+                    <v-date-picker v-model="date" @input="menu3 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
                 <v-col cols="4">
-                  <p class="app-title-small ma-0">Delivery Due Date</p>
+                  <p class="app-title-small ma-0">Delivery Due Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip></p>
                   <v-menu
-                    ref="menu"
-                    v-model="menu"
+                    v-model="menu4"
                     :close-on-content-click="false"
-                    :return-value.sync="date"
+                    :nudge-right="40"
                     transition="scale-transition"
                     offset-y
                     min-width="290px"
@@ -170,7 +155,7 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="date"
-                        label="Picker in menu"
+                        label="Picker without buttons"
                         append-icon="mdi-calendar"
                         readonly
                         single-line
@@ -180,11 +165,7 @@
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="date" no-title scrollable>
-                      <v-spacer></v-spacer>
-                      <v-btn text color="primary" @click="menu = false">Cancel</v-btn>
-                      <v-btn text color="primary" @click="$refs.menu.save(date)">OK</v-btn>
-                    </v-date-picker>
+                    <v-date-picker v-model="date" @input="menu4 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
               </v-row>
@@ -376,6 +357,7 @@
 </template>
 
 <script>
+import * as moment from 'moment'
 export default {
   name: 'product',
   components: {
@@ -383,12 +365,19 @@ export default {
   computed: {
     eatmoreLogo () {
       return require('@/assets/img/NotFound.png')
+    },
+    computedDateFormattedMomentjs () {
+      return this.date ? moment(this.date).format('DD/MM/YYYY') : ''
     }
   },
   data () {
     return {
       date: new Date().toISOString().substr(0, 10),
       menu: false,
+      menu2: false,
+      menu3: false,
+      menu4: false,
+      moment: null,
       itemDy: [0],
       deliveryList: [
         {
