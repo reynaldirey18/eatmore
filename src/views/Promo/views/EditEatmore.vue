@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
-      <h1 class="app-title">Edit Promo</h1>
+      <h1 class="app-title">New Promo</h1>
       <div class="action-add">
         <v-btn color="#3D87F4" text small class="mr-6">Save as Draft</v-btn>
         <v-btn color="#FDB526" dark small width="160px">Publish Promo</v-btn>
