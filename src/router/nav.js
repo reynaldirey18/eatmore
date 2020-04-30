@@ -148,13 +148,16 @@ export const mainMenu = [
     name: 'Employees',
     children: [
       {
-        name: 'Employee Summary'
+        name: 'Employee Summary',
+        to: '/employee/summary'
       },
       {
-        name: 'Employee List'
+        name: 'Employee List',
+        to: '/employee/list'
       },
       {
-        name: 'Division Management'
+        name: 'Division Management',
+        to: '/employee/division-management'
       },
       {
         name: 'Payroll Management'

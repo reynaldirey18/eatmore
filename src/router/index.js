@@ -6,6 +6,7 @@ import HomeLayout from '@/layouts/Home'
 
 import PromoPage from '@/views/Promo'
 import CustomerPage from '@/views/Customer'
+import EmployeePage from '@/views/Employee'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,12 @@ const ListPromo = () => import('@/views/Promo/views/ListPromo')
 const DetailPromo = () => import('@/views/Promo/views/DetailPromo')
 const AddPromo = () => import('@/views/Promo/views/AddPromo')
 const EditPromoEatmore = () => import('@/views/Promo/views/EditEatmore')
+
+// Employee
+const EmployeeSummary = () => import('@/views/Employee/views/Summary')
+const EmployeeList = () => import('@/views/Employee/views/List')
+const EmployeeDivManage = () => import('@/views/Employee/views/DivisionManagement')
+const AddEmployee = () => import('@/views/Employee/views/AddEmployee')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -166,6 +173,34 @@ const router = new VueRouter({
               path: 'transaction-history',
               name: 'Transaction History',
               component: CustomerTransactionHistory
+            }
+          ]
+        },
+        {
+          path: '/employee',
+          name: 'Employee',
+          redirect: '/employee/summary',
+          component: EmployeePage,
+          children: [
+            {
+              path: 'summary',
+              name: 'Employee Summary',
+              component: EmployeeSummary
+            },
+            {
+              path: 'list',
+              name: 'Employee List',
+              component: EmployeeList
+            },
+            {
+              path: 'add-employee',
+              name: 'Add New Employee',
+              component: AddEmployee
+            },
+            {
+              path: 'division-management',
+              name: 'Division Management',
+              component: EmployeeDivManage
             }
           ]
         },

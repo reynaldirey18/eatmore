@@ -64,10 +64,17 @@
   }
   .primary--text{
     color: #C5870E !important;
-    ceret-color: #C5870E !important;
+    caret-color: #C5870E !important;
   }
 }
 .v-date-picker-title__date > div {
   position: relative;
-  font-size: 20px;
+  font-size: 34px !important;
+}
+.checkbox {
+  .theme--light.v-label {
+    color: black !important;
+    font-size: 14px !important;
+    margin-top: 3px;
+  }
 }
