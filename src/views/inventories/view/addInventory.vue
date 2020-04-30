@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="10">
+      <v-col cols="10" class="mr-12">
         <h1 class="title">Add Inventory</h1>
       </v-col>
       <v-col cols="auto">
@@ -215,13 +215,13 @@
     <!-- modal -->
     <v-dialog v-model="dialog" persistent max-width="450">
       <v-card class="pa-2">
-        <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">Add Ingredient
+        <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">Add Supplier
           <v-spacer></v-spacer>
           <v-icon class="float-right"
           @click.prevent="dialog = false">mdi-close</v-icon>
         </v-card-title>
         <div>
-          <p class="text-blood-sm">Search inventories</p>
+          <p class="text-blood-sm">Search Supplier</p>
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
@@ -269,7 +269,7 @@
             color="#FDB526" class="text-center mt-3 w-full"
             width="100%"
             dark>
-            <span class="text-capitalize">Add Ingredient</span>
+            <span class="text-capitalize">Add Supplier</span>
           </v-btn>
         </v-card-actions>
       </v-card>

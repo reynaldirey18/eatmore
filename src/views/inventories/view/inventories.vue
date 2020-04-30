@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="6">
+      <v-col cols="6" class="mr-12">
         <h1 class="title">Inventories</h1>
       </v-col>
       <v-col cols="auto" class="text-blue">
@@ -86,7 +86,7 @@
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{desserts.length}} Products
+          Show {{itemsPerPage}} of {{desserts.length}} Inventories
           </div>
           <div>
           <v-pagination

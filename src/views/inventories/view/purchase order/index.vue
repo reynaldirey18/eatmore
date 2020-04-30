@@ -1,26 +1,15 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="6" class="mr-12">
-        <h1 class="title">Supplier</h1>
-      </v-col>
-      <v-col cols="auto" class="text-blue">
-        <p class="pt-2 cursor-pointer">Download Excel Sample Format</p>
-      </v-col>
-      <v-col cols="auto">
-        <v-btn
-          @click.prevent="handleFormSubmit"
-          color="#333333" class="text-center"
-          dark>
-          <span class="text-capitalize">Upload Excel File</span>
-        </v-btn>
+      <v-col cols="10" class="mr-12">
+        <h1 class="title">Purchase Order</h1>
       </v-col>
       <v-col cols="auto">
         <v-btn
           @click.prevent="gotoAdd()"
           color="#FDB526" class="text-center w-full"
           dark>
-          <span class="text-capitalize">Add New Supplier</span>
+          <span class="text-capitalize">Create PO</span>
         </v-btn>
       </v-col>
     </v-row>
@@ -33,7 +22,7 @@
             width="303.27px"
             height="202px"
         />
-        <p class="text-blood">No Supplier In Here</p>
+        <p class="text-blood">No Purchase Order In Here</p>
       </div>
       <div v-if="Supplierlist.length >= 1">
         <v-data-table
@@ -46,22 +35,18 @@
           class="elevation-1"
           @page-count="pageCount = $event"
         >
-          <template v-slot:item.name="{item}">
-              <p class="text-blood mb-0 mt-5">{{item.name}}</p>
-              <p>{{item.number}}</p>
-          </template>
           <template v-slot:item.actions>
-            <div class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">Quick Edit</p></div>
+            <div class="pt-4"><p class="text-blue cursor-pointer"   @click="goToPreview()">View PO</p></div>
           </template>
           <template v-slot:item.other>
-            <v-btn icon @click="goToEdit()">
+            <v-btn icon @click="goToPreview()">
               <v-icon>mdi-dots-horizontal</v-icon>
             </v-btn>
           </template>
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{Supplierlist.length}} Supplier
+          Show {{itemsPerPage}} of {{Supplierlist.length}} Purchase Order
           </div>
           <div>
           <v-pagination
@@ -94,10 +79,12 @@ export default {
       itemsPerPage: 10,
       dropdown_font: null,
       headers: [
-        { text: 'Product Name', value: 'name' },
-        { text: 'Category', value: 'category' },
-        { text: 'Address', value: 'address' },
-        { text: 'email', value: 'email' },
+        { text: 'PO Number', value: 'number' },
+        { text: 'Supplier', value: 'name' },
+        { text: 'PO Date', value: 'date' },
+        { text: 'Delivery Date', value: 'delive' },
+        { text: 'Order Items', value: 'item' },
+        { text: 'Total Cost', value: 'cost' },
         { text: '', value: 'actions', align: 'end', sortable: false },
         { text: '', value: 'other', sortable: false }
       ],
@@ -105,37 +92,42 @@ export default {
         {
           name: 'PT Akur Pratama Yogya group',
           number: 'SL-256-raw',
-          category: 'Meet',
-          address: 'JL. yang memBINGUNGKAN No.1',
-          email: 'akur@gmail.co.id'
+          date: '11/01/2021',
+          delive: '11/01/2021',
+          item: 2,
+          cost: 'Rp 14.000.000'
         },
         {
-          name: 'PT Amelia',
+          name: 'PT Akur Pratama Yogya group',
           number: 'SL-256-raw',
-          category: 'Meet',
-          address: 'JL. bayangkara no 1',
-          email: 'akur@gmail.co.id'
+          date: '11/01/2021',
+          delive: '11/01/2021',
+          item: 2,
+          cost: 'Rp 14.000.000'
         },
         {
-          name: 'PT Amelia',
+          name: 'PT Akur Pratama Yogya group',
           number: 'SL-256-raw',
-          category: 'Meet',
-          address: 'JL. bayangkara no 1',
-          email: 'akur@gmail.co.id'
+          date: '11/01/2021',
+          delive: '11/01/2021',
+          item: 2,
+          cost: 'Rp 14.000.000'
         },
         {
-          name: 'PT Amelia',
+          name: 'PT Akur Pratama Yogya group',
           number: 'SL-256-raw',
-          category: 'Meet',
-          address: 'JL. bayangkara no 1',
-          email: 'akur@gmail.co.id'
+          date: '11/01/2021',
+          delive: '11/01/2021',
+          item: 2,
+          cost: 'Rp 14.000.000'
         },
         {
-          name: 'PT Amelia',
+          name: 'PT Akur Pratama Yogya group',
           number: 'SL-256-raw',
-          category: 'Meet',
-          address: 'JL. bayangkara no 1',
-          email: 'akur@gmail.co.id'
+          date: '11/01/2021',
+          delive: '11/01/2021',
+          item: 2,
+          cost: 'Rp 14.000.000'
         }
       ]
     }
@@ -145,12 +137,12 @@ export default {
   methods: {
     gotoAdd () {
       setTimeout(() => {
-        this.$router.push('/inventories/add-supplier')
+        this.$router.push('/inventories/add-purchase-order')
       }, 1000)
     },
-    goToEdit () {
+    goToPreview () {
       setTimeout(() => {
-        this.$router.push('/inventories/edit-supplier')
+        this.$router.push('/inventories/previewPO')
       }, 1000)
     }
   }

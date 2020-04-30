@@ -86,7 +86,8 @@ export const mainMenu = [
         to: '/inventories/supplier'
       },
       {
-        name: 'Purchase Order (PO)'
+        name: 'Purchase Order (PO)',
+        to: '/inventories/purchase-order'
       },
       {
         name: 'Received Order'
