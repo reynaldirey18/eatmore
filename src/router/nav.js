@@ -155,7 +155,8 @@ export const mainMenu = [
         to: '/employee/list'
       },
       {
-        name: 'Division Management'
+        name: 'Division Management',
+        to: '/employee/division-management'
       },
       {
         name: 'Payroll Management'

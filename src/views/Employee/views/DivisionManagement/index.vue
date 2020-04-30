@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
-      <h1 class="app-title">Employee List</h1>
-      <v-btn color="#FDB526" dark small width="160px">Add New Employee</v-btn>
+      <h1 class="app-title">Division Management</h1>
+      <v-btn color="#FDB526" dark small width="160px">Add New Division</v-btn>
     </div>
     <v-card class="pa-6 mt-6 d-flex" outlined min-height="400px">
-      <div class="not-found d-flex flex-column" v-if="employee.length < 1">
-        <img src="@/assets/img/employee_not_found.png" alt="Employee Not Found">
-        <p class="text-bold">You Don't Have Any Employees</p>
-        <p>Add some employee to make your business grow</p>
+      <div class="not-found d-flex flex-column" v-if="division.length < 1">
+        <img src="@/assets/img/employee_not_found.png" alt="Division Not Found">
+        <p class="text-bold">You Don't Have Any Division</p>
+        <p>Go make some division right now.</p>
       </div>
     </v-card>
   </div>
@@ -18,7 +18,7 @@
 export default {
   data () {
     return {
-      employee: []
+      division: []
     }
   }
 }
