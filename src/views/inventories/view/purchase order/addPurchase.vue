@@ -1,27 +1,23 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="9" class="mr-12">
+
+    <div class="mt-4 d-flex flex-row justify-space-between">
         <h1 class="title">Request Purchase Order</h1>
-      </v-col>
-      <v-col cols="auto">
+      <div class="action-add d-flex flex-row">
         <v-btn
           @click.prevent="gotoAdd()"
           color="#FDB526" class="text-center w-full"
           text>
           <span class="text-capitalize">View PO</span>
         </v-btn>
-      </v-col>
-      <v-col cols="auto">
         <v-btn
           @click.prevent="gotoAdd()"
           color="#FDB526" class="text-center w-full"
           dark>
           <span class="text-capitalize">Create PO</span>
         </v-btn>
-      </v-col>
-    </v-row>
-
+      </div>
+    </div>
     <v-card class="mt-5" style="height:auto;">
       <v-row>
         <v-col cols="12" style="max-height: 52px;">

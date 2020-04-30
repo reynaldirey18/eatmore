@@ -1,29 +1,28 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="6" class="mr-12">
-        <h1 class="title">Inventories</h1>
-      </v-col>
-      <v-col cols="auto" class="text-blue">
-        <p class="pt-2 cursor-pointer">Download Excel Sample Format</p>
-      </v-col>
-      <v-col cols="auto">
+    <div class="mt-4 d-flex flex-row justify-space-between">
+      <h1 class="title">Inventories</h1>
+      <div class="action-add d-flex flex-row">
         <v-btn
           @click.prevent="handleFormSubmit"
-          color="#333333" class="text-center"
+          class="text-center mx-2"
+          text>
+          <span class="text-blue">Download Excel Sample Format</span>
+        </v-btn>
+        <v-btn
+          @click.prevent="handleFormSubmit"
+          color="#333333" class="text-center mx-2"
           dark>
           <span class="text-capitalize">Upload Excel File</span>
         </v-btn>
-      </v-col>
-      <v-col cols="auto">
         <v-btn
           @click.prevent="gotoAdd()"
-          color="#FDB526" class="text-center w-full"
+          color="#FDB526" class="text-center w-full mx-2 "
           dark>
           <span class="text-capitalize">Add New Inventory</span>
         </v-btn>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
 
     <v-card class="mt-5" style="height:auto;">
       <div class="pa-10 text-center center" v-if="desserts.length < 1">

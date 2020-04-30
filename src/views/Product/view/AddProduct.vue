@@ -1,20 +1,24 @@
 <template>
   <div>
-    <h1 class="app-title mb-5">Add New Product
-    <v-btn
-      @click.prevent="handleFormSubmit"
-      color="#FDB526" class="text-center float-right"
-      dark>
-      <span class="text-capitalize">Save Product</span>
-    </v-btn></h1>
+    <div class="mt-4 d-flex flex-row justify-space-between">
+      <h1 class="app-title mb-5">Add New Product</h1>
+      <div class="action-add d-flex flex-row">
+        <v-btn
+          @click.prevent="handleFormSubmit"
+          color="#FDB526" class="text-center float-right"
+          dark>
+          <span class="text-capitalize">Save Product</span>
+        </v-btn>
+      </div>
+    </div>
 
-    <v-card>
-      <v-toolbar class="app-toolbar-menu-2" dense short flat color="white">
-        <v-toolbar-title style="width: 311px" class="app-subtitle app-toolbar-menu-title-2">Photo Product</v-toolbar-title>
-        <v-toolbar-title class="pl-3 app-subtitle">Product Information</v-toolbar-title>
-      </v-toolbar>
+    <v-card class="">
       <v-row class="ml-3">
-        <v-col class="app-menu text-center" cols="auto" >
+        <v-col cols="3" class="app-box-grey"><p class="app-sub pb-0 mb-0">Photo Product</p></v-col>
+        <v-col cols="9" class="app-box"><p class="app-sub pb-0 mb-0">Product Information</p></v-col>
+      </v-row>
+      <v-row class="ml-3">
+        <v-col class="app-menu text-center" cols="3" >
           <app-file-upload
               height="250px"
               @onFileChange="onFileChange"
@@ -31,7 +35,7 @@
           </v-btn>
         </v-col>
         <!-- product Information -->
-        <v-col cols="9" class="">
+        <v-col cols="9" class="pr-7">
           <div>
             <p class="app-title-small ma-0">Product Name</p>
             <v-text-field

@@ -1,18 +1,28 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="10" class="mr-12">
-        <h1 class="title">Edit Inventory</h1>
-      </v-col>
-      <v-col cols="auto">
+    <div class="my-6 d-flex flex-row justify-space-between">
+      <h1 class="title">Edit Inventory</h1>
+      <div class="action-add d-flex flex-row">
         <v-btn
           @click.prevent="handleFormSubmit"
-          color="#FDB526" class="text-center w-full"
-          dark>
-          <span class="text-capitalize">Save Inventory</span>
+          class="text-center mx-2"
+          text>
+          <span class="text-red">Delete</span>
         </v-btn>
-      </v-col>
-    </v-row>
+        <v-btn
+          @click.prevent="handleFormSubmit"
+          color="#333333" class="text-center mx-2"
+          text>
+          <span class="text-blue">Discard Changes</span>
+        </v-btn>
+        <v-btn
+          @click.prevent="gotoAdd()"
+          color="#FDB526" class="text-center w-full mx-2 "
+          >
+          <span class="text-white">Save Changes</span>
+        </v-btn>
+      </div>
+    </div>
 
     <v-card style="min-height: 820px;">
       <v-row class="ml-3">

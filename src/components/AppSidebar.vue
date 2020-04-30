@@ -1,6 +1,6 @@
 <template>
   <v-navigation-drawer
-    v-model="drawer"
+    permanent
     :mini-variant.sync="mini"
     app
   >
@@ -40,7 +40,7 @@
           <v-list-item-title>{{sidebarItem.name}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      <v-subheader class="pl-4 text-center">Main Menu</v-subheader>
+      <v-subheader class="pl-4 text-center" v-if="mini !== true">Main Menu</v-subheader>
       <v-list-group
         v-for="(mainMenuItem, i) in mainMenuData"
         :key="'main menu ' + i"
@@ -75,8 +75,22 @@ export default {
   data () {
     return {
       drawer: null,
-      mini: false
+      mini: false,
+      window: {
+        width: 0,
+        height: 0
+      }
     }
+  },
+  created () {
+    window.addEventListener('resize', this.handleResize)
+    window.addEventListener('resize', this.minisize)
+    this.handleResize()
+    this.minisize()
+  },
+  destroyed () {
+    window.removeEventListener('resize', this.handleResize)
+    window.removeEventListener('resize', this.minisize)
   },
   computed: {
     eatmoreLogo () {
@@ -87,6 +101,24 @@ export default {
     },
     mainMenuData () {
       return mainMenu
+    }
+  },
+  watch: {
+    window (newVal) {
+      console.log(newVal)
+    }
+  },
+  methods: {
+    minisize () {
+      if (this.window.width <= 1270) {
+        this.mini = true
+      } else {
+        this.mini = false
+      }
+    },
+    handleResize () {
+      this.window.width = window.innerWidth
+      this.window.height = window.innerHeight
     }
   }
 }

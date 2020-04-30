@@ -1,18 +1,16 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="10" class="mr-12">
-        <h1 class="title">Add Inventory</h1>
-      </v-col>
-      <v-col cols="auto">
+    <div class="my-6 d-flex flex-row justify-space-between">
+      <h1 class="title">Add Inventory</h1>
+      <div class="action-add d-flex flex-row">
         <v-btn
           @click.prevent="handleFormSubmit"
           color="#FDB526" class="text-center w-full"
           dark>
           <span class="text-capitalize">Save Inventory</span>
         </v-btn>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
 
     <v-card style="min-height: 820px;">
       <v-row class="ml-3">
