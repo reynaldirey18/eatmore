@@ -51,7 +51,6 @@
         hide-default-footer
         class="elevation-1"
         @page-count="pageCount = $event"
-        @click:row="handleClick($event)"
       >
         <template v-slot:item.status="{item}">
           <div>
@@ -62,8 +61,8 @@
             <div class="text-yellow-sm" v-else-if="item.status == 'Waiting Agreement'">{{item.status}}</div>
           </div>
         </template>
-        <template v-slot:item.actions>
-          <div class="pt-4"><p class="text-blue-sm cursor-pointer"  @click="goToEdit()">Edit Promo</p></div>
+        <template v-slot:item.actions="{item}">
+          <div class="pt-4"><p class="text-blue-sm cursor-pointer"  @click="goToEdit(item)">Edit Promo</p></div>
         </template>
         <template v-slot:item.other>
           <!-- <v-btn icon @click="goToEdit()">
@@ -106,7 +105,7 @@ export default {
         { text: 'Promo Period', value: 'period' },
         { text: 'Promo Price', value: 'price' },
         { text: 'Status', align: 'center', value: 'status' },
-        { text: 'Type Promo', align: 'center', value: 'actions', sortable: false },
+        { text: '', align: 'center', value: 'actions', sortable: false },
         { text: '', align: 'center', value: 'other', sortable: false }
       ],
       promo: [
@@ -162,6 +161,11 @@ export default {
     },
     addPromo () {
       this.$router.push('/promo/add-promo')
+    },
+    goToEdit (item) {
+      if (item.type === 'Eatmore') {
+        this.$router.push('/promo/edit-promo-eatmore/' + item.id)
+      }
     }
   }
 }
