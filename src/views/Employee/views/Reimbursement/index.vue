@@ -4,7 +4,7 @@
       <h1 class="app-title">Reimbursement</h1>
       <v-btn color="#FDB526" dark small width="160px" @click="goToAdd">New Reimbursement</v-btn>
     </div>
-    <v-card class="pa-6 mt-6 d-flex flex-column" outlined min-height="650px" v-if="reimbursement.length < 1">
+    <v-card class="pa-6 mt-6 d-flex flex-column" outlined v-if="reimbursement.length < 1">
       <div class="header d-flex">
         <div class="image-reimburse align-self-end ml-6">
           <img src="@/assets/img/reimbursement_illustrate.png" alt="Illustration">
@@ -27,6 +27,10 @@
             <p class="text-orange-sm"><span class="text-36 mr-1">0</span>Records</p>
           </div>
         </div>
+      </div>
+      <div class="not-found d-flex flex-column mt-12 mb-12">
+        <img src="@/assets/img/employee_not_found.png" alt="Reimbursement Not Found">
+        <p class="text-bold mt-4">Seems Like You Don’t Have Any Reimbursement</p>
       </div>
     </v-card>
   </div>
