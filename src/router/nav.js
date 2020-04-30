@@ -163,7 +163,8 @@ export const mainMenu = [
         name: 'Payroll Management'
       },
       {
-        name: 'Reimbursement'
+        name: 'Reimbursement',
+        to: '/employee/reimbursement'
       },
       {
         name: 'Assign Employee Shift'

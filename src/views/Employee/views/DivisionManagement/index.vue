@@ -4,11 +4,52 @@
       <h1 class="app-title">Division Management</h1>
       <v-btn color="#FDB526" dark small width="160px" @click="dialog = true">Add New Division</v-btn>
     </div>
-    <v-card class="pa-6 mt-6 d-flex" outlined min-height="400px">
-      <div class="not-found d-flex flex-column" v-if="division.length < 1">
+    <v-card class="mt-6 d-flex" outlined min-height="400px" v-if="division.length < 1">
+      <div class="not-found d-flex flex-column">
         <img src="@/assets/img/employee_not_found.png" alt="Division Not Found">
         <p class="text-bold">You Don't Have Any Division</p>
         <p>Go make some division right now.</p>
+      </div>
+    </v-card>
+    <v-card class="mt-6" outlined v-else>
+      <div class="table">
+        <v-data-table
+          :headers="headers"
+          :items="division"
+          :page.sync="page"
+          :items-per-page="itemsPerPage"
+          hide-default-footer
+          class="elevation-1"
+          @page-count="pageCount = $event"
+        >
+          <template v-slot:item.name="{item}">
+            <p class="text-blood-sm mt-4">{{item.name}}</p>
+          </template>
+          <template v-slot:item.description="{item}">
+            <p class="app-title-small mt-4">{{item.description}}</p>
+          </template>
+          <template v-slot:item.actions="{item}">
+            <div class="d-flex flex-row justify-end">
+              <v-btn text color="#3D87F4" small @click="goToEdit(item)" class="mr-6">Edit</v-btn>
+              <v-btn text color="#F32626" small>Delete</v-btn>
+            </div>
+          </template>
+        </v-data-table>
+        <div class="d-flex justify-space-between mt-3">
+          <div class="ma-4" v-if="itemsPerPage >= division.length">
+            Show {{division.length}} of {{division.length}} Division
+          </div>
+          <div class="ma-4" v-else>
+            Show {{itemsPerPage}} of {{division.length}} Division
+          </div>
+          <div>
+          <v-pagination
+            v-model="page"
+            color="#FDB526"
+            :length="pageCount">
+          </v-pagination>
+          </div>
+        </div>
       </div>
     </v-card>
     <v-dialog v-model="dialog" persistent max-width="400">
@@ -56,8 +97,32 @@
 export default {
   data () {
     return {
-      division: [],
-      dialog: false
+      dialog: false,
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 10,
+      headers: [
+        { text: 'Division Name', value: 'name', sortable: true, width: '35%' },
+        { text: 'Description', value: 'description' },
+        { text: '', align: 'right', value: 'actions', sortable: false }
+      ],
+      division: [
+        {
+          id: 1,
+          name: 'Manager',
+          description: 'Manage everything'
+        },
+        {
+          id: 2,
+          name: 'Cashier',
+          description: 'Become "Bus" driver'
+        },
+        {
+          id: 3,
+          name: 'Cashier',
+          description: 'Same as above'
+        }
+      ]
     }
   }
 }
@@ -80,5 +145,8 @@ export default {
 }
 .title-modal {
   border-bottom: 1px solid rgb(212, 212, 212);
+}
+.table {
+  width: 100%;
 }
 </style>

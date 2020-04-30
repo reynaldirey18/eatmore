@@ -38,6 +38,8 @@ const EmployeeSummary = () => import('@/views/Employee/views/Summary')
 const EmployeeList = () => import('@/views/Employee/views/List')
 const EmployeeDivManage = () => import('@/views/Employee/views/DivisionManagement')
 const AddEmployee = () => import('@/views/Employee/views/AddEmployee')
+const ReimbursementList = () => import('@/views/Employee/views/Reimbursement')
+const AddReimbursement = () => import('@/views/Employee/views/AddReimbursement')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -201,6 +203,16 @@ const router = new VueRouter({
               path: 'division-management',
               name: 'Division Management',
               component: EmployeeDivManage
+            },
+            {
+              path: 'reimbursement',
+              name: 'Reimbursement',
+              component: ReimbursementList
+            },
+            {
+              path: 'new-reimbursement',
+              name: 'New Reimbursement',
+              component: AddReimbursement
             }
           ]
         },
