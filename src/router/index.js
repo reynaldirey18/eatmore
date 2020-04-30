@@ -61,6 +61,9 @@ const editSupplier = () => import('@/views/inventories/view/Supplier/editSuplier
 const purchaseOrder = () => import('@/views/inventories/view/purchase order')
 const addPurchaseOrder = () => import('@/views/inventories/view/purchase order/addPurchase')
 const previewPurchaseOrder = () => import('@/views/inventories/view/purchase order/preview')
+const revicedOrder = () => import('@/views/inventories/view/recived order')
+const addRevicedOrder = () => import('@/views/inventories/view/recived order/addRecivedOrder')
+const viewRevicedOrder = () => import('@/views/inventories/view/recived order/viewRecivedOrder')
 
 const router = new VueRouter({
   mode: 'history',
@@ -309,6 +312,21 @@ const router = new VueRouter({
               path: 'add-purchase-order',
               name: 'Add Purchase Order',
               component: addPurchaseOrder
+            },
+            {
+              path: 'recived-order',
+              name: 'Recived Order',
+              component: revicedOrder
+            },
+            {
+              path: 'add-recived-order',
+              name: 'Add Recived Order',
+              component: addRevicedOrder
+            },
+            {
+              path: 'view-recived-order',
+              name: 'View Recived Order',
+              component: viewRevicedOrder
             }
           ]
         }

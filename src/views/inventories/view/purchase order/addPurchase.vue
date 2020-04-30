@@ -2,7 +2,7 @@
   <div>
     <v-row>
       <v-col cols="9" class="mr-12">
-        <h1 class="title">Purchase Order</h1>
+        <h1 class="title">Request Purchase Order</h1>
       </v-col>
       <v-col cols="auto">
         <v-btn
