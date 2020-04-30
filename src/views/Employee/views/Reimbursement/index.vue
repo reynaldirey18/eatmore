@@ -2,7 +2,7 @@
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
       <h1 class="app-title">Reimbursement</h1>
-      <v-btn color="#FDB526" dark small width="160px">New Reimbursement</v-btn>
+      <v-btn color="#FDB526" dark small width="160px" @click="goToAdd">New Reimbursement</v-btn>
     </div>
     <v-card class="pa-6 mt-6 d-flex flex-column" outlined>
       <div class="header d-flex">
@@ -123,6 +123,11 @@ export default {
           amount: 'Rp. 500.000'
         }
       ]
+    }
+  },
+  methods: {
+    goToAdd () {
+      this.$router.push('/employee/new-reimbursement')
     }
   }
 }
