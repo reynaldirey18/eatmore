@@ -18,7 +18,7 @@
             <span class="text-blood-sm">Business Logo</span>
             <span class="app-subtitle mt-2">This logo will appear when customer find your restaurant.</span>
             <span class="text-yellow mt-2">Pro tips: Use logo with dimension 1:1</span>
-            <v-btn color="#FAFAFA" width="125" class="mt-4">Primary</v-btn>
+            <v-btn color="#FAFAFA" width="125" class="mt-4">Upload Image</v-btn>
           </div>
         </div>
         <div class="form-input">
