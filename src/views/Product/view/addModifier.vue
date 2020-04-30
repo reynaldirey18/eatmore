@@ -1,31 +1,18 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="6">
-        <h1 class="title">Add New Modifier</h1>
-      </v-col>
-      <v-col cols="auto" class="text-blue">
-        <p class="pt-2 cursor-pointer">Download Excel Sample Format</p>
-      </v-col>
-      <v-col cols="auto">
-        <v-btn
-          @click.prevent="handleFormSubmit"
-          color="#333333" class="text-center"
-          dark>
-          <span class="text-capitalize">Upload Excel File</span>
-        </v-btn>
-      </v-col>
-      <v-col cols="auto">
-        <v-btn
-          @click.prevent="handleFormSubmit"
-          color="#FDB526" class="text-center w-full"
-          dark>
-          <span class="text-capitalize">Add New Product</span>
-        </v-btn>
-      </v-col>
-    </v-row>
 
-    <v-card style="min-height: 820px;">
+    <div class="my-4 d-flex flex-row justify-space-between">
+      <h1 class="title">Add New Modifier</h1>
+      <div class="action-add d-flex flex-row">
+        <v-btn
+          @click.prevent="gotoAdd()"
+          color="#FDB526" class="text-center w-full mx-2 "
+          dark>
+          <span class="text-capitalize">Add New Modifier</span>
+        </v-btn>
+      </div>
+    </div>
+    <v-card style="min-height: 100vh;">
       <v-toolbar class="app-toolbar-menu-2" dense short flat color="white">
         <v-toolbar-title style="width: 311px" class="app-subtitle app-toolbar-menu-title-2">Modifier Image</v-toolbar-title>
         <v-toolbar-title class="pl-3 app-subtitle">Modifiers Information</v-toolbar-title>

@@ -1,24 +1,28 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="8">
-        <h1 class="title">Edit Product</h1>
-      </v-col>
-      <v-col cols="auto" class="text-red">
-        <p class="pt-3 cursor-pointer" @click="deleteDialog = true">Delete Product</p>
-      </v-col>
-      <v-col cols="auto" class="text-blue mt-2">
-        <span class="pt-10 cursor-pointer">Discard Changes</span>
-      </v-col>
-      <v-col cols="auto">
+    <div class="mt-4 mb-5 d-flex flex-row justify-space-between">
+      <h1 class="title">Edit Product</h1>
+      <div class="action-add d-flex flex-row">
         <v-btn
           @click.prevent="handleFormSubmit"
-          color="#FDB526" class="text-center w-full"
+          class="text-center mx-2"
+          text>
+          <span class="text-red">Delete Product</span>
+        </v-btn>
+        <v-btn
+          @click.prevent="handleFormSubmit"
+          color="#333333" class="text-center mx-2"
+          text>
+          <span class="text-blue">Discard Changes</span>
+        </v-btn>
+        <v-btn
+          color="#FDB526" class="text-center w-full mx-2 "
           dark>
           <span class="text-capitalize">Save Changes</span>
         </v-btn>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
+
     <v-card style="min-height: 820px;">
       <v-toolbar class="app-toolbar-menu-2" dense short flat color="white">
         <v-toolbar-title style="width: 311px" class="app-subtitle app-toolbar-menu-title-2">Photo Product</v-toolbar-title>

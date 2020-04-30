@@ -19,7 +19,7 @@
                 :key="i"
                 @click="tabActive = i"
                 style="
-                  width: 299px;
+                  width: 100%;
                   justify-content: flex-start;
                   padding: 30px 00px;
                 "

@@ -1,18 +1,16 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="10" class="mr-12">
+    <div class="mt-4 d-flex flex-row justify-space-between">
         <h1 class="title">View Received Order</h1>
-      </v-col>
-      <v-col cols="auto">
+      <div class="action-add d-flex flex-row">
         <v-btn
           @click.prevent="gotoAdd()"
           color="#FDB526" class="text-center w-full"
           dark>
           <span class="text-capitalize">Print Out</span>
         </v-btn>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
 
     <v-card class="mt-5" style="height:auto;">
       <div class="pa-5">
