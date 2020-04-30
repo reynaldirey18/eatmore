@@ -38,7 +38,7 @@
             dense
             placeholder="Eg. There is error while taking notes"
             filled
-            counter
+            counter="255"
             ></v-textarea>
           </v-form>
         </div>
@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       division: [],
-      dialog: true
+      dialog: false
     }
   }
 }
