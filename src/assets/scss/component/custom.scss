@@ -78,3 +78,24 @@
     margin-top: 3px;
   }
 }
+.width-custom{
+  width: 100px !important;
+}
+.v-data-table-header{
+  background: #FFF8E9;  
+  tr{
+    background: #FFF8E9; 
+    th{
+      background: #FFF8E9; 
+    }
+  }
+}
+.child-header{
+  background: #FFF8E9 !important; 
+}
+
+.text-bold-td {
+  font-size: 14px;
+  line-height: 20px;
+  color: #000000 !important;
+}

@@ -66,6 +66,8 @@ const previewPurchaseOrder = () => import('@/views/inventories/view/purchase ord
 const revicedOrder = () => import('@/views/inventories/view/recived order')
 const addRevicedOrder = () => import('@/views/inventories/view/recived order/addRecivedOrder')
 const viewRevicedOrder = () => import('@/views/inventories/view/recived order/viewRecivedOrder')
+const stockOpname = () => import('@/views/inventories/view/stock opname')
+const addStockOpname = () => import('@/views/inventories/view/stock opname/addStockOpname')
 
 const router = new VueRouter({
   mode: 'history',
@@ -339,6 +341,16 @@ const router = new VueRouter({
               path: 'view-recived-order',
               name: 'View Recived Order',
               component: viewRevicedOrder
+            },
+            {
+              path: 'stock-opname',
+              name: 'Stock Opname',
+              component: stockOpname
+            },
+            {
+              path: 'add-stock-opname',
+              name: 'New Stock Opname',
+              component: addStockOpname
             }
           ]
         }
