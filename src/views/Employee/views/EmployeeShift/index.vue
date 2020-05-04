@@ -25,18 +25,25 @@
         <v-tab-item>
           <shift-list></shift-list>
         </v-tab-item>
+        <v-tab-item>
+          <shift-period></shift-period>
+        </v-tab-item>
       </v-tabs>
     </v-card>
   </div>
 </template>
 
 <script>
-import { ShiftList } from './components'
+import {
+  ShiftList,
+  ShiftPeriod
+} from './components'
 
 export default {
   name: 'AppEmployeeShift',
   components: {
-    ShiftList
+    ShiftList,
+    ShiftPeriod
   },
   data () {
     return {
