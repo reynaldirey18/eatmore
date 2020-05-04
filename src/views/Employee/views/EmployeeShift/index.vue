@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="employee-shift">
     <div class="mt-4 mb-5 d-flex flex-row justify-space-between">
       <h1 class="app-title">Employee Shift</h1>
     </div>
@@ -22,14 +22,22 @@
               </v-list-item-content>
           </v-list-item>
         </v-tab>
+        <v-tab-item>
+          <shift-list></shift-list>
+        </v-tab-item>
       </v-tabs>
     </v-card>
   </div>
 </template>
 
 <script>
+import { ShiftList } from './components'
+
 export default {
-  name: 'Employee Shift',
+  name: 'AppEmployeeShift',
+  components: {
+    ShiftList
+  },
   data () {
     return {
       tabActive: 0,

@@ -78,3 +78,8 @@
     margin-top: 3px;
   }
 }
+.employee-shift {
+  .v-tabs--vertical > .v-window {
+    margin-top: -40px !important;
+  }
+}
