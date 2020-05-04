@@ -161,14 +161,12 @@ export const mainMenu = [
         to: '/employee/division-management'
       },
       {
-        name: 'Payroll Management'
-      },
-      {
         name: 'Reimbursement',
         to: '/employee/reimbursement'
       },
       {
-        name: 'Assign Employee Shift'
+        name: 'Employee Shift',
+        to: '/employee/employee-shift'
       },
       {
         name: 'Loan'
