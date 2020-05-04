@@ -24,7 +24,7 @@
           </div>
         </template>
       </v-data-table>
-      <div class="d-flex justify-space-between mt-3">
+      <div class="d-flex justify-space-between mt-3" v-if="shiftPeriod.length > 0">
         <div class="ma-4" v-if="itemsPerPage >= shiftPeriod.length">
           Show {{shiftPeriod.length}} of {{shiftPeriod.length}} Employee
         </div>
@@ -39,6 +39,10 @@
         </v-pagination>
         </div>
       </div>
+    </div>
+    <div class="not-found d-flex flex-column" v-if="shiftPeriod.length < 1">
+      <img src="@/assets/img/employee_not_found.png" alt="Shift Period Not Found">
+      <p class="text-bold mt-4">You Don’t Have Shift Period, Sorry</p>
     </div>
   </div>
 </template>
@@ -82,3 +86,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.not-found {
+  margin: auto;
+  width: 100%;
+  padding: 80px 0;
+  img {
+    margin: auto;
+    width: 30%;
+  }
+  p {
+    margin: auto;
+    color: black;
+  }
+}
+</style>
