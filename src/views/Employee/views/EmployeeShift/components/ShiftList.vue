@@ -2,7 +2,7 @@
   <div class="shift-list px-4">
     <div class="mt-4 mb-5 d-flex flex-row justify-space-between align-center">
       <h1 class="app-subtitle">Employee Shift</h1>
-      <v-btn color="#FDB526" dark small>Add Shift</v-btn>
+      <v-btn color="#FDB526" dark small @click="dialog = true">Add Shift</v-btn>
     </div>
     <v-text-field
       v-model="search"
@@ -55,6 +55,70 @@
         </div>
       </div>
     </div>
+    <!-- modal -->
+    <v-dialog v-model="dialog" persistent max-width="400">
+      <v-card class="pa-4">
+        <div class="title-modal">
+          <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">
+            Add Shift
+            <v-spacer></v-spacer>
+            <v-icon class="float-right"
+            @click.prevent="dialog = false">mdi-close</v-icon>
+          </v-card-title>
+        </div>
+        <div class="form-input">
+          <p class="label-form">Employee Name</p>
+          <v-form ref="form">
+            <v-text-field
+              v-model="name"
+              placeholder="E.g Steve Rogers"
+              outlined
+              dense
+              filled
+            >
+            </v-text-field>
+          </v-form>
+          <v-row>
+            <v-col cols="6" class="py-0">
+              <p class="label-form">Division</p>
+              <v-form ref="form">
+                <v-text-field
+                  v-model="division"
+                  placeholder="Cashier"
+                  outlined
+                  dense
+                >
+                </v-text-field>
+              </v-form>
+            </v-col>
+            <v-col cols="6" class="py-0">
+              <p class="label-form">Outlet</p>
+              <v-form ref="form">
+                <v-text-field
+                  v-model="outlet"
+                  placeholder="Outlet 1"
+                  outlined
+                  dense
+                >
+                </v-text-field>
+              </v-form>
+            </v-col>
+          </v-row>
+          <p class="label-form">Shift</p>
+          <v-select
+            :items="shiftItem"
+            v-model="selectedShift"
+            outlined
+            dense
+          ></v-select>
+        </div>
+        <v-card-actions class="pa-0">
+          <v-btn block @click="dialog = false" class="pt-0 mt-1" color="#FDB526" dark>
+            Add Shift
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -63,11 +127,14 @@ export default {
   name: 'AppShiftList',
   data () {
     return {
+      dialog: false,
       search: null,
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
       show1: false,
+      selectedShift: [],
+      shiftItem: ['Shift Siang ( 08:00 - 15:00 )'],
       headers: [
         { text: 'Employee Name', value: 'name' },
         { text: 'Division', value: 'division' },
