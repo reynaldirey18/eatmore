@@ -44,6 +44,60 @@
       <img src="@/assets/img/employee_not_found.png" alt="Shift Period Not Found">
       <p class="text-bold mt-4">You Don’t Have Shift Period, Sorry</p>
     </div>
+    <!-- modal -->
+    <v-dialog v-model="dialog" persistent max-width="400">
+      <v-card class="pa-4">
+        <div class="title-modal">
+          <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">
+            Add New Shift Period
+            <v-spacer></v-spacer>
+            <v-icon class="float-right"
+            @click.prevent="dialog = false">mdi-close</v-icon>
+          </v-card-title>
+        </div>
+        <div class="form-input">
+          <p class="label-form">Shift Name</p>
+          <v-form ref="form">
+            <v-text-field
+              v-model="name"
+              placeholder="Eg. Night Shift"
+              outlined
+              dense
+            >
+            </v-text-field>
+          </v-form>
+          <p class="label-form">Shift Period</p>
+          <v-dialog
+            ref="dialog"
+            v-model="startTime.visible"
+            :return-value.sync="startTime.datetime"
+            max-width="400"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="startTime.datetime"
+                outlined
+                dense
+                readonly
+                v-on="on"
+              >
+              <template v-slot:prepend-inner>
+                <div class="icon-input">
+                  <v-icon size="20" color="black">mdi-calendar-month</v-icon>
+                </div>
+              </template>
+              </v-text-field>
+            </template>
+            <v-btn text class="center">Set Period</v-btn>
+          </v-dialog>
+        </div>
+        <v-card-actions class="pa-0">
+          <v-btn block @click="dialog = false" class="pt-0 mt-1" color="#FDB526" dark>
+            Add Period
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -52,6 +106,14 @@ export default {
   name: 'AppShiftPeriod',
   data () {
     return {
+      dialog: false,
+      startTime: {
+        date: null,
+        time: null,
+        datetime: '',
+        showTime: false,
+        visible: false
+      },
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
