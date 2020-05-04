@@ -100,7 +100,8 @@ export const mainMenu = [
         name: 'Request Materials'
       },
       {
-        name: 'Stock Opname'
+        name: 'Stock Opname',
+        to: '/inventories/stock-opname'
       }
     ]
   },

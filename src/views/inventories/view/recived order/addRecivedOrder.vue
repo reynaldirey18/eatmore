@@ -23,7 +23,7 @@
           <div class="px-3">
             <v-row>
               <v-col cols="4">
-                <p class="app-title-small ma-0 text-white">Received Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip>
+                <p class="app-title-small ma-0 ">Received Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip>
                 </p>
                 <v-menu
                   v-model="menu2"
