@@ -23,6 +23,7 @@
       <v-data-table
         :headers="headers"
         :items="shiftList"
+        :search="search"
         :page.sync="page"
         :items-per-page="itemsPerPage"
         hide-default-footer
@@ -62,6 +63,7 @@ export default {
   name: 'AppShiftList',
   data () {
     return {
+      search: null,
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
