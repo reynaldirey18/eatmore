@@ -10,7 +10,6 @@
   font-style: normal;
   font-weight: normal;
   font-size: 12px;
-  line-height: 20px;
 }
 
 </style>

@@ -44,16 +44,19 @@ export const mainMenu = [
       },
       {
         name: 'Add New Product',
-        to: '/products/add'
+        to: '/products/add-product'
       },
       {
-        name: 'Categories'
+        name: 'Categories',
+        to: '/products/categories'
       },
       {
-        name: 'Recipes'
+        name: 'Recipes',
+        to: '/products/recipes'
       },
       {
-        name: 'Modifiers'
+        name: 'Modifiers',
+        to: '/products/modifiers'
       }
     ]
   },
@@ -65,10 +68,12 @@ export const mainMenu = [
         name: 'Stock Forecasting'
       },
       {
-        name: 'Inventories'
+        name: 'Inventories',
+        to: '/inventories'
       },
       {
-        name: 'Categories'
+        name: 'Categories',
+        to: '/inventories/categories-inventory'
       },
       {
         name: 'Stock Adjustment'
@@ -77,13 +82,16 @@ export const mainMenu = [
         name: 'Warehouse'
       },
       {
-        name: 'Supplier'
+        name: 'Supplier',
+        to: '/inventories/supplier'
       },
       {
-        name: 'Purchase Order (PO)'
+        name: 'Purchase Order (PO)',
+        to: '/inventories/purchase-order'
       },
       {
-        name: 'Received Order'
+        name: 'Received Order',
+        to: '/inventories/recived-order'
       },
       {
         name: 'Transfer Inventories'
@@ -99,7 +107,19 @@ export const mainMenu = [
   {
     icon: 'mdi-timetable',
     name: 'Promo',
-    children: []
+    children: [
+      {
+        name: 'New Promo',
+        to: '/promo/list-promo'
+      },
+      {
+        name: 'Edit Promo',
+        to: '/promo/edit-promo'
+      },
+      {
+        name: 'Text'
+      }
+    ]
   },
   {
     icon: 'mdi-account-circle',
@@ -128,19 +148,23 @@ export const mainMenu = [
     name: 'Employees',
     children: [
       {
-        name: 'Employee Summary'
+        name: 'Employee Summary',
+        to: '/employee/summary'
       },
       {
-        name: 'Employee List'
+        name: 'Employee List',
+        to: '/employee/list'
       },
       {
-        name: 'Division Management'
+        name: 'Division Management',
+        to: '/employee/division-management'
       },
       {
         name: 'Payroll Management'
       },
       {
-        name: 'Reimbursement'
+        name: 'Reimbursement',
+        to: '/employee/reimbursement'
       },
       {
         name: 'Assign Employee Shift'

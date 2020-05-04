@@ -34,8 +34,8 @@
 }
 .text-blood-sm{
   font-size: 14px;
-  line-height: 20px;
   font-weight: bold;
+  line-height: 20px;
   color: #000000;
 }
 .text-blood-xs{
@@ -69,13 +69,18 @@
 }
 .text-blue-sm{
   font-size: 12px;
-  line-height: 20px;
+  line-height: 14px;
   color: #3D87F4;
 }
 .text-yellow{
   font-size: 14px;
   line-height: 20px;
   color: #C5870E
+}
+.text-yellow-sm{
+  font-size: 12px;
+  line-height: 14px;
+  color: #FDB526
 }
 .text-grey-light{
   color: #CCCCCC;
@@ -89,4 +94,46 @@
 .title-card{
   font-weight: 500;
   font-size: 22px;
+}
+.text-orange{
+  color: #C5870E;
+  font-size: 14px;
+}
+.text-orange-sm{
+  color: #C5870E;
+  font-size: 12px;
+  line-height: 14px;
+}
+.text-bold-xl{
+  font-weight: 500;
+  font-size: 28px;
+
+  color: #000000;
+}
+.text-bold{
+  font-weight: 500;
+  font-size: 18px;
+  color: #333333;
+}
+.text-grey-16{
+  font-size: 16px;
+  line-height: 20px;
+  color: #333333;
+  opacity: 0.6;
+}
+.text-grey-14{
+  font-size: 14px;
+  line-height: 20px;
+  color: #666666;
+}
+.text-white{
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #FFFFFF;
+}
+.text-36 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 36px;
 }
