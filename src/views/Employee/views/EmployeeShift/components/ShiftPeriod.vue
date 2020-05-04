@@ -68,7 +68,7 @@
           </v-form>
           <p class="label-form">Shift Period</p>
           <v-dialog
-            ref="dialog"
+            ref="dialog2"
             v-model="startTime.visible"
             :return-value.sync="startTime.datetime"
             max-width="400"
@@ -88,7 +88,44 @@
               </template>
               </v-text-field>
             </template>
-            <v-btn text class="center">Set Period</v-btn>
+            <v-card class="pa-4">
+              <div class="title-modal">
+                <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">
+                  Shift Period
+                </v-card-title>
+              </div>
+              <v-tabs
+                color="#FDB526"
+                v-model="tab"
+                :centered="true"
+                :grow="true"
+              >
+                <v-tabs-slider></v-tabs-slider>
+                <v-tab
+                  v-for="(tabItem, i) in tabs"
+                  :key="i"
+                >{{ tabItem }}</v-tab>
+                <v-tab-item>
+                  <v-card flat>
+                    <div class="d-flex">
+                      <v-time-picker v-model="timeFrom" color="#FDB526" format="24hr" class="mt-4 mx-auto"></v-time-picker>
+                    </div>
+                  </v-card>
+                </v-tab-item>
+                <v-tab-item>
+                  <v-card flat>
+                    <div class="d-flex">
+                      <v-time-picker v-model="timeTo" color="#FDB526" format="24hr" class="mt-4 mx-auto"></v-time-picker>
+                    </div>
+                  </v-card>
+                </v-tab-item>
+              </v-tabs>
+              <v-card-actions class="pa-0">
+                <v-btn block @click="$refs.dialog2.save(time)" class="pt-0 mt-4" color="#FDB526" dark>
+                  Set Period
+                </v-btn>
+              </v-card-actions>
+            </v-card>
           </v-dialog>
         </div>
         <v-card-actions class="pa-0">
@@ -106,7 +143,12 @@ export default {
   name: 'AppShiftPeriod',
   data () {
     return {
+      time: null,
+      timeFrom: null,
+      timeTo: null,
       dialog: false,
+      tab: null,
+      tabs: ['From', 'To'],
       startTime: {
         date: null,
         time: null,
@@ -144,6 +186,12 @@ export default {
           division: '08:00 - 15:00'
         }
       ]
+    }
+  },
+  watch: {
+    timeTo (val) {
+      this.time = this.timeFrom + ' - ' + val
+      console.log(this.time)
     }
   }
 }
