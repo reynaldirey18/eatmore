@@ -68,6 +68,9 @@ const addRevicedOrder = () => import('@/views/inventories/view/recived order/add
 const viewRevicedOrder = () => import('@/views/inventories/view/recived order/viewRecivedOrder')
 const stockOpname = () => import('@/views/inventories/view/stock opname')
 const addStockOpname = () => import('@/views/inventories/view/stock opname/addStockOpname')
+const stockadjustment = () => import('@/views/inventories/view/Stock Adjustment')
+const addStockadjustment = () => import('@/views/inventories/view/Stock Adjustment/addSA')
+const comfrimStockadjustment = () => import('@/views/inventories/view/Stock Adjustment/comfrimSA')
 
 const router = new VueRouter({
   mode: 'history',
@@ -293,8 +296,8 @@ const router = new VueRouter({
               component: editInventories
             },
             {
-              path: 'categories-inventory',
-              name: 'Categories',
+              path: 'type-inventories',
+              name: 'Type Inventories',
               component: categoriesInvent
             },
             {
@@ -351,6 +354,21 @@ const router = new VueRouter({
               path: 'add-stock-opname',
               name: 'New Stock Opname',
               component: addStockOpname
+            },
+            {
+              path: 'stock-adjustment',
+              name: 'Stock Adjustment',
+              component: stockadjustment
+            },
+            {
+              path: 'confrim-stock-adjustment',
+              name: 'Confrim Stock Adjustment',
+              component: comfrimStockadjustment
+            },
+            {
+              path: 'add-stock-adjustment',
+              name: 'Add Stock Adjustment',
+              component: addStockadjustment
             }
           ]
         }

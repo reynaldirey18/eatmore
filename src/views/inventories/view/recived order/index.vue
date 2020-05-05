@@ -34,7 +34,7 @@
           @page-count="pageCount = $event"
         >
           <template v-slot:item.actions>
-            <div class="pt-4"><p class="text-blue cursor-pointer"   @click="goToPreview()">View PO</p></div>
+            <div class="pt-4"><p class="text-blue cursor-pointer"   @click="goToPreview()">View Recived Order</p></div>
           </template>
           <template v-slot:item.other>
             <v-btn icon @click="goToPreview()">

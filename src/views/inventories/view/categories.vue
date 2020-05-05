@@ -2,18 +2,18 @@
   <div>
     <v-row>
       <v-col cols="12" class="mr-12">
-        <h1 class="title">Categories</h1>
+        <h1 class="title">Type Inventories</h1>
       </v-col>
     </v-row>
     <v-card class="ml-3">
       <v-row>
-        <v-col cols="3" class="app-box-grey"><p class="app-sub pb-0 mb-0">Create Inventory Category</p></v-col>
-        <v-col cols="9" class="app-box"><p class="app-sub pb-0 mb-0">Inventory Categories</p></v-col>
+        <v-col cols="3" class="app-box-grey"><p class="app-sub pb-0 mb-0">Create Type Inventory</p></v-col>
+        <v-col cols="9" class="app-box"><p class="app-sub pb-0 mb-0">Type Inventories</p></v-col>
       </v-row>
       <v-row>
         <v-col cols="3" class="app-box-grey">
           <div class="mt-3">
-            <p class="app-title-small text-grey-sm ma-0">Category Title</p>
+            <p class="app-title-small text-grey-sm ma-0">Type Inventories Title</p>
             <v-text-field
                 label="Category Title"
                 placeholder="Eg. Fastfood"
@@ -40,7 +40,7 @@
                 height="200px"
             />
             <p class="text-blood"> No Any Categories? Really?</p>
-            <p>Add category to orgenize your product</p>
+            <p>Add Type Inventories to orgenize your product</p>
           </div>
           <div v-if="product.length > 1">
             <!-- new datatable -->
@@ -63,7 +63,7 @@
             </v-data-table>
             <div class="d-flex justify-space-between mt-3">
               <div class="ma-4">
-              Show {{itemsPerPage}} of {{product.length}} Categories
+              Show {{itemsPerPage}} of {{product.length}} Type Inventories
               </div>
               <div>
               <v-pagination
@@ -81,14 +81,14 @@
     <!-- modal edit -->
     <v-dialog v-model="editCategoryD" persistent max-width="450">
       <v-card class="pa-2">
-        <v-card-title class="text-blood app-box  pl-2 pt-1 pr-0 pb-3">Category Edit
+        <v-card-title class="text-blood app-box  pl-2 pt-1 pr-0 pb-3">Type Inventories Edit
           <v-spacer></v-spacer>
           <v-icon class="float-right" color="grey"
           @click.prevent="editCategoryD = false">mdi-close</v-icon>
         </v-card-title>
 
         <div class=" pa-3 pb-0 mb-0">
-          <p class="app-title-small text-grey-sm ma-0">Category Title</p>
+          <p class="app-title-small text-grey-sm ma-0">Type Inventories Title</p>
           <v-text-field
               label="Category Title"
               placeholder="Eg. Fastfood"
@@ -117,7 +117,7 @@
     <!-- modal Delete -->
     <v-dialog v-model="deleteDialog" persistent max-width="450">
       <v-card class="pa-2">
-        <v-card-title class="text-blood pl-2 pt-1 pr-0 pb-3">Delete Category
+        <v-card-title class="text-blood pl-2 pt-1 pr-0 pb-3">Delete Type Inventories
           <v-spacer></v-spacer>
           <v-icon class="float-right" color="grey"
           @click.prevent="deleteDialog = false">mdi-close</v-icon>
@@ -126,7 +126,7 @@
           <v-avatar size="142px" class="mb-4">
             <img src="@/assets/img/delete.png">
           </v-avatar>
-          <p class="text-blood">You Want To Delete This Category?</p>
+          <p class="text-blood">You Want To Delete This Type Inventories?</p>
           <p class="text-grey-sm">Deleting this item will delete the ingredient in it as well</p>
         </div>
         <v-card-actions class="py-0 px-10">
@@ -142,7 +142,7 @@
           </v-btn>
         </v-card-actions>
         <v-card-actions class="py-0 px-10 mt-3 justify-center text-center">
-            <v-btn @click.prevent="deleteDialog = false" text block color="#F32626">Yes! Delete this Category</v-btn>
+            <v-btn @click.prevent="deleteDialog = false" text block color="#F32626">Yes! Delete this Type Inventories</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -171,8 +171,8 @@ export default {
       pageCount: 0,
       itemsPerPage: 10,
       headers: [
-        { text: 'Category Title', value: 'name' },
-        { text: 'Category ID', value: 'categoryId' },
+        { text: 'Type Inventory Title', value: 'name' },
+        { text: 'Type Inventories ID', value: 'categoryId' },
         { text: 'Inventory Count', value: 'count' },
         { text: '', value: 'actions', sortable: false },
         { text: '', value: 'other', sortable: false }

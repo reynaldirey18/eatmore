@@ -30,7 +30,7 @@
             <div>
               <v-row>
                 <v-col cols="6">
-                  <p class="app-title-small ma-0 text-white">PO Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip>
+                  <p class="app-title-small ma-0">PO Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip>
                   </p>
                   <v-menu
                     v-model="menu2"
@@ -58,7 +58,7 @@
                   </v-menu>
                 </v-col>
                 <v-col cols="6">
-                  <p class="app-title-small ma-0">PO Date &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip></p>
+                  <p class="app-title-small ma-0">PO Number &nbsp; <v-chip class="pa-1 cursor-pointer" color="#FDB526" x-small>?</v-chip></p>
                   <v-text-field
                       label="Supplier ID"
                       placeholder="Eg. Tandoori Chicken"
@@ -202,7 +202,7 @@
                       outlined
                   ></v-text-field>
                   </v-col>
-                  <v-col cols="1">
+                  <v-col cols="2">
                     <p class="app-title-small ma-0">Unit/Ratio</p>
                     <v-select
                     dense
