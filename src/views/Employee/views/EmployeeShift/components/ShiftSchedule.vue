@@ -52,7 +52,7 @@
       <p class="ml-2 mt-4">Holiday</p>
     </div>
     <!-- modal -->
-    <v-dialog v-model="dialog" persistent max-width="500">
+    <v-dialog v-model="dialog" persistent max-width="400">
       <v-card class="pa-4">
         <div class="title-modal">
           <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">
@@ -81,17 +81,46 @@
           </v-btn>
         </div>
         <div>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            class="mt-4"
-            placeholder="Search employee here"
-            single-line
-            dense
-            filled
-            outlined
+          <v-autocomplete
+            ref="tagAutocomplete"
+            v-model="selectedEmployee"
+            :items="employee"
+            item-text="name"
+            item-value="name"
+            chips
+            autofocus
+            small-chips
+            deletable-chips
+            full-width
             hide-details
-          ></v-text-field>
+            hide-no-data
+            hide-selected
+            multiple
+            single-line
+            outlined
+            dense
+            flat
+            placeholder="Search employee here"
+            :value="search"
+            :search-input.sync="search"
+            @input="onSearchInput"
+            class="mt-4 mb-8"
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                close
+                label
+                color="#FDECC8"
+                text-color="black"
+                @click="data.select"
+                @click:close="remove(data.item)"
+              >
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+          </v-autocomplete>
           <div class="my-5" style="max-height: 300px; overflow-x:auto">
             <v-data-table
               :headers="headers"
@@ -104,7 +133,7 @@
               @page-count="pageCount = $event"
             >
               <template v-slot:item.other="{item}">
-                <v-checkbox v-model="selectedProducts" :value="item" class="float-right"></v-checkbox>
+                <v-checkbox v-model="selectedEmployee" :value="item" class="float-right"></v-checkbox>
               </template>
             </v-data-table>
           </div>
@@ -225,6 +254,11 @@ export default {
       ]
     }
   },
+  watch: {
+    search (val) {
+      console.log(val)
+    }
+  },
   computed: {
     formatedDateTitle () {
       return moment(this.value).format('MMMM, YYYY')
@@ -248,6 +282,10 @@ export default {
       var prevDate = moment(this.clickedDate).subtract(1, 'days')
       this.clickedDay = moment(prevDate).format('dddd')
       this.clickedDate = moment(prevDate).format('LL')
+    },
+    remove (item) {
+      const index = this.selectedEmployee.indexOf(item.name)
+      if (index >= 0) this.selectedEmployee.splice(index, 1)
     }
   }
 }
