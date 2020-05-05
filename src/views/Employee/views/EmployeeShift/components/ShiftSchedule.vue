@@ -41,8 +41,7 @@
           :event-overlap-threshold="30"
           :show-month-on-first="false"
           :event-color="getEventColor"
-          @change="getEvents"
-          @click:date="dialog = true"
+          @click:date="addShift"
         ></v-calendar>
       </v-sheet>
     </div>
@@ -52,6 +51,86 @@
       <v-icon color="#F32626" size="8px" class="ml-8">mdi-checkbox-blank-circle</v-icon>
       <p class="ml-2 mt-4">Holiday</p>
     </div>
+    <!-- modal -->
+    <v-dialog v-model="dialog" persistent max-width="500">
+      <v-card class="pa-4">
+        <div class="title-modal">
+          <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">
+            Date Schedule Employee
+            <v-spacer></v-spacer>
+            <v-icon class="float-right"
+            @click.prevent="dialog = false">mdi-close</v-icon>
+          </v-card-title>
+        </div>
+        <div class="date-title d-flex flex-row justify-space-between align-center">
+          <v-btn
+            icon
+            @click="$refs.calendar.prev()"
+          >
+            <v-icon color="#3D87F4">mdi-chevron-double-left</v-icon>
+          </v-btn>
+          <div class="date-clicked mt-4">
+            <p class="app-subtitle mb-0">{{ clickedDay }}</p>
+            <p>{{ clickedDate }}</p>
+          </div>
+          <v-btn
+            icon
+            @click="$refs.calendar.next()"
+          >
+            <v-icon color="#3D87F4">mdi-chevron-double-right</v-icon>
+          </v-btn>
+        </div>
+        <div>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            class="mt-4"
+            placeholder="Search employee here"
+            single-line
+            dense
+            filled
+            outlined
+            hide-details
+          ></v-text-field>
+          <div class="my-5" style="max-height: 300px; overflow-x:auto">
+            <v-data-table
+              :headers="headers"
+              :items="employee"
+              :search="search"
+              :items-per-page="itemsPerPage"
+              hide-default-header
+              hide-default-footer
+              class="elevation-1"
+              @page-count="pageCount = $event"
+            >
+              <template v-slot:item.other="{item}">
+                <v-checkbox v-model="selectedProducts" :value="item" class="float-right"></v-checkbox>
+              </template>
+            </v-data-table>
+          </div>
+          <div class="holiday d-flex flex-row justify-space-between align-center px-4">
+            <p class="app-title-small mb-0">Holiday</p>
+            <v-switch v-model="holiday"></v-switch>
+          </div>
+          <div class="select-period">
+            <div class="form-input">
+              <p class="label-form">Select Shift Period</p>
+              <v-select
+                :items="shift"
+                v-model="selectedShift"
+                outlined
+                dense
+              ></v-select>
+            </div>
+          </div>
+        </div>
+        <v-card-actions class="pa-0">
+          <v-btn block @click="dialog = false" class="pt-0 mt-1 mb-2" color="#FDB526" dark>
+            Done
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -62,11 +141,17 @@ export default {
   name: 'AppShiftSchedule',
   data () {
     return {
+      dialog: false,
       value: moment().format('YYYY-MM-DD'),
+      clickedDate: null,
+      clickedDay: null,
+      holiday: false,
       mode: 'stack',
       type: 'month',
       colors: ['#3D87F4', '#F32626'],
       names: ['Working', 'Holiday'],
+      selectedShift: [],
+      shift: ['Shift Siang', 'Shift Malam', 'Shift Libur'],
       events: [
         {
           name: 'Shift Siang',
@@ -92,6 +177,51 @@ export default {
           end: '2020-5-23 18:00',
           color: '#3D87F4'
         }
+      ],
+      search: null,
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 1000,
+      headers: [
+        {
+          text: '',
+          align: 'start',
+          sortable: false,
+          value: 'name'
+        },
+        {
+          text: '',
+          value: 'other',
+          align: 'center',
+          sortable: false
+        }
+      ],
+      selectedEmployee: [],
+      employee: [
+        {
+          id: 1,
+          name: 'Djamal Hamadi'
+        },
+        {
+          id: 2,
+          name: 'Steve Aoki'
+        },
+        {
+          id: 3,
+          name: 'Raja Maharaja'
+        },
+        {
+          id: 4,
+          name: 'Bagus Subagus'
+        },
+        {
+          id: 5,
+          name: 'Kintoki Murakami'
+        },
+        {
+          id: 6,
+          name: 'Conan Edogawa'
+        }
       ]
     }
   },
@@ -101,18 +231,25 @@ export default {
     }
   },
   methods: {
-    prev () {
-      this.$refs.calendar.prev()
-    },
-    next () {
-      this.$refs.calendar.next()
-    },
     getEventColor (event) {
       return event.color
+    },
+    addShift ({ date }) {
+      this.dialog = true
+      this.clickedDay = moment(date).format('dddd')
+      this.clickedDate = moment(date).format('LL')
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.date-title {
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+}
+.holiday {
+  background-color: #F5F5F5;
+  border-radius: 4px;
+}
 </style>
