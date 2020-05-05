@@ -65,7 +65,7 @@
         <div class="date-title d-flex flex-row justify-space-between align-center">
           <v-btn
             icon
-            @click="$refs.calendar.prev()"
+            @click="prev"
           >
             <v-icon color="#3D87F4">mdi-chevron-double-left</v-icon>
           </v-btn>
@@ -75,7 +75,7 @@
           </div>
           <v-btn
             icon
-            @click="$refs.calendar.next()"
+            @click="next"
           >
             <v-icon color="#3D87F4">mdi-chevron-double-right</v-icon>
           </v-btn>
@@ -238,6 +238,16 @@ export default {
       this.dialog = true
       this.clickedDay = moment(date).format('dddd')
       this.clickedDate = moment(date).format('LL')
+    },
+    next () {
+      var nextDate = moment(this.clickedDate).add(24, 'hours')
+      this.clickedDay = moment(nextDate).format('dddd')
+      this.clickedDate = moment(nextDate).format('LL')
+    },
+    prev () {
+      var prevDate = moment(this.clickedDate).subtract(1, 'days')
+      this.clickedDay = moment(prevDate).format('dddd')
+      this.clickedDate = moment(prevDate).format('LL')
     }
   }
 }
