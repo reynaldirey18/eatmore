@@ -83,3 +83,12 @@
     margin-top: -40px !important;
   }
 }
+.v-dialog {
+  overflow-y: scroll !important;
+}
+.v-dialog::-webkit-scrollbar {
+  display: none;
+}
+.v-dialog {
+  -ms-overflow-style: none;
+}

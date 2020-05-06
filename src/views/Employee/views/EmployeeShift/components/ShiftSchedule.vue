@@ -121,7 +121,7 @@
               </v-chip>
             </template>
           </v-autocomplete>
-          <div class="my-5" style="max-height: 300px; overflow-x:auto">
+          <div class="table my-5" style="max-height: 300px; overflow-x:auto">
             <v-data-table
               :headers="headers"
               :items="employee"
@@ -299,5 +299,12 @@ export default {
 .holiday {
   background-color: #F5F5F5;
   border-radius: 4px;
+}
+.table {
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+}
+.table::-webkit-scrollbar {
+  display: none;
 }
 </style>
