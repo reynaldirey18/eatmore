@@ -83,3 +83,7 @@
     margin-top: -40px !important;
   }
 }
+.v-input--is-disabled:not(.v-input--is-readonly){
+  background: rgba(121, 119, 119, 0.137);
+  height: 40px;
+}

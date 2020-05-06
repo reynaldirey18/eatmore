@@ -76,7 +76,7 @@
         >
           <template v-slot:item.actions="{item}">
             <div class="align-center" v-if="item.status == 'Review'">
-              <v-btn color="#FDB526" small dark @click="goToAcc(item)" class="mr-1">Comfrim</v-btn>
+              <v-btn color="#FDB526" small dark @click="goToAcc(item)" class="mr-1">Confirm</v-btn>
             </div>
             <div v-else>
               <v-btn color="#999999" small dark class="mr-1">Confirmed</v-btn>
@@ -166,7 +166,7 @@ export default {
       this.$router.push('/inventories/add-stock-adjustment')
     },
     goToAcc () {
-      this.$router.push('/inventories/confrim-stock-adjustment')
+      this.$router.push('/inventories/Confirm-stock-adjustment')
     }
   }
 }
