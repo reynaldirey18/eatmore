@@ -64,8 +64,7 @@
         </div>
         <div class="range-date form-input">
           <v-row>
-            <v-col cols="12" class="pb-0 pt-0"><p class="label-form">From</p></v-col>
-            <v-col cols="8" class="pb-0 pt-0">
+            <v-col cols="6" class="pb-0 pt-0">
               <v-menu
                 v-model="menu"
                 :close-on-content-click="false"
@@ -76,7 +75,8 @@
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
-                    v-model="date"
+                    v-model="dateFrom"
+                    label="From"
                     readonly
                     outlined
                     dense
@@ -89,47 +89,10 @@
                     </template>
                   </v-text-field>
                 </template>
-                <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
+                <v-date-picker v-model="dateFrom" @input="menu = false"></v-date-picker>
               </v-menu>
             </v-col>
-            <v-col cols="4" class="pb-0 pt-0">
-              <v-menu
-                ref="menu2"
-                v-model="menu2"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                :return-value.sync="time"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="time"
-                    readonly
-                    outlined
-                    dense
-                    v-on="on"
-                  >
-                    <template v-slot:prepend-inner>
-                      <div class="icon-input">
-                        <v-icon size="20" color="#FDB526">mdi-clock-outline</v-icon>
-                      </div>
-                    </template>
-                  </v-text-field>
-                </template>
-                <v-time-picker
-                  v-if="menu2"
-                  v-model="time"
-                  full-width
-                  format="24hr"
-                  @click:minute="$refs.menu2.save(time)"
-                ></v-time-picker>
-              </v-menu>
-            </v-col>
-            <v-col cols="12" class="pb-0 pt-0"><p class="label-form">To</p></v-col>
-            <v-col cols="8" class="pb-0 pt-0">
+            <v-col cols="6" class="pb-0 pt-0">
               <v-menu
                 v-model="menu3"
                 :close-on-content-click="false"
@@ -140,7 +103,8 @@
               >
                 <template v-slot:activator="{ on }">
                   <v-text-field
-                    v-model="date"
+                    v-model="dateTo"
+                    label="To"
                     readonly
                     outlined
                     dense
@@ -153,43 +117,7 @@
                     </template>
                   </v-text-field>
                 </template>
-                <v-date-picker v-model="date" @input="menu3 = false"></v-date-picker>
-              </v-menu>
-            </v-col>
-            <v-col cols="4" class="pb-0 pt-0">
-              <v-menu
-                ref="menu4"
-                v-model="menu4"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                :return-value.sync="time"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-text-field
-                    v-model="time"
-                    readonly
-                    outlined
-                    dense
-                    v-on="on"
-                  >
-                    <template v-slot:prepend-inner>
-                      <div class="icon-input">
-                        <v-icon size="20" color="#FDB526">mdi-clock-outline</v-icon>
-                      </div>
-                    </template>
-                  </v-text-field>
-                </template>
-                <v-time-picker
-                  v-if="menu4"
-                  v-model="time"
-                  full-width
-                  format="24hr"
-                  @click:minute="$refs.menu4.save(time)"
-                ></v-time-picker>
+                <v-date-picker v-model="dateTo" @input="menu3 = false"></v-date-picker>
               </v-menu>
             </v-col>
           </v-row>
@@ -198,7 +126,6 @@
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            class="mt-2"
             placeholder="Search employee here"
             single-line
             dense
@@ -276,10 +203,10 @@ export default {
   data () {
     return {
       dialog: false,
+      dateFrom: null,
+      dateTo: null,
       menu: false,
-      menu2: false,
       menu3: false,
-      menu4: false,
       selectAll: false,
       value: moment().format('YYYY-MM-DD'),
       clickedDate: null,
