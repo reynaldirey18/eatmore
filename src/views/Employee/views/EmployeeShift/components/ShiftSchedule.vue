@@ -81,47 +81,32 @@
           </v-btn>
         </div>
         <div>
-          <v-autocomplete
-            ref="tagAutocomplete"
-            v-model="selectedEmployee"
-            :items="employee"
-            item-text="name"
-            item-value="name"
-            chips
-            autofocus
-            small-chips
-            deletable-chips
-            full-width
-            hide-details
-            hide-no-data
-            hide-selected
-            multiple
-            single-line
-            outlined
-            dense
-            flat
-            placeholder="Search employee here"
-            :value="search"
-            :search-input.sync="search"
-            @input="onSearchInput"
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
             class="mt-4"
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                v-bind="data.attrs"
-                :input-value="data.selected"
-                close
-                label
-                color="#FDECC8"
-                text-color="black"
-                @click="data.select"
-                @click:close="remove(data.item)"
-              >
-                {{ data.item.name }}
-              </v-chip>
-            </template>
-          </v-autocomplete>
-          <div class="d-flex flex-row justify-end">
+            placeholder="Search employee here"
+            single-line
+            dense
+            filled
+            outlined
+            hide-details
+          ></v-text-field>
+          <div class="chips mt-2">
+            <v-chip
+              class="ma-2 mb-1"
+              close
+              color="#FDECC8"
+              text-color="black"
+              label
+              v-for="(item, index) in selectedEmployee"
+              :key="index"
+              @click:close="removeChips(index)"
+            >
+              {{ item.name }}
+            </v-chip>
+          </div>
+          <div class="select-all d-flex flex-row justify-end">
             <v-checkbox
               v-model="selectAll"
               label="Select All"
@@ -308,6 +293,9 @@ export default {
     remove (item) {
       const index = this.selectedEmployee.indexOf(item.name)
       if (index >= 0) this.selectedEmployee.splice(index, 1)
+    },
+    removeChips (val) {
+      if (val >= 0) this.selectedEmployee.splice(val, 1)
     }
   }
 }
@@ -328,5 +316,8 @@ export default {
 }
 .table::-webkit-scrollbar {
   display: none;
+}
+.select-all {
+  margin-bottom: -10px;
 }
 </style>
