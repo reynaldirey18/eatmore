@@ -2,7 +2,7 @@
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between align-center">
       <h1 class="app-title">Holidays</h1>
-      <v-btn color="#FDB526" dark small width="160px" @click="goToAdd">Add Holiday</v-btn>
+      <v-btn color="#FDB526" dark small width="160px" @click="dialog = true">Add Holiday</v-btn>
     </div>
     <v-card class="pa-6 mt-6 d-flex" outlined min-height="400px" v-if="holidays.length < 1">
       <div class="not-found d-flex flex-column">
@@ -46,13 +46,72 @@
         </div>
       </div>
     </v-card>
+    <v-dialog v-model="dialog" persistent max-width="400">
+      <v-card class="pa-4">
+        <div class="title-modal">
+          <v-card-title class="text-blood pl-0 pt-1 pr-0 pb-3">
+            Add Holiday
+            <v-spacer></v-spacer>
+            <v-icon class="float-right"
+            @click.prevent="dialog = false">mdi-close</v-icon>
+          </v-card-title>
+        </div>
+        <div class="form-input">
+          <p class="label-form">Holiday Name</p>
+          <v-form ref="form">
+            <v-text-field
+              v-model="holidayName"
+              placeholder="Eg. New Year"
+              outlined
+              dense
+              filled=""
+            ></v-text-field>
+          </v-form>
+          <p class="label-form">Holiday Date</p>
+          <v-menu
+            v-model="show1"
+            :close-on-content-click="false"
+            :nudge-right="40"
+            transition="scale-transition"
+            offset-y
+            min-width="290px"
+          >
+            <template v-slot:activator="{ on }">
+              <v-text-field
+                v-model="holidayDate"
+                readonly
+                outlined
+                dense
+                filled
+                v-on="on"
+              >
+                <template v-slot:prepend-inner>
+                  <div class="icon-input">
+                    <v-icon size="20" color="black">mdi-calendar-month</v-icon>
+                  </div>
+                </template>
+              </v-text-field>
+            </template>
+            <v-date-picker v-model="holidayDate" @input="show1 = false"></v-date-picker>
+          </v-menu>
+        </div>
+        <v-card-actions class="pa-0">
+          <v-btn block @click="dialog = false" class="pt-0 mt-1 mb-2" color="#FDB526" dark>
+            Done
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import * as moment from 'moment'
+
 export default {
   data () {
     return {
+      dialog: false,
       page: 1,
       pageCount: 0,
       itemsPerPage: 10,
@@ -81,7 +140,14 @@ export default {
           name: 'Good Day',
           date: 'June 9, 2020'
         }
-      ]
+      ],
+      holidayName: null,
+      holidayDate: null
+    }
+  },
+  watch: {
+    holidayDate (val) {
+      this.holidayDate = moment(val).format('LL')
     }
   }
 }
