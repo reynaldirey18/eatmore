@@ -72,11 +72,12 @@ export const mainMenu = [
         to: '/inventories'
       },
       {
-        name: 'Categories',
-        to: '/inventories/categories-inventory'
+        name: 'Type Inventories',
+        to: '/inventories/type-inventories'
       },
       {
-        name: 'Stock Adjustment'
+        name: 'Stock Adjustment',
+        to: '/inventories/stock-adjustment'
       },
       {
         name: 'Warehouse'
