@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-4 d-flex flex-row justify-space-between">
+    <div class="mt-4 d-flex flex-row justify-space-between align-center">
       <h1 class="app-title">Holidays</h1>
       <v-btn color="#FDB526" dark small width="160px" @click="goToAdd">Add Holiday</v-btn>
     </div>
