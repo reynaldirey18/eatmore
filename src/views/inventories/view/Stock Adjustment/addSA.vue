@@ -99,8 +99,8 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="auto">
-                    <div class="pt-7 text-red">
-                      <v-icon  @click.prevent="removeConfigurationRow(index)" medium color="red" class="cursor-pointer">mdi-delete</v-icon>Delete
+                    <div class="pt-7 text-red cursor-pointer"   @click.prevent="removeTopings(index)">
+                      <v-icon medium color="red" class="cursor-pointer">mdi-delete</v-icon>Delete
                     </div>
                 </v-col>
               </v-row>
