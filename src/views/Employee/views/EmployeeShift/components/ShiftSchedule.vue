@@ -104,7 +104,7 @@
             :value="search"
             :search-input.sync="search"
             @input="onSearchInput"
-            class="mt-4 mb-8"
+            class="mt-4"
           >
             <template v-slot:selection="data">
               <v-chip
@@ -121,7 +121,13 @@
               </v-chip>
             </template>
           </v-autocomplete>
-          <div class="table my-5" style="max-height: 300px; overflow-x:auto">
+          <div class="d-flex flex-row justify-end">
+            <v-checkbox
+              v-model="selectAll"
+              label="Select All"
+            ></v-checkbox>
+          </div>
+          <div class="table mb-5" style="max-height: 300px; overflow-x:auto">
             <v-data-table
               :headers="headers"
               :items="employee"
@@ -171,6 +177,7 @@ export default {
   data () {
     return {
       dialog: false,
+      selectAll: false,
       value: moment().format('YYYY-MM-DD'),
       clickedDate: null,
       clickedDay: null,
@@ -255,8 +262,23 @@ export default {
     }
   },
   watch: {
-    search (val) {
-      console.log(val)
+    selectAll (val) {
+      if (val === false && this.selectedEmployee.length === this.employee.length) {
+        this.selectedEmployee = []
+      } else if (val === true) {
+        this.employee.forEach(element => {
+          if (!this.selectedEmployee.includes(element)) {
+            this.selectedEmployee.push(element)
+          }
+        })
+      }
+    },
+    selectedEmployee (val) {
+      if (this.selectedEmployee.length === this.employee.length) {
+        this.selectAll = true
+      } else {
+        this.selectAll = false
+      }
     }
   },
   computed: {
