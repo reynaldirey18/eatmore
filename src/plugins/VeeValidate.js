@@ -15,6 +15,13 @@ extend('email', {
   ...email,
   message: 'Email must be valid'
 })
+extend('password', {
+  params: ['target'],
+  validate (value, { target }) {
+    return value === target
+  },
+  message: 'Password confirmation does not match'
+})
 
 // register component globaly
 Vue.component('ValidationObserver', ValidationObserver)
