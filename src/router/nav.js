@@ -95,7 +95,8 @@ export const mainMenu = [
         to: '/inventories/recived-order'
       },
       {
-        name: 'Transfer Inventories'
+        name: 'Transfer Inventories',
+        to: '/inventories/transfer-inventories'
       },
       {
         name: 'Request Materials'

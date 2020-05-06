@@ -73,6 +73,9 @@ const addStockOpname = () => import('@/views/inventories/view/stock opname/addSt
 const stockadjustment = () => import('@/views/inventories/view/Stock Adjustment')
 const addStockadjustment = () => import('@/views/inventories/view/Stock Adjustment/addSA')
 const comfrimStockadjustment = () => import('@/views/inventories/view/Stock Adjustment/comfrimSA')
+const transfer = () => import('@/views/inventories/view/transfer')
+const addtransfer = () => import('@/views/inventories/view/transfer/addTransfer')
+const viewtransfer = () => import('@/views/inventories/view/transfer/viewTransfer')
 
 const router = new VueRouter({
   mode: 'history',
@@ -373,14 +376,29 @@ const router = new VueRouter({
               component: stockadjustment
             },
             {
-              path: 'confrim-stock-adjustment',
-              name: 'Confrim Stock Adjustment',
+              path: 'Confirm-stock-adjustment',
+              name: 'Confirm Stock Adjustment',
               component: comfrimStockadjustment
             },
             {
               path: 'add-stock-adjustment',
               name: 'Add Stock Adjustment',
               component: addStockadjustment
+            },
+            {
+              path: 'transfer-inventories',
+              name: 'Transfer Inventories',
+              component: transfer
+            },
+            {
+              path: 'add-transfer-inventories',
+              name: 'Add Transfer Inventories',
+              component: addtransfer
+            },
+            {
+              path: 'view-transfer-inventories',
+              name: 'View Transfer Inventories',
+              component: viewtransfer
             }
           ]
         }

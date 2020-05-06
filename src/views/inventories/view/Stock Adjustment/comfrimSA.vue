@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
-        <h1 class="title">Confrim Stock Adjustment</h1>
+        <h1 class="title">Confirm Stock Adjustment</h1>
       <div class="action-add d-flex flex-row">
         <v-btn
           color="#FDB526" class="text-center w-full"
@@ -16,7 +16,7 @@
         <v-btn
           color="#FDB526" class="text-center w-full"
           dark>
-          <span class="text-capitalize">Confrim Adjustment</span>
+          <span class="text-capitalize">Confirm Adjustment</span>
         </v-btn>
       </div>
     </div>
@@ -32,7 +32,7 @@
           <div class="px-3 d-flex flex-row justify-space-between">
             <div class="">
               <p class="pb-0 mb-0" style="font-size: 12px; color: #333333;">Reason</p>
-              <p class="pb-0 mb-0" style="font-size: 24px; text-transform: uppercase; color: #000000;">Demeged</p>
+              <p class="pb-0 mb-0" style="font-size: 24px; color: #000000;">Demage</p>
               <p style="font-size: 12px; color: #333333;">Requested: 16/04/2020 14:30</p>
             </div>
             <div class="">
