@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-import { required, email } from 'vee-validate/dist/rules'
+import { required, email, min } from 'vee-validate/dist/rules'
 
 // custom validator
 extend('secret', {
@@ -14,6 +14,10 @@ extend('required', {
 extend('email', {
   ...email,
   message: 'Email must be valid'
+})
+extend('min', {
+  ...min,
+  message: '{_field_} must be at least 4 characters'
 })
 extend('password', {
   params: ['target'],

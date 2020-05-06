@@ -55,7 +55,7 @@
 
         <p class="label-form">Password</p>
         <v-form ref="form">
-          <ValidationProvider v-slot="{ errors }" name="password" rules="required">
+          <ValidationProvider v-slot="{ errors }" name="Password" rules="required|min:6">
             <v-text-field
               v-model="password"
               :error-messages="errors"
@@ -71,7 +71,7 @@
 
         <p class="label-form">Re-type Password</p>
         <v-form ref="form">
-          <ValidationProvider v-slot="{ errors }" name="confirm" rules="required|password:@password">
+          <ValidationProvider v-slot="{ errors }" name="Re-type password" rules="required|password:@Password">
             <v-text-field
               v-model="reType"
               :error-messages="errors"
