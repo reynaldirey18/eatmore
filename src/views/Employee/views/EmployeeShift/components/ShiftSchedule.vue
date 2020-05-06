@@ -62,29 +62,143 @@
             @click.prevent="dialog = false">mdi-close</v-icon>
           </v-card-title>
         </div>
-        <div class="date-title d-flex flex-row justify-space-between align-center">
-          <v-btn
-            icon
-            @click="prev"
-          >
-            <v-icon color="#3D87F4">mdi-chevron-double-left</v-icon>
-          </v-btn>
-          <div class="date-clicked mt-4">
-            <p class="app-subtitle mb-0">{{ clickedDay }}</p>
-            <p>{{ clickedDate }}</p>
-          </div>
-          <v-btn
-            icon
-            @click="next"
-          >
-            <v-icon color="#3D87F4">mdi-chevron-double-right</v-icon>
-          </v-btn>
+        <div class="range-date form-input">
+          <v-row>
+            <v-col cols="12" class="pb-0 pt-0"><p class="label-form">From</p></v-col>
+            <v-col cols="8" class="pb-0 pt-0">
+              <v-menu
+                v-model="menu"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="date"
+                    readonly
+                    outlined
+                    dense
+                    v-on="on"
+                  >
+                    <template v-slot:prepend-inner>
+                      <div class="icon-input">
+                        <v-icon size="20" color="#FDB526">mdi-calendar-month</v-icon>
+                      </div>
+                    </template>
+                  </v-text-field>
+                </template>
+                <v-date-picker v-model="date" @input="menu = false"></v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col cols="4" class="pb-0 pt-0">
+              <v-menu
+                ref="menu2"
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="time"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="time"
+                    readonly
+                    outlined
+                    dense
+                    v-on="on"
+                  >
+                    <template v-slot:prepend-inner>
+                      <div class="icon-input">
+                        <v-icon size="20" color="#FDB526">mdi-clock-outline</v-icon>
+                      </div>
+                    </template>
+                  </v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="menu2"
+                  v-model="time"
+                  full-width
+                  format="24hr"
+                  @click:minute="$refs.menu2.save(time)"
+                ></v-time-picker>
+              </v-menu>
+            </v-col>
+            <v-col cols="12" class="pb-0 pt-0"><p class="label-form">To</p></v-col>
+            <v-col cols="8" class="pb-0 pt-0">
+              <v-menu
+                v-model="menu3"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="date"
+                    readonly
+                    outlined
+                    dense
+                    v-on="on"
+                  >
+                    <template v-slot:prepend-inner>
+                      <div class="icon-input">
+                        <v-icon size="20" color="#FDB526">mdi-calendar-month</v-icon>
+                      </div>
+                    </template>
+                  </v-text-field>
+                </template>
+                <v-date-picker v-model="date" @input="menu3 = false"></v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col cols="4" class="pb-0 pt-0">
+              <v-menu
+                ref="menu4"
+                v-model="menu4"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                :return-value.sync="time"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="time"
+                    readonly
+                    outlined
+                    dense
+                    v-on="on"
+                  >
+                    <template v-slot:prepend-inner>
+                      <div class="icon-input">
+                        <v-icon size="20" color="#FDB526">mdi-clock-outline</v-icon>
+                      </div>
+                    </template>
+                  </v-text-field>
+                </template>
+                <v-time-picker
+                  v-if="menu4"
+                  v-model="time"
+                  full-width
+                  format="24hr"
+                  @click:minute="$refs.menu4.save(time)"
+                ></v-time-picker>
+              </v-menu>
+            </v-col>
+          </v-row>
         </div>
         <div>
           <v-text-field
             v-model="search"
             append-icon="mdi-magnify"
-            class="mt-4"
+            class="mt-2"
             placeholder="Search employee here"
             single-line
             dense
@@ -162,6 +276,10 @@ export default {
   data () {
     return {
       dialog: false,
+      menu: false,
+      menu2: false,
+      menu3: false,
+      menu4: false,
       selectAll: false,
       value: moment().format('YYYY-MM-DD'),
       clickedDate: null,
@@ -279,20 +397,6 @@ export default {
       this.dialog = true
       this.clickedDay = moment(date).format('dddd')
       this.clickedDate = moment(date).format('LL')
-    },
-    next () {
-      var nextDate = moment(this.clickedDate).add(24, 'hours')
-      this.clickedDay = moment(nextDate).format('dddd')
-      this.clickedDate = moment(nextDate).format('LL')
-    },
-    prev () {
-      var prevDate = moment(this.clickedDate).subtract(1, 'days')
-      this.clickedDay = moment(prevDate).format('dddd')
-      this.clickedDate = moment(prevDate).format('LL')
-    },
-    remove (item) {
-      const index = this.selectedEmployee.indexOf(item.name)
-      if (index >= 0) this.selectedEmployee.splice(index, 1)
     },
     removeChips (val) {
       if (val >= 0) this.selectedEmployee.splice(val, 1)
