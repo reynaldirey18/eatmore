@@ -292,6 +292,9 @@ export default {
     }
   },
   watch: {
+    dateTo (val) {
+      console.log(val)
+    },
     selectAll (val) {
       if (val === false && this.selectedEmployee.length === this.employee.length) {
         this.selectedEmployee = []
@@ -322,8 +325,8 @@ export default {
     },
     addShift ({ date }) {
       this.dialog = true
-      this.clickedDay = moment(date).format('dddd')
-      this.clickedDate = moment(date).format('LL')
+      this.dateFrom = moment(date).format('YYYY-MM-DD')
+      this.dateTo = moment(date).format('YYYY-MM-DD')
     },
     removeChips (val) {
       if (val >= 0) this.selectedEmployee.splice(val, 1)
