@@ -1,26 +1,22 @@
 <template>
   <div>
-    <v-row>
-      <v-col cols="9" class="mr-12">
+    <div class="mt-4 d-flex flex-row justify-space-between">
         <h1 class="title">Add New Supplier</h1>
-      </v-col>
-      <v-col cols="auto">
+      <div class="action-add d-flex flex-row">
         <v-btn
-          @click.prevent="handleFormSubmit"
-          class="text-center"
+          @click.prevent="gotoAdd()"
+          color="#FDB526" class="text-center w-full"
           text>
-          <span class="text-capitalize text-blue">Cancel</span>
+          <span class="text-blue">Cancel</span>
         </v-btn>
-      </v-col>
-      <v-col cols="auto">
         <v-btn
-          @click.prevent="handleFormSubmit"
+          @click.prevent="gotoAdd()"
           color="#FDB526" class="text-center w-full"
           dark>
           <span class="text-capitalize">Add New Suppelier</span>
         </v-btn>
-      </v-col>
-    </v-row>
+      </div>
+    </div>
 
     <v-card style="min-height: 820px;">
       <v-row>

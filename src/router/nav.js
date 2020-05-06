@@ -80,7 +80,8 @@ export const mainMenu = [
         to: '/inventories/stock-adjustment'
       },
       {
-        name: 'Warehouse'
+        name: 'Warehouse',
+        to: '/inventories/warehouse'
       },
       {
         name: 'Supplier',
