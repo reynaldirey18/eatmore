@@ -100,7 +100,8 @@ export const mainMenu = [
         to: '/inventories/transfer-inventories'
       },
       {
-        name: 'Request Materials'
+        name: 'Stock Request',
+        to: '/inventories/stock-request'
       },
       {
         name: 'Stock Opname',

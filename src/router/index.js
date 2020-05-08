@@ -78,6 +78,8 @@ const viewtransfer = () => import('@/views/inventories/view/transfer/viewTransfe
 const warehouse = () => import('@/views/inventories/view/warehouse')
 const addwarehouse = () => import('@/views/inventories/view/warehouse/addWarehouse')
 const editwarehouse = () => import('@/views/inventories/view/warehouse/editWarehouse')
+const stockrequest = () => import('@/views/inventories/view/stock request')
+const addstockrequest = () => import('@/views/inventories/view/stock request/addStockRequest')
 
 const router = new VueRouter({
   mode: 'history',
@@ -411,6 +413,16 @@ const router = new VueRouter({
               path: 'edit-warehouse',
               name: 'Edit Warehouse',
               component: editwarehouse
+            },
+            {
+              path: 'stock-request',
+              name: 'Stock Request',
+              component: stockrequest
+            },
+            {
+              path: 'add-stock-request',
+              name: 'New Stock Request',
+              component: addstockrequest
             }
           ]
         }
