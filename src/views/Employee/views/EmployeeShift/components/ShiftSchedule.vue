@@ -62,66 +62,98 @@
             @click.prevent="dialog = false">mdi-close</v-icon>
           </v-card-title>
         </div>
-        <div class="date-title d-flex flex-row justify-space-between align-center">
-          <v-btn
-            icon
-            @click="prev"
-          >
-            <v-icon color="#3D87F4">mdi-chevron-double-left</v-icon>
-          </v-btn>
-          <div class="date-clicked mt-4">
-            <p class="app-subtitle mb-0">{{ clickedDay }}</p>
-            <p>{{ clickedDate }}</p>
-          </div>
-          <v-btn
-            icon
-            @click="next"
-          >
-            <v-icon color="#3D87F4">mdi-chevron-double-right</v-icon>
-          </v-btn>
+        <div class="range-date form-input">
+          <v-row>
+            <v-col cols="6" class="pb-0 pt-0">
+              <v-menu
+                v-model="menu"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="dateFrom"
+                    label="From"
+                    readonly
+                    outlined
+                    dense
+                    v-on="on"
+                  >
+                    <template v-slot:prepend-inner>
+                      <div class="icon-input">
+                        <v-icon size="20" color="#FDB526">mdi-calendar-month</v-icon>
+                      </div>
+                    </template>
+                  </v-text-field>
+                </template>
+                <v-date-picker v-model="dateFrom" @input="menu = false"></v-date-picker>
+              </v-menu>
+            </v-col>
+            <v-col cols="6" class="pb-0 pt-0">
+              <v-menu
+                v-model="menu3"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    v-model="dateTo"
+                    label="To"
+                    readonly
+                    outlined
+                    dense
+                    v-on="on"
+                  >
+                    <template v-slot:prepend-inner>
+                      <div class="icon-input">
+                        <v-icon size="20" color="#FDB526">mdi-calendar-month</v-icon>
+                      </div>
+                    </template>
+                  </v-text-field>
+                </template>
+                <v-date-picker v-model="dateTo" @input="menu3 = false"></v-date-picker>
+              </v-menu>
+            </v-col>
+          </v-row>
         </div>
         <div>
-          <v-autocomplete
-            ref="tagAutocomplete"
-            v-model="selectedEmployee"
-            :items="employee"
-            item-text="name"
-            item-value="name"
-            chips
-            autofocus
-            small-chips
-            deletable-chips
-            full-width
-            hide-details
-            hide-no-data
-            hide-selected
-            multiple
-            single-line
-            outlined
-            dense
-            flat
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
             placeholder="Search employee here"
-            :value="search"
-            :search-input.sync="search"
-            @input="onSearchInput"
-            class="mt-4 mb-8"
-          >
-            <template v-slot:selection="data">
-              <v-chip
-                v-bind="data.attrs"
-                :input-value="data.selected"
-                close
-                label
-                color="#FDECC8"
-                text-color="black"
-                @click="data.select"
-                @click:close="remove(data.item)"
-              >
-                {{ data.item.name }}
-              </v-chip>
-            </template>
-          </v-autocomplete>
-          <div class="my-5" style="max-height: 300px; overflow-x:auto">
+            single-line
+            dense
+            filled
+            outlined
+            hide-details
+          ></v-text-field>
+          <div class="chips mt-2">
+            <v-chip
+              class="ma-2 mb-1"
+              close
+              color="#FDECC8"
+              text-color="black"
+              label
+              v-for="(item, index) in selectedEmployee"
+              :key="index"
+              @click:close="removeChips(index)"
+            >
+              {{ item.name }}
+            </v-chip>
+          </div>
+          <div class="select-all d-flex flex-row justify-end">
+            <v-checkbox
+              v-model="selectAll"
+              label="Select All"
+            ></v-checkbox>
+          </div>
+          <div class="table mb-5" style="max-height: 300px; overflow-x:auto">
             <v-data-table
               :headers="headers"
               :items="employee"
@@ -171,6 +203,11 @@ export default {
   data () {
     return {
       dialog: false,
+      dateFrom: null,
+      dateTo: null,
+      menu: false,
+      menu3: false,
+      selectAll: false,
       value: moment().format('YYYY-MM-DD'),
       clickedDate: null,
       clickedDay: null,
@@ -255,8 +292,26 @@ export default {
     }
   },
   watch: {
-    search (val) {
+    dateTo (val) {
       console.log(val)
+    },
+    selectAll (val) {
+      if (val === false && this.selectedEmployee.length === this.employee.length) {
+        this.selectedEmployee = []
+      } else if (val === true) {
+        this.employee.forEach(element => {
+          if (!this.selectedEmployee.includes(element)) {
+            this.selectedEmployee.push(element)
+          }
+        })
+      }
+    },
+    selectedEmployee (val) {
+      if (this.selectedEmployee.length === this.employee.length) {
+        this.selectAll = true
+      } else {
+        this.selectAll = false
+      }
     }
   },
   computed: {
@@ -270,22 +325,11 @@ export default {
     },
     addShift ({ date }) {
       this.dialog = true
-      this.clickedDay = moment(date).format('dddd')
-      this.clickedDate = moment(date).format('LL')
+      this.dateFrom = moment(date).format('YYYY-MM-DD')
+      this.dateTo = moment(date).format('YYYY-MM-DD')
     },
-    next () {
-      var nextDate = moment(this.clickedDate).add(24, 'hours')
-      this.clickedDay = moment(nextDate).format('dddd')
-      this.clickedDate = moment(nextDate).format('LL')
-    },
-    prev () {
-      var prevDate = moment(this.clickedDate).subtract(1, 'days')
-      this.clickedDay = moment(prevDate).format('dddd')
-      this.clickedDate = moment(prevDate).format('LL')
-    },
-    remove (item) {
-      const index = this.selectedEmployee.indexOf(item.name)
-      if (index >= 0) this.selectedEmployee.splice(index, 1)
+    removeChips (val) {
+      if (val >= 0) this.selectedEmployee.splice(val, 1)
     }
   }
 }
@@ -299,5 +343,15 @@ export default {
 .holiday {
   background-color: #F5F5F5;
   border-radius: 4px;
+}
+.table {
+  border-top: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
+}
+.table::-webkit-scrollbar {
+  display: none;
+}
+.select-all {
+  margin-bottom: -10px;
 }
 </style>

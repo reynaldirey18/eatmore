@@ -33,7 +33,7 @@
       </v-form>
     </div>
     <p class="text-blue" @click="forgotPass"><u>Forgot password</u></p>
-    <v-btn block color="#FDB526" dark class="button-login">Login</v-btn>
+    <v-btn block color="#FDB526" dark class="button-login" @click="toDashboard">Login</v-btn>
   </div>
 </template>
 
@@ -51,6 +51,14 @@ export default {
     },
     forgotPass () {
       this.$router.push('/forgot-password')
+    },
+    toDashboard () {
+      const token = 'jkj1321jllkj1'
+      this.$store.commit('auth/SET_TOKEN', token)
+      console.log(this.$store.state.token)
+      setTimeout(() => {
+        this.$router.push('/dashboard')
+      }, 20)
     }
   }
 }

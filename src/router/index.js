@@ -36,6 +36,7 @@ const EditPromoEatmore = () => import('@/views/Promo/views/EditEatmore')
 // Employee
 const EmployeeSummary = () => import('@/views/Employee/views/Summary')
 const EmployeeList = () => import('@/views/Employee/views/List')
+const HolidaysList = () => import('@/views/Employee/views/Holiday')
 const EmployeeDivManage = () => import('@/views/Employee/views/DivisionManagement')
 const AddEmployee = () => import('@/views/Employee/views/AddEmployee')
 const ReimbursementList = () => import('@/views/Employee/views/Reimbursement')
@@ -202,6 +203,11 @@ const router = new VueRouter({
               path: 'list',
               name: 'Employee List',
               component: EmployeeList
+            },
+            {
+              path: 'holidays',
+              name: 'Holiday',
+              component: HolidaysList
             },
             {
               path: 'add-employee',

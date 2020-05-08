@@ -159,6 +159,10 @@ export const mainMenu = [
         to: '/employee/list'
       },
       {
+        name: 'Holidays',
+        to: '/employee/holidays'
+      },
+      {
         name: 'Division Management',
         to: '/employee/division-management'
       },

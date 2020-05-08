@@ -83,6 +83,15 @@
     margin-top: -40px !important;
   }
 }
+.v-dialog {
+  overflow-y: scroll !important;
+}
+.v-dialog::-webkit-scrollbar {
+  display: none;
+}
+.v-dialog {
+  -ms-overflow-style: none;
+}
 .v-input--is-disabled:not(.v-input--is-readonly){
   background: rgba(121, 119, 119, 0.137);
   height: 40px;
