@@ -37,7 +37,7 @@
         <!-- product Information -->
         <v-col cols="9" class="information-section">
           <div class="header">
-            <p class="app-subtitle mt-2 ml-2">Product Information</p>
+            <p class="app-subtitle mt-2 ml-2">Modifier Information</p>
           </div>
           <div class="mt-4">
             <p class="app-title-small ma-0">Modifier Name</p>
