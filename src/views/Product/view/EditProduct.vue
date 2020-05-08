@@ -23,19 +23,19 @@
       </div>
     </div>
 
-    <v-card style="min-height: 820px;">
-      <v-toolbar class="app-toolbar-menu-2" dense short flat color="white">
-        <v-toolbar-title style="width: 311px" class="app-subtitle app-toolbar-menu-title-2">Photo Product</v-toolbar-title>
-        <v-toolbar-title class="pl-3 app-subtitle">Product Information</v-toolbar-title>
-      </v-toolbar>
-      <v-row class="ml-3">
-        <v-col class="app-menu text-center" cols="auto" >
+    <v-card class="pl-3 mt-6" id="card" outlined>
+      <v-row>
+        <v-col cols="3" class="photo-section" :style="{ height: heightCard}">
+          <div class="photo">
+            <p class="app-subtitle mt-2 ml-2">Photo Product</p>
+          </div>
           <app-file-upload
-              height="250px"
-              @onFileChange="onFileChange"
-              :value="ProductImage">
+            height="250px"
+            @onFileChange="onFileChange"
+            class="mt-4"
+            :value="ProductImage">
           </app-file-upload>
-          <p class="text-grey-light">Maximum size 3 mb</p>
+          <p class="text-grey-light text-center">Maximum size 3 mb</p>
           <p class="text-regular text-left">Pro tips: Use photo product with high resolution</p>
           <v-btn
             width="100%"
@@ -46,8 +46,11 @@
           </v-btn>
         </v-col>
         <!-- product Information -->
-        <v-col cols="9" class="">
-          <div>
+        <v-col cols="9" class="pr-6 information-section">
+          <div class="header">
+            <p class="app-subtitle mt-2 ml-2">Product Information</p>
+          </div>
+          <div class="mt-4">
             <p class="app-title-small ma-0">Product Name</p>
             <v-text-field
                 label="Product Name"
@@ -391,6 +394,7 @@ export default {
       pageCount: 0,
       itemsPerPage: 1000,
       deleteDialog: false,
+      heightCard: null,
       search: '',
       item: [],
       selected: [],
@@ -451,6 +455,11 @@ export default {
       productDynamic: [0],
       VariantDynamic: [0]
     }
+  },
+  mounted () {
+    var ele = document.getElementById('card')
+    var eleStyle = window.getComputedStyle(ele)
+    this.heightCard = eleStyle.height
   },
   watch: {
     switch1 (newVal) {
@@ -528,5 +537,26 @@ export default {
     width: 48px !important;
     height: 100%;
     border-radius: 5px !important;
+  }
+  .toolbar-title {
+    background-color: #FBFBFB;
+  }
+  .v-card {
+    .photo-section {
+      background-color: #FBFBFB;
+      border-right: 1px solid #F2F2F2;;
+      height: 100vh;
+      .photo {
+        border-bottom: 1px solid #F2F2F2;
+      }
+    }
+    .information-section {
+      .header {
+        border-bottom: 1px solid #F2F2F2;
+      }
+    }
+  }
+  .app-subtitle {
+    font-weight: bold;
   }
 </style>
