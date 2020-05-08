@@ -80,7 +80,8 @@ export const mainMenu = [
         to: '/inventories/stock-adjustment'
       },
       {
-        name: 'Warehouse'
+        name: 'Warehouse',
+        to: '/inventories/warehouse'
       },
       {
         name: 'Supplier',
@@ -99,7 +100,8 @@ export const mainMenu = [
         to: '/inventories/transfer-inventories'
       },
       {
-        name: 'Request Materials'
+        name: 'Stock Request',
+        to: '/inventories/stock-request'
       },
       {
         name: 'Stock Opname',
@@ -203,6 +205,14 @@ export const mainMenu = [
   {
     icon: 'mdi-settings',
     name: 'System',
-    children: []
+    children: [
+      {
+        name: 'Role Management',
+        to: '/systems/role-management'
+      },
+      {
+        name: 'Approval Management'
+      }
+    ]
   }
 ]

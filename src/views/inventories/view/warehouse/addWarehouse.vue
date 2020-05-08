@@ -1,42 +1,48 @@
 <template>
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
-        <h1 class="title">Edit Supplier</h1>
+      <h1 class="title mr-0">Add New Warehouse</h1>
       <div class="action-add d-flex flex-row">
-        <v-btn
-          class="text-center"
-          text>
-          <span class="text-capitalize text-red">Delete</span>
-        </v-btn>
         <v-btn
           @click.prevent="gotoAdd()"
           color="#FDB526" class="text-center w-full"
           text>
-          <span class="text-capitalize text-blue">Discard Changes</span>
+          <span class="text-blue">Cancel</span>
         </v-btn>
         <v-btn
           @click.prevent="gotoAdd()"
           color="#FDB526" class="text-center w-full"
           dark>
-          <span class="text-capitalize">Save Changes</span>
+          <span class="text-capitalize">Save Warehouse</span>
         </v-btn>
       </div>
     </div>
-
-    <v-card style="min-height: 820px;">
+    <v-card class="mt-5" style="height:auto;">
       <v-row>
         <v-col cols="12" style="max-height: 52px;">
           <div class="app-box">
-            <p class="text-bold pl-3">Supplier Information</p>
+            <p class="text-bold pl-3">Warehouse Information</p>
           </div>
         </v-col>
         <v-col cols="12">
           <div class="px-3">
+            <p class="app-title-small ma-0">Warehouse Name</p>
+            <v-text-field
+                placeholder="Eg. Warehouse 1"
+                single-line
+                dense
+                filled
+                outlined
+            ></v-text-field>
+          </div>
+        </v-col>
+        <v-col cols="12">
+          <div class="px-3">
+            <p class="text-bold">Warehouse Information</p>
             <div>
-              <p class="app-title-small ma-0">Supplier Name</p>
+              <p class="app-title-small ma-0">Email Address</p>
               <v-text-field
-                  label="Supplier Name"
-                  placeholder="Eg. Tandoori Chicken"
+                  placeholder="Eg. warehouse@gmail.co.id"
                   single-line
                   dense
                   filled
@@ -46,45 +52,9 @@
             <div>
               <v-row>
                 <v-col cols="6">
-                  <p class="app-title-small ma-0">Supplier Category</p>
-                  <v-select
-                  dense
-                  :items="suplierCatList"
-                  outlined
-                  ></v-select>
-                </v-col>
-                <v-col cols="6">
-                  <p class="app-title-small ma-0">Supplier ID</p>
-                  <v-text-field
-                      label="Supplier ID"
-                      placeholder="Eg. Tandoori Chicken"
-                      single-line
-                      dense
-                      filled
-                      outlined
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-            </div>
-            <div>
-              <p class="text-bold ma-0 pb-1">Supplier Contact</p>
-              <v-row>
-                <v-col cols="12" style="height: 80px">
-                  <p class="app-title-small ma-0">Email Address</p>
-                  <v-text-field
-                      label="Email Address"
-                      placeholder="Eg. udin@gmail.co"
-                      single-line
-                      dense
-                      filled
-                      outlined
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6">
                   <p class="app-title-small ma-0">Phone Number</p>
                   <v-text-field
-                      label="Phone Number"
-                      placeholder="Eg. 022777567"
+                      placeholder="Eg. 0227219987"
                       single-line
                       dense
                       filled
@@ -92,10 +62,9 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="6">
-                  <p class="app-title-small ma-0">Mobile Phone Number</p>
+                  <p class="app-title-small ma-0">Mobail Phone Number</p>
                   <v-text-field
-                      label="Mobile Phone Number"
-                      placeholder="Eg. 08211446899"
+                      placeholder="Eg. 08211687978"
                       single-line
                       dense
                       filled
@@ -105,7 +74,7 @@
               </v-row>
             </div>
             <div>
-              <p class="text-bold ma-0 pb-1">Supplier Address</p>
+              <p class="text-bold ma-0 pb-1">Warehouse Address</p>
               <v-row>
                 <v-col cols="12" style="height: 80px">
                   <p class="app-title-small ma-0">Country</p>
@@ -167,24 +136,3 @@
     </v-card>
   </div>
 </template>
-<script>
-export default {
-  name: 'addSupplier',
-  data () {
-    return {
-      suplierCatList: [
-        {
-          text: 'Meet',
-          value: 1
-        }
-      ],
-      countryList: [
-        {
-          text: 'Indonesia',
-          value: 1
-        }
-      ]
-    }
-  }
-}
-</script>

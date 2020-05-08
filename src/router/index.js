@@ -79,6 +79,15 @@ const comfrimStockadjustment = () => import('@/views/inventories/view/Stock Adju
 const transfer = () => import('@/views/inventories/view/transfer')
 const addtransfer = () => import('@/views/inventories/view/transfer/addTransfer')
 const viewtransfer = () => import('@/views/inventories/view/transfer/viewTransfer')
+const warehouse = () => import('@/views/inventories/view/warehouse')
+const addwarehouse = () => import('@/views/inventories/view/warehouse/addWarehouse')
+const editwarehouse = () => import('@/views/inventories/view/warehouse/editWarehouse')
+const stockrequest = () => import('@/views/inventories/view/stock request')
+const addstockrequest = () => import('@/views/inventories/view/stock request/addStockRequest')
+// system
+const rolePage = () => import('@/views/system')
+const rolemanagement = () => import('@/views/system/view/role management')
+const addrolemanagement = () => import('@/views/system/view/role management/addrolemanagement.vue')
 
 const router = new VueRouter({
   mode: 'history',
@@ -412,6 +421,54 @@ const router = new VueRouter({
               path: 'view-transfer-inventories',
               name: 'View Transfer Inventories',
               component: viewtransfer
+            },
+            {
+              path: 'warehouse',
+              name: 'Warehouse',
+              component: warehouse
+            },
+            {
+              path: 'add-warehouse',
+              name: 'Add Warehouse',
+              component: addwarehouse
+            },
+            {
+              path: 'edit-warehouse',
+              name: 'Edit Warehouse',
+              component: editwarehouse
+            },
+            {
+              path: 'stock-request',
+              name: 'Stock Request',
+              component: stockrequest
+            },
+            {
+              path: 'add-stock-request',
+              name: 'New Stock Request',
+              component: addstockrequest
+            }
+          ]
+        },
+        {
+          path: '/systems',
+          name: 'systems',
+          redirect: '/systems',
+          component: rolePage,
+          children: [
+            {
+              path: '/systems',
+              name: 'Systems',
+              component: rolePage
+            },
+            {
+              path: 'role-management',
+              name: 'Role Management',
+              component: rolemanagement
+            },
+            {
+              path: 'add-role-management',
+              name: 'New Role Management',
+              component: addrolemanagement
             }
           ]
         }
