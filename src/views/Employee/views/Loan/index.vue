@@ -2,7 +2,7 @@
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between align-center">
       <h1 class="app-title">Loan</h1>
-      <v-btn color="#FDB526" dark small width="160px">Add New Loan</v-btn>
+      <v-btn color="#FDB526" dark small width="160px" @click="toAddLoan">Add New Loan</v-btn>
     </div>
     <v-card class="pa-6 mt-6 d-flex" outlined min-height="400px" v-if="loans.length < 1">
       <div class="not-found d-flex flex-column">
@@ -103,6 +103,11 @@ export default {
           approvedBy: 'Finance Admin'
         }
       ]
+    }
+  },
+  methods: {
+    toAddLoan () {
+      this.$router.push('/employee/add-loan')
     }
   }
 }

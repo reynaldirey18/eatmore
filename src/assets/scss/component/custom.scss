@@ -49,24 +49,6 @@
 .theme--light.v-text-field--outlined:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot fieldset {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-// table
-.theme--light.v-data-table thead tr:last-child th{
-  background-color: rgba(253, 181, 38, 0.1);
-}
-.theme--light.v-data-table thead tr th {
-  font-size: 14px;
-  line-height: 20px;
-  color: #C5870E
-}
-.v-application {
-  .elevation-1 {
-    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05) !important;
-  }
-  .primary--text{
-    color: #C5870E !important;
-    caret-color: #C5870E !important;
-  }
-}
 .v-date-picker-title__date > div {
   position: relative;
   font-size: 34px !important;
@@ -95,4 +77,26 @@
 .v-input--is-disabled:not(.v-input--is-readonly){
   background: rgba(121, 119, 119, 0.137);
   height: 40px;
+}
+// table
+.theme--light.v-data-table thead tr:last-child th{
+  background-color: rgba(253, 181, 38, 0.1);
+}
+.theme--light.v-data-table thead tr th {
+  font-size: 14px;
+  line-height: 20px;
+  color: #C5870E
+}
+.v-application {
+  .elevation-1 {
+    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.05) !important;
+  }
+  .primary--text{
+    color: #C5870E !important;
+    caret-color: #C5870E !important;
+  }
+}
+// border div
+.border-bottom {
+  border-bottom: 1px solid #E0E0E0;
 }

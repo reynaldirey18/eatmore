@@ -43,6 +43,7 @@ const ReimbursementList = () => import('@/views/Employee/views/Reimbursement')
 const AddReimbursement = () => import('@/views/Employee/views/AddReimbursement')
 const EmployeeShift = () => import('@/views/Employee/views/EmployeeShift')
 const LoanList = () => import('@/views/Employee/views/Loan')
+const AddLoan = () => import('@/views/Employee/views/AddLoan')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -54,6 +55,7 @@ const recipes = () => import('@/views/Product/view/Recipes')
 const editRecipes = () => import('@/views/Product/view/EditRecipes')
 const modifier = () => import('@/views/Product/view/modifier')
 const addModifier = () => import('@/views/Product/view/addModifier')
+
 // inventories
 const inventoriesPage = () => import('@/views/inventories')
 const inventories = () => import('@/views/inventories/view/inventories')
@@ -239,6 +241,11 @@ const router = new VueRouter({
               path: 'loan',
               name: 'Loan',
               component: LoanList
+            },
+            {
+              path: 'add-loan',
+              name: 'Add New Loan',
+              component: AddLoan
             }
           ]
         },
