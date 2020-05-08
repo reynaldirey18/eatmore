@@ -2,38 +2,43 @@
   <div>
     <h1 class="app-title">Log In</h1>
     <p class="text-blue" @click="setPage"><u>Don't have an account?</u></p>
-    <div class="form-input">
-      <p class="label-form">Username</p>
-      <v-form ref="form">
-        <v-text-field
-          v-model="username"
-          placeholder="Eg. floor1 or floor for cafe & resto"
-          outlined
-          dense
-        >
-          <template v-slot:prepend-inner>
-            <div class="icon-input">
-              <v-icon size="20">mdi-account</v-icon>
-            </div>
-          </template>
-        </v-text-field>
+    <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+      <v-form @submit.prevent="handleSubmit(toDashboard)">
+        <div class="form-input">
+          <p class="label-form">Username</p>
+          <ValidationProvider v-slot="{ errors }" name="Username" rules="">
+            <v-text-field
+              v-model="username"
+              :error-messages="errors"
+              placeholder="Eg. floor1 or floor for cafe & resto"
+              outlined
+              dense
+            >
+              <template v-slot:prepend-inner>
+                <div class="icon-input">
+                  <v-icon size="20">mdi-account</v-icon>
+                </div>
+              </template>
+            </v-text-field>
+          </ValidationProvider>
+          <p class="label-form">Password</p>
+          <ValidationProvider v-slot="{ errors }" name="Password" rules="">
+            <v-text-field
+              v-model="password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show1 ? 'text' : 'password'"
+              :error-messages="errors"
+              name="Password"
+              outlined
+              dense
+              @click:append="show1 = !show1"
+            ></v-text-field>
+          </ValidationProvider>
+        </div>
+        <p class="text-blue" @click="forgotPass"><u>Forgot password</u></p>
+        <v-btn type="submit" block color="#FDB526" dark class="button-login">Login</v-btn>
       </v-form>
-
-      <p class="label-form">Password</p>
-      <v-form ref="form">
-        <v-text-field
-          v-model="password"
-          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show1 ? 'text' : 'password'"
-          name="input-10-1"
-          outlined
-          dense
-          @click:append="show1 = !show1"
-        ></v-text-field>
-      </v-form>
-    </div>
-    <p class="text-blue" @click="forgotPass"><u>Forgot password</u></p>
-    <v-btn block color="#FDB526" dark class="button-login" @click="toDashboard">Login</v-btn>
+    </ValidationObserver>
   </div>
 </template>
 
@@ -44,6 +49,7 @@ export default {
   data () {
     return {
       show1: false,
+      username: null,
       password: null
     }
   },
@@ -56,11 +62,20 @@ export default {
     },
     toDashboard () {
       const token = 'jkj1321jllkj1'
-      this.$store.commit('auth/SET_TOKEN', token)
-      Cookies.set('token', token, { expires: 1 })
-      setTimeout(() => {
-        this.$router.push('/dashboard')
-      }, 20)
+      const email = 'admin1'
+      const pass = 'test123'
+      if (this.username === email && this.password === pass) {
+        this.$store.commit('auth/SET_TOKEN', token)
+        Cookies.set('token', token, { expires: 1 })
+        setTimeout(() => {
+          this.$router.push('/dashboard')
+        }, 20)
+      } else {
+        this.$refs.form.setErrors({
+          Username: ['Invalid username or password'],
+          Password: ['Invalid username or password']
+        })
+      }
     }
   }
 }
