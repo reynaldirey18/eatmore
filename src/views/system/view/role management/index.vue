@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     eatmoreLogo () {
-      return require('@/assets/img/NotFound.png')
+      return require('@/assets/img/employee_not_found.png')
     }
   },
   data () {
