@@ -170,10 +170,10 @@
                 </div>
               </v-card-subtitle>
               <div class="mt-0 pt-0"  v-if="switch1 === false">
-                <v-btn color="#F32626" text>Enabled</v-btn>
+                <v-btn color="#F32626" text>Disabled</v-btn>
               </div>
               <div class="mt-0 pt-0" v-else>
-                <v-btn color="#1DBA81" text>Disabled</v-btn>
+                <v-btn color="#1DBA81" text>Enabled</v-btn>
               </div>
             </v-card>
             <p class="float-right" v-if="switch1 === true" style="color: #1DBA81">*Tracked Product’s stock</p>

@@ -31,10 +31,10 @@
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4" v-if="itemsPerPage >= holidays.length">
-            Show {{holidays.length}} of {{holidays.length}} Employee
+            Show {{holidays.length}} of {{holidays.length}} Holiday
           </div>
           <div class="ma-4" v-else>
-            Show {{itemsPerPage}} of {{holidays.length}} Employee
+            Show {{itemsPerPage}} of {{holidays.length}} Holiday
           </div>
           <div>
           <v-pagination

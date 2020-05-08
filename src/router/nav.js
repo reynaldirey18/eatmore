@@ -175,7 +175,8 @@ export const mainMenu = [
         to: '/employee/employee-shift'
       },
       {
-        name: 'Loan'
+        name: 'Loan',
+        to: '/employee/loan'
       }
     ]
   },

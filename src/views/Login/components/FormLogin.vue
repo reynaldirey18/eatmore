@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   data () {
     return {
@@ -55,7 +57,7 @@ export default {
     toDashboard () {
       const token = 'jkj1321jllkj1'
       this.$store.commit('auth/SET_TOKEN', token)
-      console.log(this.$store.state.token)
+      Cookies.set('token', token, { expires: 1 })
       setTimeout(() => {
         this.$router.push('/dashboard')
       }, 20)
