@@ -446,4 +446,7 @@ export default {
   td {
     width: 200px;
   }
+  .parent-header{
+    background: #fff7e9;
+  }
 </style>

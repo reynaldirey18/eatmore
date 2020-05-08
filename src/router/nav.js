@@ -204,6 +204,14 @@ export const mainMenu = [
   {
     icon: 'mdi-settings',
     name: 'System',
-    children: []
+    children: [
+      {
+        name: 'Role Management',
+        to: '/systems/role-management'
+      },
+      {
+        name: 'Approval Management'
+      }
+    ]
   }
 ]

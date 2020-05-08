@@ -81,6 +81,10 @@ const addwarehouse = () => import('@/views/inventories/view/warehouse/addWarehou
 const editwarehouse = () => import('@/views/inventories/view/warehouse/editWarehouse')
 const stockrequest = () => import('@/views/inventories/view/stock request')
 const addstockrequest = () => import('@/views/inventories/view/stock request/addStockRequest')
+// system
+const rolePage = () => import('@/views/system')
+const rolemanagement = () => import('@/views/system/view/role management')
+const addrolemanagement = () => import('@/views/system/view/role management/addrolemanagement.vue')
 
 const router = new VueRouter({
   mode: 'history',
@@ -429,6 +433,29 @@ const router = new VueRouter({
               path: 'add-stock-request',
               name: 'New Stock Request',
               component: addstockrequest
+            }
+          ]
+        },
+        {
+          path: '/systems',
+          name: 'systems',
+          redirect: '/systems',
+          component: rolePage,
+          children: [
+            {
+              path: '/systems',
+              name: 'Systems',
+              component: rolePage
+            },
+            {
+              path: 'role-management',
+              name: 'Role Management',
+              component: rolemanagement
+            },
+            {
+              path: 'add-role-management',
+              name: 'New Role Management',
+              component: addrolemanagement
             }
           ]
         }
