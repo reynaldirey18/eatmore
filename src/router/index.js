@@ -42,6 +42,7 @@ const AddEmployee = () => import('@/views/Employee/views/AddEmployee')
 const ReimbursementList = () => import('@/views/Employee/views/Reimbursement')
 const AddReimbursement = () => import('@/views/Employee/views/AddReimbursement')
 const EmployeeShift = () => import('@/views/Employee/views/EmployeeShift')
+const LoanList = () => import('@/views/Employee/views/Loan')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -233,6 +234,11 @@ const router = new VueRouter({
               path: 'employee-shift',
               name: 'Employee Shift',
               component: EmployeeShift
+            },
+            {
+              path: 'loan',
+              name: 'Loan',
+              component: LoanList
             }
           ]
         },
