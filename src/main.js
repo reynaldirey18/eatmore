@@ -6,6 +6,8 @@ import vuetify from './plugins/vuetify'
 import './plugins/google-maps'
 import './plugins/VeeValidate'
 import './assets/scss/main.scss' // Styles: SCSS
+import './utils/axios'
+
 Vue.use(require('vue-moment'))
 
 Vue.config.productionTip = false
