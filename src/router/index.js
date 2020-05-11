@@ -47,6 +47,7 @@ const EmployeeShift = () => import('@/views/Employee/views/EmployeeShift')
 const LoanList = () => import('@/views/Employee/views/Loan')
 const AddLoan = () => import('@/views/Employee/views/AddLoan')
 const DisclosureLoan = () => import('@/views/Employee/views/DisclosureLoan')
+const AttendanceLeaves = () => import('@/views/Employee/views/AttendanceLeaves')
 
 // Products
 const ProductPage = () => import('@/views/Product')
@@ -335,6 +336,14 @@ const router = new VueRouter({
               path: 'disclosure',
               name: 'Disclosure',
               component: DisclosureLoan,
+              meta: {
+                requireAuth: true
+              }
+            },
+            {
+              path: 'attendance-leaves',
+              name: 'Attendance - Leaves',
+              component: AttendanceLeaves,
               meta: {
                 requireAuth: true
               }
