@@ -82,8 +82,23 @@
             <p class="ma-auto">Month</p>
           </div>
         </div>
-        <v-btn color="#FDB526" small dark v-if="calculate === true">Calculate Now</v-btn>
+        <v-btn color="#FDB526" small dark v-if="calculate === true" @click="goCalculate">Calculate Now</v-btn>
         <v-btn color="#CCCCCC" small dark v-else>Calculate Now</v-btn>
+        <div class="table mt-6" v-if="calculation">
+          <v-data-table
+            :headers="headers"
+            :items="calculations"
+            hide-default-footer
+            class="elevation-1"
+          >
+            <template v-slot:item.amount="{item}">
+              <p class="text-green-md my-auto">{{ item.amount }}</p>
+            </template>
+            <template v-slot:item.balance="{item}">
+              <p class="text-red-md my-auto">{{ item.balance }}</p>
+            </template>
+          </v-data-table>
+        </div>
       </div>
     </v-card>
   </div>
@@ -100,7 +115,45 @@ export default {
       name: null,
       items: ['Steve Roger', 'Djamal Hamadi', 'Peter Parker', 'Tony Stark'],
       selectedTerm: 1,
-      term: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      term: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      calculation: false,
+      headers: [
+        { text: 'Date', value: 'date', align: 'center', sortable: false },
+        { text: 'Amount to Pay', value: 'amount', align: 'center', sortable: false },
+        { text: 'Balance', value: 'balance', align: 'center', sortable: false }
+      ],
+      calculations: [
+        {
+          id: 1,
+          date: 'Jun 2, 2020',
+          amount: 'Rp. 1.000.000',
+          balance: 'Rp. 4.000.000'
+        },
+        {
+          id: 2,
+          date: 'Jun 2, 2020',
+          amount: 'Rp. 1.000.000',
+          balance: 'Rp. 3.000.000'
+        },
+        {
+          id: 3,
+          date: 'Jun 2, 2020',
+          amount: 'Rp. 1.000.000',
+          balance: 'Rp. 2.000.000'
+        },
+        {
+          id: 4,
+          date: 'Jun 2, 2020',
+          amount: 'Rp. 1.000.000',
+          balance: 'Rp. 1.000.000'
+        },
+        {
+          id: 5,
+          date: 'Jun 2, 2020',
+          amount: 'Rp. 1.000.000',
+          balance: 'Rp. 0'
+        }
+      ]
     }
   },
   computed: {
@@ -110,6 +163,11 @@ export default {
       } else {
         return false
       }
+    }
+  },
+  methods: {
+    goCalculate () {
+      this.calculation = true
     }
   }
 }
