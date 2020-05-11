@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store'
+import Cookies from 'js-cookie'
 
 import CleanLayout from '@/layouts/Clean'
 import HomeLayout from '@/layouts/Home'
@@ -102,7 +104,10 @@ const router = new VueRouter({
         {
           path: '/login',
           name: 'Login',
-          component: LoginPage
+          component: LoginPage,
+          meta: {
+            guest: true
+          }
         },
         {
           path: '/forgot-password',
@@ -112,19 +117,28 @@ const router = new VueRouter({
             {
               path: '/forgot-password',
               name: 'Send Login Link',
-              component: LoginLink
+              component: LoginLink,
+              meta: {
+                guest: true
+              }
             },
             {
               path: '/new-password',
               name: 'New Password',
-              component: NewPassword
+              component: NewPassword,
+              meta: {
+                guest: true
+              }
             }
           ]
         },
         {
           path: '/outlet-registration',
           name: 'Outlet Registration',
-          component: OutletRegistration
+          component: OutletRegistration,
+          meta: {
+            guest: true
+          }
         }
       ]
     },
@@ -137,12 +151,18 @@ const router = new VueRouter({
         {
           path: '/dashboard',
           name: 'Dashboard',
-          component: DashboardPage
+          component: DashboardPage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/restaurant',
           name: 'Restaurant',
-          component: RestaurantPage
+          component: RestaurantPage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/promo',
@@ -153,22 +173,34 @@ const router = new VueRouter({
             {
               path: 'list-promo',
               name: 'List Promo',
-              component: ListPromo
+              component: ListPromo,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'detail-promo/:id',
               name: 'Detail Promo',
-              component: DetailPromo
+              component: DetailPromo,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-promo',
               name: 'Add Promo',
-              component: AddPromo
+              component: AddPromo,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'edit-promo-eatmore/:id',
               name: 'Edit Promo Eatmore',
-              component: EditPromoEatmore
+              component: EditPromoEatmore,
+              meta: {
+                requireAuth: true
+              }
             }
           ]
         },
@@ -181,22 +213,34 @@ const router = new VueRouter({
             {
               path: 'summary',
               name: 'Customer Summary',
-              component: CustomerSummary
+              component: CustomerSummary,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'data',
               name: 'Customer Data',
-              component: CustomerData
+              component: CustomerData,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'loyalty-program',
               name: 'Customer Loyalty Program',
-              component: CustomerLoyalty
+              component: CustomerLoyalty,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'transaction-history',
               name: 'Transaction History',
-              component: CustomerTransactionHistory
+              component: CustomerTransactionHistory,
+              meta: {
+                requireAuth: true
+              }
             }
           ]
         },
@@ -209,59 +253,92 @@ const router = new VueRouter({
             {
               path: 'summary',
               name: 'Employee Summary',
-              component: EmployeeSummary
+              component: EmployeeSummary,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'list',
               name: 'Employee List',
-              component: EmployeeList
+              component: EmployeeList,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'holidays',
               name: 'Holiday',
-              component: HolidaysList
+              component: HolidaysList,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-employee',
               name: 'Add New Employee',
-              component: AddEmployee
+              component: AddEmployee,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'division-management',
               name: 'Division Management',
-              component: EmployeeDivManage
+              component: EmployeeDivManage,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'reimbursement',
               name: 'Reimbursement',
-              component: ReimbursementList
+              component: ReimbursementList,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'new-reimbursement',
               name: 'New Reimbursement',
-              component: AddReimbursement
+              component: AddReimbursement,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'employee-shift',
               name: 'Employee Shift',
-              component: EmployeeShift
+              component: EmployeeShift,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'loan',
               name: 'Loan',
-              component: LoanList
+              component: LoanList,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-loan',
               name: 'Add New Loan',
-              component: AddLoan
+              component: AddLoan,
+              meta: {
+                requireAuth: true
+              }
             }
           ]
         },
         {
           path: '/Report/Sales',
           name: 'Report',
-          component: ReportPage
+          component: ReportPage,
+          meta: {
+            requireAuth: true
+          }
         },
         {
           path: '/products',
@@ -272,42 +349,66 @@ const router = new VueRouter({
             {
               path: 'add-product',
               name: 'Add New Product',
-              component: AddProducts
+              component: AddProducts,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'edit-product',
               name: 'Edit Product',
-              component: EditProducts
+              component: EditProducts,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'categories',
               name: 'Categories',
-              component: categories
+              component: categories,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'recipes',
               name: 'Recipes',
-              component: recipes
+              component: recipes,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'edit-recipes',
               name: 'Edit Recipes',
-              component: editRecipes
+              component: editRecipes,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'modifiers',
               name: 'Modifiers',
-              component: modifier
+              component: modifier,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-modifiers',
               name: 'Add Modifiers',
-              component: addModifier
+              component: addModifier,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: '/products',
               name: 'Products',
-              component: Products
+              component: Products,
+              meta: {
+                requireAuth: true
+              }
             }
           ]
         },
@@ -320,132 +421,210 @@ const router = new VueRouter({
             {
               path: '/inventories',
               name: 'inventories',
-              component: inventories
+              component: inventories,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-inventory',
               name: 'Add Inventory',
-              component: addInventories
+              component: addInventories,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'edit-inventory',
               name: 'Edit Inventory',
-              component: editInventories
+              component: editInventories,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'type-inventories',
               name: 'Type Inventories',
-              component: categoriesInvent
+              component: categoriesInvent,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'supplier',
               name: 'supplier',
-              component: supplier
+              component: supplier,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-supplier',
               name: 'Add Supplier',
-              component: addSupplier
+              component: addSupplier,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'edit-supplier',
               name: 'Edit Supplier',
-              component: editSupplier
+              component: editSupplier,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'purchase-order',
               name: 'Purchase Order(PO)',
-              component: purchaseOrder
+              component: purchaseOrder,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'previewPO',
               name: 'View Purchase Order',
-              component: previewPurchaseOrder
+              component: previewPurchaseOrder,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-purchase-order',
               name: 'Add Purchase Order',
-              component: addPurchaseOrder
+              component: addPurchaseOrder,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'recived-order',
               name: 'Recived Order',
-              component: revicedOrder
+              component: revicedOrder,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-recived-order',
               name: 'Add Recived Order',
-              component: addRevicedOrder
+              component: addRevicedOrder,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'view-recived-order',
               name: 'View Recived Order',
-              component: viewRevicedOrder
+              component: viewRevicedOrder,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'stock-opname',
               name: 'Stock Opname',
-              component: stockOpname
+              component: stockOpname,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-stock-opname',
               name: 'New Stock Opname',
-              component: addStockOpname
+              component: addStockOpname,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'stock-adjustment',
               name: 'Stock Adjustment',
-              component: stockadjustment
+              component: stockadjustment,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'Confirm-stock-adjustment',
               name: 'Confirm Stock Adjustment',
-              component: comfrimStockadjustment
+              component: comfrimStockadjustment,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-stock-adjustment',
               name: 'Add Stock Adjustment',
-              component: addStockadjustment
+              component: addStockadjustment,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'transfer-inventories',
               name: 'Transfer Inventories',
-              component: transfer
+              component: transfer,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-transfer-inventories',
               name: 'Add Transfer Inventories',
-              component: addtransfer
+              component: addtransfer,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'view-transfer-inventories',
               name: 'View Transfer Inventories',
-              component: viewtransfer
+              component: viewtransfer,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'warehouse',
               name: 'Warehouse',
-              component: warehouse
+              component: warehouse,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-warehouse',
               name: 'Add Warehouse',
-              component: addwarehouse
+              component: addwarehouse,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'edit-warehouse',
               name: 'Edit Warehouse',
-              component: editwarehouse
+              component: editwarehouse,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'stock-request',
               name: 'Stock Request',
-              component: stockrequest
+              component: stockrequest,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-stock-request',
               name: 'New Stock Request',
-              component: addstockrequest
+              component: addstockrequest,
+              meta: {
+                requireAuth: true
+              }
             }
           ]
         },
@@ -458,23 +637,42 @@ const router = new VueRouter({
             {
               path: '/systems',
               name: 'Systems',
-              component: rolePage
+              component: rolePage,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'role-management',
               name: 'Role Management',
-              component: rolemanagement
+              component: rolemanagement,
+              meta: {
+                requireAuth: true
+              }
             },
             {
               path: 'add-role-management',
               name: 'New Role Management',
-              component: addrolemanagement
+              component: addrolemanagement,
+              meta: {
+                requireAuth: true
+              }
             }
           ]
         }
       ]
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = Cookies.get('token')
+  if (to.matched.some(record => record.meta.requireAuth) && !loggedIn) {
+    if (store.state.userdata == null) {
+      next('/login')
+    }
+  }
+  next()
 })
 
 export default router
