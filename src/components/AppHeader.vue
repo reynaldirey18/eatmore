@@ -35,7 +35,7 @@
           >
             <v-avatar size="36">
               <img
-                src="https://vignette.wikia.nocookie.net/narutofanon/images/9/9f/Smallnaruto.png/revision/latest?cb=20170816170540"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ9lBZgC2UOiMjOkXo0kuW_UwkOl406Z2W6QmU2vYoKODFWF8CK&usqp=CAU"
                 alt="Naruto"
               >
             </v-avatar>

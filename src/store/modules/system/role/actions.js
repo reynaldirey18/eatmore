@@ -12,7 +12,6 @@ const actions = {
         const res = response.data
         if (res.status) {
           commit('SET_ResData', res.data)
-          console.log(res.data)
         }
       })
   }
