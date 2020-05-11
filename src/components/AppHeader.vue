@@ -25,23 +25,59 @@
         ></v-overflow-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-avatar size="36">
-        <img
-          src="https://vignette.wikia.nocookie.net/narutofanon/images/9/9f/Smallnaruto.png/revision/latest?cb=20170816170540"
-          alt="Naruto"
-        >
-      </v-avatar>
+      <v-menu bottom offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            class="px-0"
+            v-on="on"
+            icon
+            color="#FDB526"
+          >
+            <v-avatar size="36">
+              <img
+                src="https://vignette.wikia.nocookie.net/narutofanon/images/9/9f/Smallnaruto.png/revision/latest?cb=20170816170540"
+                alt="Naruto"
+              >
+            </v-avatar>
+          </v-btn>
+        </template>
+        <v-card>
+          <v-list>
+            <v-list-item
+              v-for="(item, i) in items"
+              :key="i"
+              @click="actionItem(item.to)"
+            >
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-card>
+      </v-menu>
     </v-app-bar>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   name: 'AppHeader',
   data () {
     return {
       account: null,
-      dropdown_font: ['Outlet 1', 'Outlet 2']
+      dropdown_font: ['Outlet 1', 'Outlet 2'],
+      items: [
+        {
+          title: 'Logout',
+          to: ''
+        }
+      ]
+    }
+  },
+  methods: {
+    actionItem () {
+      Cookies.remove('token')
+      this.$router.go()
     }
   }
 }
