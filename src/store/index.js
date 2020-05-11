@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import authModule from './modules/Auth'
 import productModule from './modules/Product'
 import employeeModule from './modules/Employee'
+import roleModule from './modules/system/role'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
   modules: {
     auth: authModule,
     product: productModule,
-    employee: employeeModule
+    employee: employeeModule,
+    role: roleModule
   }
 })

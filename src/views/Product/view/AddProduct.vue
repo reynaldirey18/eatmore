@@ -24,7 +24,7 @@
               @onFileChange="onFileChange"
               :value="ProductImage">
           </app-file-upload>
-          <p class="text-grey-light">Maximum size 3 mb</p>
+          <p class="text-grey-light">Maximum size 3 mb {{ProductImage}}</p>
           <p class="text-regular text-left">Pro tips: Use photo product with high resolution</p>
           <v-btn
             width="100%"

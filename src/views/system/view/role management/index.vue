@@ -13,7 +13,7 @@
     </div>
 
     <v-card class="mt-5" style="height:auto;">
-      <div class="pa-10 text-center center" v-if="roleList.length < 1">
+      <div class="pa-10 text-center center" v-if="resdata.length < 1">
         <v-img
             class="center"
             :src="eatmoreLogo"
@@ -26,7 +26,7 @@
       <div v-if="roleList.length >= 1">
         <v-data-table
           :headers="headers"
-          :items="roleList"
+          :items="resdata"
           :search="search"
           :page.sync="page"
           :items-per-page="itemsPerPage"
@@ -48,7 +48,7 @@
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{roleList.length}} Role Management
+          Show {{itemsPerPage}} of {{resdata.length}} Role Management
           </div>
           <div>
           <v-pagination
@@ -63,7 +63,8 @@
   </div>
 </template>
 
-<script>
+<script>import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('role')
 export default {
   name: 'product',
   components: {
@@ -71,7 +72,10 @@ export default {
   computed: {
     eatmoreLogo () {
       return require('@/assets/img/employee_not_found.png')
-    }
+    },
+    ...mapState([
+      'resdata'
+    ])
   },
   data () {
     return {
@@ -81,8 +85,8 @@ export default {
       itemsPerPage: 10,
       dropdown_font: null,
       headers: [
-        { text: 'Devision Name', value: 'name' },
-        { text: 'Super Admin', align: 'center', value: 'admin' },
+        { text: 'Devision Name', value: 'role_name' },
+        { text: 'Super Admin', align: 'center', value: 'role_super_admin' },
         { text: '', value: 'actions', align: 'end', sortable: false },
         { text: '', value: 'other', align: 'start', sortable: false }
       ],
@@ -103,6 +107,9 @@ export default {
     }
   },
   watch: {
+  },
+  mounted () {
+    this.$store.dispatch('role/getRole')
   },
   methods: {
     gotoAdd () {

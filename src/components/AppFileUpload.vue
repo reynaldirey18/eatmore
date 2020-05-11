@@ -4,7 +4,10 @@
             <slot name="innerDescription">
               <v-icon class="align-self-center">mdi-file-image</v-icon>
             </slot>
-            <div v-if="!noPreview" v-bind="imagePreview"></div>
+            <div v-if="!noPreview" v-bind="imagePreview">
+              <v-icon class="float-right absolute" v-if="imagePreview != null"
+              @click="removeImage()">mdi-close</v-icon>
+            </div>
         </div>
         <p class="text-center" style="width:140px">{{description}}</p>
         <input :multiple="multiple" class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
@@ -37,7 +40,7 @@ export default {
                 position: absolute;
                 background-image: url('${image}');
                 background-color: transparent;
-                background-size: cover;
+                background-size: 100% auto;
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -48,8 +51,11 @@ export default {
     }
   },
   methods: {
+    removeImage () {
+      this.imagePreview = null
+    },
     handleTriggerUpload () {
-      this.$refs.file.click()
+      if (this.imagePreview === null) { this.$refs.file.click() }
     },
     handleFileChange (e) {
       const input = e.target || this.$refs.file
@@ -89,5 +95,16 @@ export default {
   align-items: center;
   cursor: pointer;
   position: relative;
+}
+.cross{
+    position: absolute;
+    color: #fff;
+    z-index: 1;
+    font-size: 2rem;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    margin-top: 10px;
+    padding-right: 10px;
 }
 </style>
