@@ -36,7 +36,13 @@
           </ValidationProvider>
         </div>
         <p class="text-blue" @click="forgotPass"><u>Forgot password</u></p>
-        <v-btn type="submit" block color="#FDB526" dark class="button-login">Login</v-btn>
+        <v-btn
+          type="submit"
+          color="#FDB526"
+          :loading="loading"
+          block
+          dark
+          class="button-login">Login</v-btn>
       </v-form>
     </ValidationObserver>
   </div>
@@ -50,7 +56,8 @@ export default {
     return {
       show1: false,
       username: null,
-      password: null
+      password: null,
+      loading: false
     }
   },
   methods: {
@@ -61,6 +68,7 @@ export default {
       this.$router.push('/forgot-password')
     },
     toDashboard () {
+      this.loading = true
       const token = 'jkj1321jllkj1'
       const email = 'admin1'
       const pass = 'test123'
@@ -75,6 +83,7 @@ export default {
           Username: ['Invalid username or password'],
           Password: ['Invalid username or password']
         })
+        this.loading = false
       }
     }
   }
