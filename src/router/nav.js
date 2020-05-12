@@ -207,7 +207,7 @@ export const mainMenu = [
     ]
   },
   {
-    icon: 'mdi-settings',
+    icon: 'mdi-cog',
     name: 'System',
     children: [
       {
