@@ -114,8 +114,14 @@ export default {
           this.loading = false
         }
       }).catch((error) => {
-        console.log(error.message)
-        this.loading = false
+        if (error.response && error.response.status === 400) {
+          console.log(error.response.data.errors)
+          this.$refs.form.setErrors({
+            Username: ['Invalid username or password'],
+            Password: ['Invalid username or password']
+          })
+          this.loading = false
+        }
       })
     }
   }
