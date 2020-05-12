@@ -26,7 +26,7 @@
           </template>
           <template v-slot:item.actions="{item}">
             <div class="d-flex flex-row align-center justify-end">
-              <v-btn color="#FDB526" small dark class="mr-1" @click="edit(item)">See Disclosure</v-btn>
+              <v-btn color="#FDB526" small dark class="mr-1" @click="seeDisclosure(item)">See Disclosure</v-btn>
               <v-btn icon color="#CCCCCC" @click="goToEdit(item)">
                 <v-icon>mdi-dots-horizontal</v-icon>
               </v-btn>
@@ -108,6 +108,10 @@ export default {
   methods: {
     toAddLoan () {
       this.$router.push('/employee/add-loan')
+    },
+    seeDisclosure (item) {
+      console.log(item)
+      this.$router.push('/employee/disclosure')
     }
   }
 }

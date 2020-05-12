@@ -72,4 +72,7 @@ export default {
   background-color: #E5E5E5 !important;
   min-height: 100vh;
 }
+.meteor-primary {
+  color: #FDB526 !important;
+}
 </style>

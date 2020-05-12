@@ -179,6 +179,10 @@ export const mainMenu = [
       {
         name: 'Loan',
         to: '/employee/loan'
+      },
+      {
+        name: 'Attendance - Leaves',
+        to: '/employee/attendance-leaves'
       }
     ]
   },
