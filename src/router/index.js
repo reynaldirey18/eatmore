@@ -687,9 +687,16 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requireAuth)) {
     if (token === null || token === undefined) {
       next('/login')
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (token === null || token === undefined) {
+      next()
+    } else {
+      next('/dashboard')
     }
   }
-  next()
 })
 
 export default router
