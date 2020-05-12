@@ -17,7 +17,7 @@ extend('email', {
 })
 extend('min', {
   ...min,
-  message: '{_field_} must be at least 4 characters'
+  message: '{_field_} must be at least 6 characters'
 })
 extend('password', {
   params: ['target'],
