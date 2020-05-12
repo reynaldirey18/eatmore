@@ -2,11 +2,11 @@
   <div>
     <h1 class="app-title mt-10">Getting Started</h1>
     <p class="text-blue" @click="setPage"><u>Already have an account?</u></p>
-    <ValidationObserver ref="observer">
-      <div class="form-input">
-        <p class="label-form">Email</p>
-        <ValidationProvider v-slot="{ errors }" name="Email" rules="required|email">
-          <v-form ref="form">
+    <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+      <v-form @submit.prevent="handleSubmit(submitForm)">
+        <div class="form-input">
+          <p class="label-form">Email</p>
+          <ValidationProvider v-slot="{ errors }" name="Email" rules="required|email">
             <v-text-field
               v-model="email"
               :error-messages="errors"
@@ -15,28 +15,24 @@
               dense
             >
             </v-text-field>
-          </v-form>
-        </ValidationProvider>
-        <p class="label-form">Username</p>
-        <v-form ref="form">
-          <ValidationProvider v-slot="{ errors }" name="Username" rules="required">
-            <v-text-field
-              v-model="username"
-              :error-messages="errors"
-              outlined
-              dense
-            >
-              <template v-slot:prepend-inner>
-                <div class="icon-input">
-                  <v-icon size="20">mdi-account</v-icon>
-                </div>
-              </template>
-            </v-text-field>
           </ValidationProvider>
-        </v-form>
+          <p class="label-form">Username</p>
+            <ValidationProvider v-slot="{ errors }" name="Username" rules="required">
+              <v-text-field
+                v-model="username"
+                :error-messages="errors"
+                outlined
+                dense
+              >
+                <template v-slot:prepend-inner>
+                  <div class="icon-input">
+                    <v-icon size="20">mdi-account</v-icon>
+                  </div>
+                </template>
+              </v-text-field>
+            </ValidationProvider>
 
-        <p class="label-form">Phone Number</p>
-        <v-form ref="form">
+          <p class="label-form">Phone Number</p>
           <ValidationProvider v-slot="{ errors }" name="Phone number" rules="required">
             <v-text-field
               v-model="phone"
@@ -51,10 +47,8 @@
               </template>
             </v-text-field>
           </ValidationProvider>
-        </v-form>
 
-        <p class="label-form">Password</p>
-        <v-form ref="form">
+          <p class="label-form">Password</p>
           <ValidationProvider v-slot="{ errors }" name="Password" rules="required|min:6">
             <v-text-field
               v-model="password"
@@ -67,10 +61,8 @@
               @click:append="show1 = !show1"
             ></v-text-field>
           </ValidationProvider>
-        </v-form>
 
-        <p class="label-form">Re-type Password</p>
-        <v-form ref="form">
+          <p class="label-form">Re-type Password</p>
           <ValidationProvider v-slot="{ errors }" name="Re-type password" rules="required|password:@Password">
             <v-text-field
               v-model="reType"
@@ -83,9 +75,9 @@
               @click:append="show2 = !show2"
             ></v-text-field>
           </ValidationProvider>
-        </v-form>
-      </div>
-      <v-btn block color="#FDB526" dark class="button-signup" @click="submit" :loading="loading">Sign Up</v-btn>
+        </div>
+        <v-btn block color="#FDB526" dark class="button-signup" type="submit" :loading="loading">Sign Up</v-btn>
+      </v-form>
     </ValidationObserver>
   </div>
 </template>
@@ -105,7 +97,7 @@ export default {
     }
   },
   methods: {
-    submit () {
+    submitForm () {
       this.loading = true
       var dataRegist = {
         username: this.username,
@@ -114,22 +106,21 @@ export default {
         password: this.password,
         password_confirm: this.reType
       }
-      if (this.$refs.observer.validate()) {
-        this.$store.commit('auth/SET_REGISTRATION', dataRegist)
-        this.$store.dispatch('auth/signUp')
-          .then((response) => {
-            const res = response.data
-            if (res.status) {
-              setTimeout(() => {
-                this.$router.go()
-              }, 1000)
-            } else {
-              console.log(res.errors)
-            }
-          }, (error) => {
-            console.log(error)
-          })
-      }
+      this.$store.commit('auth/SET_REGISTRATION', dataRegist)
+      this.$store.dispatch('auth/signUp')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            setTimeout(() => {
+              this.$router.go()
+            }, 200)
+          } else {
+            this.loading = false
+            console.log(res.errors)
+          }
+        }, error => {
+          console.log(error)
+        })
     },
     setPage () {
       this.$emit('login', true)
