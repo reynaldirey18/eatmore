@@ -3,7 +3,7 @@
     <h1 class="app-title">Log In</h1>
     <p class="text-blue" @click="setPage"><u>Don't have an account?</u></p>
     <ValidationObserver ref="form" v-slot="{ handleSubmit }">
-      <v-form @submit.prevent="handleSubmit(toDashboard)">
+      <v-form @submit.prevent="handleSubmit(login)">
         <div class="form-input">
           <p class="label-form">Username</p>
           <ValidationProvider v-slot="{ errors }" name="Username" rules="">
@@ -50,6 +50,7 @@
 
 <script>
 import Cookies from 'js-cookie'
+import axios from 'axios'
 
 export default {
   data () {
@@ -85,6 +86,37 @@ export default {
         })
         this.loading = false
       }
+    },
+    closeSuccessAndNavigate () {
+      setTimeout(() => {
+        this.$router.push('/dashboard')
+      }, 20)
+    },
+    login () {
+      this.loading = true
+      const data = {
+        username: this.username,
+        password: this.password
+      }
+      axios.post('http://api.eatmore.id/auth_service/login', data).then(response => {
+        const res = response.data
+        console.log('test')
+        if (res.status) {
+          const token = res.data.token
+          this.$store.commit('auth/SET_TOKEN', token)
+          Cookies.set('token', token, { expires: 1 })
+          this.closeSuccessAndNavigate()
+        } else {
+          this.$refs.form.setErrors({
+            Username: ['Invalid username or password'],
+            Password: ['Invalid username or password']
+          })
+          this.loading = false
+        }
+      }).catch((error) => {
+        console.log(error.message)
+        this.loading = false
+      })
     }
   }
 }
