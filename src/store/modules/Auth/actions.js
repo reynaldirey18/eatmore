@@ -14,6 +14,18 @@ const signUp = ({ state }) => {
   })
 }
 
+const logIn = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    axios.post('http://api.eatmore.id/auth_service/login', state.dataLogin)
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 export default {
-  signUp
+  signUp,
+  logIn
 }

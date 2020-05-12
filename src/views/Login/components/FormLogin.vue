@@ -50,7 +50,6 @@
 
 <script>
 import Cookies from 'js-cookie'
-import axios from 'axios'
 
 export default {
   data () {
@@ -68,25 +67,6 @@ export default {
     forgotPass () {
       this.$router.push('/forgot-password')
     },
-    toDashboard () {
-      this.loading = true
-      const token = 'jkj1321jllkj1'
-      const email = 'admin1'
-      const pass = 'test123'
-      if (this.username === email && this.password === pass) {
-        this.$store.commit('auth/SET_TOKEN', token)
-        Cookies.set('token', token, { expires: 1 })
-        setTimeout(() => {
-          this.$router.push('/dashboard')
-        }, 20)
-      } else {
-        this.$refs.form.setErrors({
-          Username: ['Invalid username or password'],
-          Password: ['Invalid username or password']
-        })
-        this.loading = false
-      }
-    },
     closeSuccessAndNavigate () {
       setTimeout(() => {
         this.$router.push('/dashboard')
@@ -98,31 +78,27 @@ export default {
         username: this.username,
         password: this.password
       }
-      axios.post('http://api.eatmore.id/auth_service/login', data).then(response => {
-        const res = response.data
-        console.log('test')
-        if (res.status) {
-          const token = res.data.token
-          this.$store.commit('auth/SET_TOKEN', token)
-          Cookies.set('token', token, { expires: 1 })
-          this.closeSuccessAndNavigate()
-        } else {
-          this.$refs.form.setErrors({
-            Username: ['Invalid username or password'],
-            Password: ['Invalid username or password']
-          })
-          this.loading = false
-        }
-      }).catch((error) => {
-        if (error.response && error.response.status === 400) {
-          console.log(error.response.data.errors)
-          this.$refs.form.setErrors({
-            Username: ['Invalid username or password'],
-            Password: ['Invalid username or password']
-          })
-          this.loading = false
-        }
-      })
+      this.$store.commit('auth/SET_LOGIN', data)
+      this.$store.dispatch('auth/logIn')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            this.$store.commit('auth/SET_TOKEN', res.data.token)
+            Cookies.set('token', res.data.token, { expires: 1 })
+            setTimeout(() => {
+              this.$router.push('/dashboard')
+            }, 20)
+          }
+        }).catch((error) => {
+          if (error.response && error.response.status === 400) {
+            const errorText = error.response.data.errors[0].text
+            this.$refs.form.setErrors({
+              Username: [errorText],
+              Password: [errorText]
+            })
+            this.loading = false
+          }
+        })
     }
   }
 }
