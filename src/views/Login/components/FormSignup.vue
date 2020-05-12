@@ -85,7 +85,7 @@
           </ValidationProvider>
         </v-form>
       </div>
-      <v-btn block color="#FDB526" dark class="button-signup" @click="submit">Sign Up</v-btn>
+      <v-btn block color="#FDB526" dark class="button-signup" @click="submit" :loading="loading">Sign Up</v-btn>
     </ValidationObserver>
   </div>
 </template>
@@ -96,13 +96,40 @@ export default {
     return {
       show1: false,
       show2: false,
+      loading: false,
+      email: null,
+      username: null,
+      phone: null,
       password: null,
       reType: null
     }
   },
   methods: {
     submit () {
-      this.$refs.observer.validate()
+      this.loading = true
+      var dataRegist = {
+        username: this.username,
+        email: this.email,
+        phone_number: this.phone,
+        password: this.password,
+        password_confirm: this.reType
+      }
+      if (this.$refs.observer.validate()) {
+        this.$store.commit('auth/SET_REGISTRATION', dataRegist)
+        this.$store.dispatch('auth/signUp')
+          .then((response) => {
+            const res = response.data
+            if (res.status) {
+              setTimeout(() => {
+                this.$router.go()
+              }, 1000)
+            } else {
+              console.log(res.errors)
+            }
+          }, (error) => {
+            console.log(error)
+          })
+      }
     },
     setPage () {
       this.$emit('login', true)
