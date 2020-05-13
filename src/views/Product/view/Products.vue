@@ -45,7 +45,7 @@
       <div v-if="product.length > 1">
         <v-data-table
           :headers="headers"
-          :items="product"
+          :items="resdata"
           :search="search"
           :page.sync="page"
           :items-per-page="itemsPerPage"
@@ -56,10 +56,10 @@
           <template v-slot:item.name="{item}">
             <v-row>
               <v-col cols="2" class="pa-1">
-                <v-img src="https://goodminds.id/handsome/wp-content/uploads/2019/04/18.-Ragam-Menu-Takjil-Buka-Puasa-yang-Praktis-dan-Menyegarkan.jpg" style="width:120px; height:48px; border-radius: 4px;" aspect-ratio="1.7"></v-img>
+                <v-img :src="item.product_image" style="width:120px; height:48px; border-radius: 4px;" aspect-ratio="1.7"></v-img>
               </v-col>
               <v-col cols="10">
-                <span class="text-blood">{{item.name}}</span><br>
+                <span class="text-blood">{{item.product_name}}</span><br>
                 <span>{{item.number}}</span>
               </v-col>
             </v-row>
@@ -67,7 +67,7 @@
 
           <template v-slot:item.stock="{item}">
             <div>
-              <div class="text-green" v-if="item.stock == 'In Stock'">{{item.stock}}</div>
+              <div class="text-green" v-if="item.stock == 'available'">{{item.stock}}</div>
               <div class="text-grey-sm" v-else-if="item.stock == 'Untracked'">{{item.stock}}</div>
               <div class="text-red" v-else-if="item.stock == 'Out Of Stock'">{{item.stock}}</div>
               <div class="text-yellow" v-else-if="item.stock == 'Warning'">{{item.stock}}</div>
@@ -132,6 +132,9 @@
 
 <script>
 import AppFileUpload from '@/components/AppDocUpload'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('product')
+
 export default {
   name: 'product',
   components: {
@@ -140,7 +143,10 @@ export default {
   computed: {
     eatmoreLogo () {
       return require('@/assets/img/NotFound.png')
-    }
+    },
+    ...mapState([
+      'resdata'
+    ])
   },
   data () {
     return {
@@ -159,8 +165,8 @@ export default {
         },
         { text: 'Price', value: 'price' },
         { text: 'Category', value: 'category' },
-        { text: 'Variant', value: 'variant' },
-        { text: 'Tax', value: 'tax' },
+        { text: 'Variant', value: 'variant_count' },
+        { text: 'Tax', value: 'tax_value' },
         { text: 'Stock', value: 'stock' },
         { text: '', value: 'actions', sortable: false },
         { text: '', value: 'other', sortable: false }
@@ -212,6 +218,9 @@ export default {
     }
   },
   watch: {
+  },
+  mounted () {
+    this.$store.dispatch('product/getProduct')
   },
   methods: {
     handleTriggerUpload () {
