@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store'
 import Cookies from 'js-cookie'
 
 import CleanLayout from '@/layouts/Clean'
@@ -684,13 +683,20 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = Cookies.get('token')
-  if (to.matched.some(record => record.meta.requireAuth) && !loggedIn) {
-    if (store.state.userdata == null) {
+  const token = Cookies.get('token')
+  if (to.matched.some(record => record.meta.requireAuth)) {
+    if (token === null || token === undefined) {
       next('/login')
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.guest)) {
+    if (token === null || token === undefined) {
+      next()
+    } else {
+      next('/dashboard')
     }
   }
-  next()
 })
 
 export default router

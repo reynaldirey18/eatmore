@@ -18,9 +18,8 @@
         </v-btn>
         <v-btn
           @click.prevent="gotoAdd()"
-          color="#FDB526" class="text-center w-full mx-2 "
-          dark>
-          <span class="text-capitalize">Add New Product</span>
+          color="#FDB526" class="ml-2"
+          dark>Add New Product
         </v-btn>
       </div>
     </div>

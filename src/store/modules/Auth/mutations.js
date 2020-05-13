@@ -4,8 +4,12 @@ const SET_TOKEN = (state, payload) => {
 const SET_REGISTRATION = (state, payload) => {
   state.dataRegistration = payload
 }
+const SET_LOGIN = (state, payload) => {
+  state.dataLogin = payload
+}
 
 export default {
   SET_TOKEN,
-  SET_REGISTRATION
+  SET_REGISTRATION,
+  SET_LOGIN
 }

@@ -3,7 +3,8 @@ import mutations from './mutations'
 
 const state = {
   token: null,
-  dataRegistration: null
+  dataRegistration: null,
+  dataLogin: null
 }
 
 export default {
