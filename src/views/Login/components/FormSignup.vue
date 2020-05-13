@@ -100,7 +100,7 @@
     <v-dialog v-model="dialog2" persistent max-width="350">
       <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
         <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
-        <v-card-title class="title-card">Register account failed</v-card-title>
+        <v-card-title class="title-card mx-auto">Register account failed</v-card-title>
         <p>{{ errorMessage }}</p>
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
