@@ -115,6 +115,7 @@ export default {
             this.loading = false
           } else {
             this.errorMessage = message
+            this.dialog = true
             this.loading = false
           }
         })

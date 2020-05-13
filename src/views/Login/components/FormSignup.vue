@@ -87,11 +87,11 @@
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
           <v-btn
-            @click.prevent="dialog = false"
+            @click.prevent="closeAndNavigate"
             color="#FDB526" class="mt-3 w-full"
             width="100%"
             dark>
-            <span class="text-capitalize" @click="closeAndNavigate">Okay</span>
+            <span class="text-capitalize">Okay</span>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -101,7 +101,7 @@
       <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
         <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
         <v-card-title class="title-card mx-auto">Register account failed</v-card-title>
-        <p>{{ errorMessage }}</p>
+        <p class="mx-auto">{{ errorMessage }}</p>
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
           <v-btn
@@ -169,6 +169,8 @@ export default {
             this.loading = false
           } else {
             this.errorMessage = message
+            this.dialog2 = true
+            this.loading = false
           }
         })
     },
