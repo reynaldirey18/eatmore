@@ -27,6 +27,7 @@
           </ValidationObserver>
         </div>
       </div>
+      <!-- dialog success -->
       <v-dialog v-model="dialog" persistent max-width="350">
         <v-card class="pa-8 pb-10">
           <img src="@/assets/img/success.png" alt="success">
@@ -44,6 +45,23 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <!-- dialog failed -->
+      <v-dialog v-model="dialog2" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+        <v-card-title class="title-card mx-auto">{{ errorMessage }}</v-card-title>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="dialog2 = false"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </div>
   </div>
 </template>
@@ -53,6 +71,7 @@ export default {
   data () {
     return {
       dialog: false,
+      dialog2: false,
       email: null,
       loading: false
     }
@@ -82,13 +101,17 @@ export default {
             this.loading = false
           }
         }).catch((error) => {
+          const message = error.response.data.message
           if (error.response.status === 400) {
-            const message = error.response.data.message
             this.$refs.form.setErrors({
               Email: [message]
             })
+            this.loading = false
+          } else {
+            this.errorMessage = message
+            this.dialog2 = true
+            this.loading = false
           }
-          this.loading = false
         })
     }
   }

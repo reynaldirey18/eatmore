@@ -5,7 +5,9 @@ const state = {
   token: null,
   dataRegistration: null,
   dataLogin: null,
-  dataForgot: null
+  dataForgot: null,
+  dataReset: null,
+  tokenReset: null
 }
 
 export default {
