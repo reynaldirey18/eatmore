@@ -6,21 +6,26 @@
         <div class="card-item">
           <h1 class="title-card">Have Troubles Logging In?</h1>
           <span>Enter your email and we'll send you a link to get back into your account.</span>
-          <div class="form-input">
-            <p class="label-form">Email</p>
-            <v-form ref="form">
-              <v-text-field
-                v-model="email"
-                type="email"
-                outlined
-                dense
-              >
-              </v-text-field>
+          <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+            <v-form @submit.prevent="handleSubmit(submit)">
+              <div class="form-input">
+                <p class="label-form">Email</p>
+                <ValidationProvider v-slot="{ errors }" name="Email" rules="required|email">
+                  <v-text-field
+                    v-model="email"
+                    :error-messages="errors"
+                    type="email"
+                    outlined
+                    dense
+                  >
+                  </v-text-field>
+                </ValidationProvider>
+              </div>
+              <v-btn block color="#FDB526" dark class="button-login" type="submit" :loading="loading">Send Login Link</v-btn>
+              <v-btn text class="back" color="#F32626" @click="getBack">Back</v-btn>
             </v-form>
-          </div>
+          </ValidationObserver>
         </div>
-        <v-btn block color="#FDB526" dark class="button-login" @click="sendLink">Send Login Link</v-btn>
-        <v-btn text class="back" color="#F32626" @click="getBack">Back</v-btn>
       </div>
       <v-dialog v-model="dialog" persistent max-width="350">
         <v-card class="pa-8 pb-10">
@@ -34,7 +39,7 @@
               color="#FDB526" class="mt-3 w-full"
               width="100%"
               dark>
-              <span class="text-capitalize">Okay</span>
+              <span class="text-capitalize" @click="closeAndNavigate">Okay</span>
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -47,18 +52,46 @@
 export default {
   data () {
     return {
-      dialog: false
+      dialog: false,
+      email: null,
+      loading: false
     }
   },
   methods: {
     getBack () {
       this.$router.push('/login')
     },
-    sendLink () {
-      this.dialog = true
-    },
     closeModal (val) {
       this.modal = val
+    },
+    closeAndNavigate () {
+      setTimeout(() => {
+        this.$router.go()
+      }, 20)
+    },
+    submit () {
+      this.loading = true
+      const link = window.location.origin
+      const dataForgot = {
+        email: this.email,
+        app_url: link
+      }
+      this.$store.commit('auth/SET_FORGOT', dataForgot)
+      this.$store.dispatch('auth/sendLink')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            this.dialog = true
+          }
+        }).catch((error) => {
+          if (error.response.status === 400) {
+            const message = error.response.data.message
+            this.$refs.form.setErrors({
+              Email: [message]
+            })
+          }
+          this.loading = false
+        })
     }
   }
 }

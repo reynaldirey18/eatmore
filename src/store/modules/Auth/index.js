@@ -4,7 +4,8 @@ import mutations from './mutations'
 const state = {
   token: null,
   dataRegistration: null,
-  dataLogin: null
+  dataLogin: null,
+  dataForgot: null
 }
 
 export default {

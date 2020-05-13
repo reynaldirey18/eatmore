@@ -25,7 +25,19 @@ const logIn = ({ state }) => {
   })
 }
 
+const sendLink = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    axios.post('http://api.eatmore.id/auth_service/forgot-password', state.dataForgot)
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 export default {
   signUp,
-  logIn
+  logIn,
+  sendLink
 }
