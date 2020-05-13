@@ -6,22 +6,28 @@
         <div class="card-item">
           <h1 class="title-card">Have Troubles Logging In?</h1>
           <span>Enter your email and we'll send you a link to get back into your account.</span>
-          <div class="form-input">
-            <p class="label-form">Email</p>
-            <v-form ref="form">
-              <v-text-field
-                v-model="email"
-                type="email"
-                outlined
-                dense
-              >
-              </v-text-field>
+          <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+            <v-form @submit.prevent="handleSubmit(submit)">
+              <div class="form-input">
+                <p class="label-form">Email</p>
+                <ValidationProvider v-slot="{ errors }" name="Email" rules="required|email">
+                  <v-text-field
+                    v-model="email"
+                    :error-messages="errors"
+                    type="email"
+                    outlined
+                    dense
+                  >
+                  </v-text-field>
+                </ValidationProvider>
+              </div>
+              <v-btn block color="#FDB526" dark class="button-login" type="submit" :loading="loading">Send Login Link</v-btn>
+              <v-btn text class="back" color="#F32626" @click="getBack">Back</v-btn>
             </v-form>
-          </div>
+          </ValidationObserver>
         </div>
-        <v-btn block color="#FDB526" dark class="button-login" @click="sendLink">Send Login Link</v-btn>
-        <v-btn text class="back" color="#F32626" @click="getBack">Back</v-btn>
       </div>
+      <!-- dialog success -->
       <v-dialog v-model="dialog" persistent max-width="350">
         <v-card class="pa-8 pb-10">
           <img src="@/assets/img/success.png" alt="success">
@@ -34,11 +40,28 @@
               color="#FDB526" class="mt-3 w-full"
               width="100%"
               dark>
-              <span class="text-capitalize">Okay</span>
+              <span class="text-capitalize" @click="closeAndNavigate">Okay</span>
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <!-- dialog failed -->
+      <v-dialog v-model="dialog2" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+        <v-card-title class="title-card mx-auto">{{ errorMessage }}</v-card-title>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="dialog2 = false"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     </div>
   </div>
 </template>
@@ -47,18 +70,49 @@
 export default {
   data () {
     return {
-      dialog: false
+      dialog: false,
+      dialog2: false,
+      email: null,
+      loading: false
     }
   },
   methods: {
     getBack () {
       this.$router.push('/login')
     },
-    sendLink () {
-      this.dialog = true
+    closeAndNavigate () {
+      setTimeout(() => {
+        this.$router.go()
+      }, 20)
     },
-    closeModal (val) {
-      this.modal = val
+    submit () {
+      this.loading = true
+      const link = window.location.origin
+      const dataForgot = {
+        email: this.email,
+        app_url: link
+      }
+      this.$store.commit('auth/SET_FORGOT', dataForgot)
+      this.$store.dispatch('auth/sendLink')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            this.dialog = true
+            this.loading = false
+          }
+        }).catch((error) => {
+          const message = error.response.data.message
+          if (error.response.status === 400) {
+            this.$refs.form.setErrors({
+              Email: [message]
+            })
+            this.loading = false
+          } else {
+            this.errorMessage = message
+            this.dialog2 = true
+            this.loading = false
+          }
+        })
     }
   }
 }

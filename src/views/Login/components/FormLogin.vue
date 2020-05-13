@@ -45,6 +45,24 @@
           class="button-login">Login</v-btn>
       </v-form>
     </ValidationObserver>
+    <!-- dialog failed -->
+    <v-dialog v-model="dialog" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+        <v-card-title class="title-card mx-auto">Login failed</v-card-title>
+        <p>{{ errorMessage }}</p>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="dialog = false"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -57,7 +75,9 @@ export default {
       show1: false,
       username: null,
       password: null,
-      loading: false
+      errorMessage: null,
+      loading: false,
+      dialog: false
     }
   },
   methods: {
@@ -66,11 +86,6 @@ export default {
     },
     forgotPass () {
       this.$router.push('/forgot-password')
-    },
-    closeSuccessAndNavigate () {
-      setTimeout(() => {
-        this.$router.push('/dashboard')
-      }, 20)
     },
     login () {
       this.loading = true
@@ -90,12 +105,17 @@ export default {
             }, 20)
           }
         }).catch((error) => {
+          const message = error.response.data.message
           if (error.response && error.response.status === 400) {
             const errorText = error.response.data.errors[0].text
             this.$refs.form.setErrors({
               Username: [errorText],
               Password: [errorText]
             })
+            this.loading = false
+          } else {
+            this.errorMessage = message
+            this.dialog = true
             this.loading = false
           }
         })

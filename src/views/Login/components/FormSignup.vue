@@ -79,6 +79,41 @@
         <v-btn block color="#FDB526" dark class="button-signup" type="submit" :loading="loading">Sign Up</v-btn>
       </v-form>
     </ValidationObserver>
+    <!-- dialog success -->
+    <v-dialog v-model="dialog" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <img src="@/assets/img/success.png" alt="success" class="mx-auto">
+        <v-card-title class="title-card mx-auto">Register success</v-card-title>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="closeAndNavigate"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- dialog failed -->
+    <v-dialog v-model="dialog2" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+        <v-card-title class="title-card mx-auto">Register account failed</v-card-title>
+        <p class="mx-auto">{{ errorMessage }}</p>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="dialog2 = false"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -86,6 +121,8 @@
 export default {
   data () {
     return {
+      dialog: false,
+      dialog2: false,
       show1: false,
       show2: false,
       loading: false,
@@ -93,10 +130,16 @@ export default {
       username: null,
       phone: null,
       password: null,
-      reType: null
+      reType: null,
+      errorMessage: null
     }
   },
   methods: {
+    closeAndNavigate () {
+      setTimeout(() => {
+        this.$router.go()
+      }, 200)
+    },
     submitForm () {
       this.loading = true
       var dataRegist = {
@@ -111,15 +154,24 @@ export default {
         .then(response => {
           const res = response.data
           if (res.status) {
-            setTimeout(() => {
-              this.$router.go()
-            }, 200)
+            this.dialog = true
           } else {
             this.loading = false
             console.log(res.errors)
           }
-        }, error => {
-          console.log(error)
+        }).catch((error) => {
+          const message = error.response.data.message
+          if (error.response.status === 400) {
+            this.$refs.form.setErrors({
+              Email: [message],
+              Username: [message]
+            })
+            this.loading = false
+          } else {
+            this.errorMessage = message
+            this.dialog2 = true
+            this.loading = false
+          }
         })
     },
     setPage () {
