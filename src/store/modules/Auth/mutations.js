@@ -7,9 +7,13 @@ const SET_REGISTRATION = (state, payload) => {
 const SET_LOGIN = (state, payload) => {
   state.dataLogin = payload
 }
+const SET_FORGOT = (state, payload) => {
+  state.dataForgot = payload
+}
 
 export default {
   SET_TOKEN,
   SET_REGISTRATION,
-  SET_LOGIN
+  SET_LOGIN,
+  SET_FORGOT
 }
