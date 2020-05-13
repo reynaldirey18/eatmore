@@ -36,8 +36,24 @@ const sendLink = ({ state }) => {
   })
 }
 
+const resetPassword = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    axios.post('http://api.eatmore.id/auth_service/change-password', state.dataReset, {
+      headers: {
+        Authorization: 'Bearer ' + state.tokenReset
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 export default {
   signUp,
   logIn,
-  sendLink
+  sendLink,
+  resetPassword
 }
