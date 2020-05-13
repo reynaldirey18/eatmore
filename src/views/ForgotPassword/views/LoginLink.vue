@@ -61,9 +61,6 @@ export default {
     getBack () {
       this.$router.push('/login')
     },
-    closeModal (val) {
-      this.modal = val
-    },
     closeAndNavigate () {
       setTimeout(() => {
         this.$router.go()
@@ -82,6 +79,7 @@ export default {
           const res = response.data
           if (res.status) {
             this.dialog = true
+            this.loading = false
           }
         }).catch((error) => {
           if (error.response.status === 400) {
