@@ -33,7 +33,7 @@
             </ValidationProvider>
 
           <p class="label-form">Phone Number</p>
-          <ValidationProvider v-slot="{ errors }" name="Phone number" rules="required">
+          <ValidationProvider v-slot="{ errors }" name="Phone number" rules="required|integer">
             <v-text-field
               v-model="phone"
               :error-messages="errors"

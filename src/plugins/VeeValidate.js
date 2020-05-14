@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
-import { required, email, min } from 'vee-validate/dist/rules'
+import { required, email, min, integer } from 'vee-validate/dist/rules'
 
 // custom validator
 extend('secret', {
@@ -18,6 +18,10 @@ extend('email', {
 extend('min', {
   ...min,
   message: '{_field_} must be at least 6 characters'
+})
+extend('integer', {
+  ...integer,
+  message: '{_field_} must be a number'
 })
 extend('password', {
   params: ['target'],

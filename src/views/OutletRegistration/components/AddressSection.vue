@@ -29,53 +29,62 @@
               ></gmap-marker>
             </gmap-map>
           </div>
-          <p class="label-form">Address</p>
-          <v-form ref="form">
-            <v-text-field
-              v-model="address"
-              outlined
-              dense
-              readonly
-            >
-            </v-text-field>
-          </v-form>
-          <p class="label-form">Detail Address</p>
-          <v-form ref="form">
-            <v-text-field
-              v-model="detailAddress"
-              outlined
-              dense
-            >
-            </v-text-field>
-          </v-form>
-          <p class="label-form">Business Tags</p>
-          <v-autocomplete
-              ref="tagAutocomplete"
-              v-model="tags"
-              :items="tagList"
-              chips
-              small-chips
-              deletable-chips
-              full-width
-              hide-details
-              hide-no-data
-              hide-selected
-              multiple
-              single-line
-              outlined
-              dense
-              flat
-              placeholder="Eg. Cafe, Cake, Sweet, No smoking "
-              auto-select-first
-              :value="tagInputValue"
-              @change="onTagValueChange"
-              @input="onTagInput"
-              @keyup.enter="submitTag"
-              @keyup.tab="submitTag"
-          ></v-autocomplete>
+          <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+            <v-form @submit.prevent="handleSubmit(submitForm)">
+              <p class="label-form">Address</p>
+              <ValidationProvider v-slot="{ errors }" name="Address" rules="required">
+                <v-text-field
+                  v-model="address"
+                  :error-messages="errors"
+                  outlined
+                  dense
+                  readonly
+                >
+                </v-text-field>
+              </ValidationProvider>
+              <p class="label-form">Detail Address</p>
+              <ValidationProvider v-slot="{ errors }" name="Detail address" rules="required">
+                <v-text-field
+                  v-model="detailAddress"
+                  :error-messages="errors"
+                  outlined
+                  dense
+                >
+                </v-text-field>
+              </ValidationProvider>
+              <p class="label-form">Business Tags</p>
+              <ValidationProvider v-slot="{ errors }" name="Tags" rules="required">
+                <v-autocomplete
+                  ref="tagAutocomplete"
+                  v-model="tags"
+                  :items="tagList"
+                  :error-messages="errors"
+                  chips
+                  small-chips
+                  deletable-chips
+                  full-width
+                  hide-details
+                  hide-no-data
+                  hide-selected
+                  multiple
+                  single-line
+                  outlined
+                  dense
+                  flat
+                  placeholder="Eg. Cafe, Cake, Sweet, No smoking "
+                  auto-select-first
+                  :value="tagInputValue"
+                  @change="onTagValueChange"
+                  @input="onTagInput"
+                  @keyup.enter="submitTag"
+                  @keyup.tab="submitTag"
+                ></v-autocomplete>
+              </ValidationProvider>
+              <v-btn block color="#FDB526" dark class="mt-6" type="submit">Create Outlet</v-btn>
+              <v-btn text block color="#F32626" @click="getBack" class="mt-2">Back</v-btn>
+            </v-form>
+          </ValidationObserver>
         </div>
-        <v-btn block color="#FDB526" dark class="mt-6">Create Outlet</v-btn>
-        <v-btn text block color="#F32626" @click="getBack" class="mt-2">Back</v-btn>
       </v-list-item-content>
     </v-card>
   </div>
@@ -84,9 +93,11 @@
 <script>
 export default {
   name: 'address-section',
+  props: ['dataSection1'],
   data () {
     return {
       address: null,
+      detailAddress: null,
       tagList: ['Smooking Area', 'Contain Pork', 'Cafe', 'Cake', 'Sweet', 'No Smoking'],
       tagInputValue: '',
       tags: [],
@@ -162,7 +173,27 @@ export default {
     processLocationChanged (addressData) {
       this.mapCenter.lat = addressData.geometry.location.lat()
       this.mapCenter.lng = addressData.geometry.location.lng()
+      this.coordText = `${this.mapCenter.lat}, ${this.mapCenter.lng}`
       this.address = addressData.formatted_address
+    },
+    submitForm () {
+      var allData = this.dataSection1
+      allData.outlet_address = this.address
+      allData.outlet_address_detail = this.detailAddress
+      this.tags.forEach((element, index) => {
+        var key = 'outlet_tags[' + index + ']'
+        allData[key] = element
+      })
+      const [lat, lng] = this.coordText.split(',')
+      allData.outlet_latitude = lat
+      allData.outlet_longitude = lng
+      allData.outlet_description = '-'
+      console.log(allData)
+      var formData = new FormData()
+      for (var key in allData) {
+        formData.append(key, allData[key])
+      }
+      console.log(formData.get('outlet_address'))
     }
   }
 }
