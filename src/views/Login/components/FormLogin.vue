@@ -107,11 +107,16 @@ export default {
         }).catch((error) => {
           const message = error.response.data.message
           if (error.response && error.response.status === 400) {
-            const errorText = error.response.data.errors[0].text
-            this.$refs.form.setErrors({
-              Username: [errorText],
-              Password: [errorText]
-            })
+            if (message === 'No Account Found') {
+              this.$refs.form.setErrors({
+                Username: [message]
+              })
+            } else {
+              this.$refs.form.setErrors({
+                Username: [message],
+                Password: [message]
+              })
+            }
             this.loading = false
           } else {
             this.errorMessage = message

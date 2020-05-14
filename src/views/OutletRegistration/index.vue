@@ -3,10 +3,10 @@
     <div class="outlet-regist pt-10 pb-6">
       <img src="@/assets/img/Eatmore logo-01 1.png" alt="Eatmore logo" class="logo">
       <div class="step-1" v-show="step == 1">
-        <outlet-detail @continue="setStep"></outlet-detail>
+        <outlet-detail @continue="setStep" @dataForm="setData"></outlet-detail>
       </div>
       <div class="step-2" v-show="step == 2">
-        <address-section @back="setStep"></address-section>
+        <address-section @back="setStep" :dataSection1="dataSection1"></address-section>
       </div>
     </div>
   </div>
@@ -24,12 +24,16 @@ export default {
   },
   data () {
     return {
-      step: 1
+      step: 1,
+      dataSection1: null
     }
   },
   methods: {
     setStep (val) {
       this.step = val
+    },
+    setData (val) {
+      this.dataSection1 = val
     }
   }
 }

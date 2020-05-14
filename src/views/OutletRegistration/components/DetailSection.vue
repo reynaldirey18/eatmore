@@ -18,96 +18,84 @@
             <span class="text-blood-sm">Business Logo</span>
             <span class="app-subtitle mt-2">This logo will appear when customer find your restaurant.</span>
             <span class="text-yellow mt-2">Pro tips: Use logo with dimension 1:1</span>
-            <v-btn color="#FAFAFA" width="125" class="mt-4">Upload Image</v-btn>
+            <v-btn color="#FAFAFA" width="125" class="mt-4" @click="handleTriggerUpload">Upload Image</v-btn>
+            <input class="d-none" type="file" @change="handleFileChange" ref="file" />
+            <p class="error--text mt-3" v-if="logoError === true">Please upload an image</p>
           </div>
         </div>
-        <div class="form-input">
-          <v-row>
-            <v-col cols="6">
-              <p class="label-form">Business Name</p>
-              <v-form ref="form">
+        <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+          <v-form @submit.prevent="handleSubmit(validationForm)">
+            <div class="form-input">
+              <v-row>
+                <v-col cols="6">
+                  <p class="label-form">Business Name</p>
+                  <ValidationProvider v-slot="{ errors }" name="Name" rules="required">
+                    <v-text-field
+                      v-model="name"
+                      :error-messages="errors"
+                      placeholder="Eg Sushi Sushanti"
+                      outlined
+                      dense
+                    >
+                    </v-text-field>
+                  </ValidationProvider>
+                </v-col>
+                <v-col cols="6">
+                  <p class="label-form">Business Email</p>
+                  <ValidationProvider v-slot="{ errors }" name="Email" rules="required|email">
+                    <v-text-field
+                      v-model="email"
+                      type="email"
+                      :error-messages="errors"
+                      placeholder="makanlagi@gmail.com"
+                      outlined
+                      dense
+                    >
+                    </v-text-field>
+                  </ValidationProvider>
+                </v-col>
+              </v-row>
+              <p class="label-form">Business Contact</p>
+              <ValidationProvider v-slot="{ errors }" name="Contact" rules="required|integer">
                 <v-text-field
-                  v-model="name"
-                  placeholder="Eg Sushi Sushanti"
+                  v-model="contact"
+                  :error-messages="errors"
+                  placeholder="Eg 08291049124"
                   outlined
                   dense
                 >
                 </v-text-field>
-              </v-form>
-            </v-col>
-            <v-col cols="6">
-              <p class="label-form">Business Email</p>
-              <v-form ref="form">
-                <v-text-field
-                  v-model="email"
-                  type="email"
-                  placeholder="makanlagi@gmail.com"
+              </ValidationProvider>
+              <p class="label-form">Business Category</p>
+              <ValidationProvider v-slot="{ errors }" name="Category" rules="required">
+                <v-select
+                  :items="categoryItems"
+                  :error-messages="errors"
+                  v-model="selectedCategory"
                   outlined
                   dense
-                >
-                </v-text-field>
-              </v-form>
-            </v-col>
-            <v-col cols="6" class="pass">
-              <p class="label-form">Password</p>
-              <v-form ref="form">
-                <v-text-field
-                  v-model="password"
-                  :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show1 ? 'text' : 'password'"
-                  name="input-10-1"
-                  outlined
-                  dense
-                  @click:append="show1 = !show1"
-                ></v-text-field>
-              </v-form>
-            </v-col>
-            <v-col cols="6" class="pass">
-              <p class="label-form">Re-type Password</p>
-              <v-form ref="form">
-                <v-text-field
-                  v-model="reType"
-                  :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                  :type="show2 ? 'text' : 'password'"
-                  name="input-10-1"
-                  outlined
-                  dense
-                  @click:append="show2 = !show2"
-                ></v-text-field>
-              </v-form>
-            </v-col>
-          </v-row>
-          <p class="label-form">Business Contact</p>
-          <v-form ref="form">
-            <v-text-field
-              v-model="contact"
-              placeholder="Eg 08291049124"
-              outlined
-              dense
-            >
-            </v-text-field>
+                ></v-select>
+              </ValidationProvider>
+              <p class="label-form">Business Service</p>
+              <div class="service-item d-flex flex-row">
+                <div class="item" :class="{ 'selected': dineIn }" @click="selectService(0)">
+                  <span class="text-blood-sm">Dine-In</span>
+                </div>
+                <div class="item ml-2" :class="{ 'selected': takeaway }" @click="selectService(1)">
+                  <span class="text-blood-sm">Takeaway</span>
+                </div>
+                <div class="item ml-2" :class="{ 'selected': delivery }" @click="selectService(2)">
+                  <span class="text-blood-sm">Delivery</span>
+                </div>
+              </div>
+              <div>
+                <p class="error--text mt-2 ml-3" v-if="serviceError === true">Please choose at least one</p>
+              </div>
+            </div>
+            <v-btn block color="#FDB526" dark type="submit" class="mt-6">Continue</v-btn>
+            <v-btn text block color="#F32626" class="mt-2">Back</v-btn>
           </v-form>
-          <p class="label-form">Business Category</p>
-          <v-select
-            :items="categoryItems"
-            outlined
-            dense
-          ></v-select>
-          <p class="label-form">Business Service</p>
-          <div class="service-item d-flex flex-row">
-            <div class="item" :class="{ 'selected': dineIn }" @click="selectService(0)">
-              <span class="text-blood-sm">Dine-In</span>
-            </div>
-            <div class="item ml-2" :class="{ 'selected': takeaway }" @click="selectService(1)">
-              <span class="text-blood-sm">Takeaway</span>
-            </div>
-            <div class="item ml-2" :class="{ 'selected': delivery }" @click="selectService(2)">
-              <span class="text-blood-sm">Delivery</span>
-            </div>
-          </div>
-        </div>
-        <v-btn block color="#FDB526" dark @click="nextStep" class="mt-6">Continue</v-btn>
-        <v-btn text block color="#F32626" class="mt-2">Back</v-btn>
+        </ValidationObserver>
       </v-list-item-content>
     </v-card>
   </div>
@@ -123,20 +111,49 @@ export default {
   },
   data () {
     return {
-      outletLogo: null,
-      name: null,
-      email: null,
       show1: false,
       show2: false,
+      outletLogo: null,
+      logoError: false,
+      name: null,
+      email: null,
       password: null,
       reType: null,
+      contact: null,
+      selectedCategory: null,
       categoryItems: ['Resto1'],
       dineIn: false,
       takeaway: false,
-      delivery: false
+      delivery: false,
+      serviceError: false
+    }
+  },
+  watch: {
+    outletLogo (val) {
+      if (val !== null) {
+        this.logoError = false
+      }
+    },
+    dineIn (val) {
+      if (val === true) {
+        this.serviceError = false
+      }
+    },
+    takeaway (val) {
+      if (val === true) {
+        this.serviceError = false
+      }
+    },
+    delivery (val) {
+      if (val === true) {
+        this.serviceError = false
+      }
     }
   },
   methods: {
+    handleTriggerUpload () {
+      this.$refs.file.click()
+    },
     handleFileChange (e) {
       const input = e.target || this.$refs.file
       const file = input.files ? input.files[0] : null
@@ -158,6 +175,36 @@ export default {
     },
     nextStep () {
       this.$emit('continue', 2)
+    },
+    validationForm () {
+      if (this.outletLogo === null) {
+        this.logoError = true
+      } else if (this.dineIn === false && this.takeaway === false && this.delivery === false) {
+        this.serviceError = true
+      } else {
+        var dataSection1 = {}
+        dataSection1.outlet_logo = this.outletLogo
+        dataSection1.outlet_name = this.name
+        dataSection1.outlet_email = this.email
+        dataSection1.outlet_phone = this.contact
+        dataSection1.outlet_category = 3
+        var businessService = []
+        if (this.dineIn === true) {
+          businessService.push('Dine In')
+        }
+        if (this.takeaway === true) {
+          businessService.push('Takeaway')
+        }
+        if (this.delivery === true) {
+          businessService.push('Delivery')
+        }
+        businessService.forEach((element, index) => {
+          var key = 'outlet_service[' + index + ']'
+          dataSection1[key] = element
+        })
+        this.$emit('dataForm', dataSection1)
+        this.$emit('continue', 2)
+      }
     }
   }
 }
