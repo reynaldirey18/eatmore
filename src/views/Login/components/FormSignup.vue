@@ -137,7 +137,7 @@ export default {
   methods: {
     closeAndNavigate () {
       setTimeout(() => {
-        this.$router.go()
+        this.$router.push('/outlet-registration')
       }, 200)
     },
     submitForm () {

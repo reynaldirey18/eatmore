@@ -80,13 +80,48 @@
                   @keyup.tab="submitTag"
                 ></v-autocomplete>
               </ValidationProvider>
-              <v-btn block color="#FDB526" dark class="mt-6" type="submit">Create Outlet</v-btn>
+              <v-btn block color="#FDB526" dark class="mt-6" type="submit" :loading="loading">Create Outlet</v-btn>
               <v-btn text block color="#F32626" @click="getBack" class="mt-2">Back</v-btn>
             </v-form>
           </ValidationObserver>
         </div>
       </v-list-item-content>
     </v-card>
+    <!-- dialog success -->
+    <v-dialog v-model="dialog" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <img src="@/assets/img/success.png" alt="success" class="mx-auto">
+        <v-card-title class="title-card mx-auto">Register Outlet Success</v-card-title>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="closeAndNavigate"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- dialog failed -->
+    <v-dialog v-model="dialog2" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+        <v-card-title class="title-card mx-auto">Register Outlet Failed</v-card-title>
+        <p class="mx-auto">{{ errorMessage }}</p>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="dialog2 = false"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -96,6 +131,9 @@ export default {
   props: ['dataSection1'],
   data () {
     return {
+      dialog: false,
+      dialog2: false,
+      loading: false,
       address: null,
       detailAddress: null,
       tagList: ['Smooking Area', 'Contain Pork', 'Cafe', 'Cake', 'Sweet', 'No Smoking'],
@@ -105,7 +143,8 @@ export default {
       marker: null,
       coordText: '',
       mapCenter: { lat: -6.9034443, lng: 107.5731165 },
-      addressText: ''
+      addressText: '',
+      errorMessage: null
     }
   },
   mounted () {
@@ -123,6 +162,11 @@ export default {
     }
   },
   methods: {
+    closeAndNavigate () {
+      setTimeout(() => {
+        this.$router.push('/login')
+      }, 200)
+    },
     getBack () {
       this.$emit('back', 1)
     },
@@ -188,12 +232,25 @@ export default {
       allData.outlet_latitude = lat
       allData.outlet_longitude = lng
       allData.outlet_description = '-'
-      console.log(allData)
       var formData = new FormData()
       for (var key in allData) {
         formData.append(key, allData[key])
       }
-      console.log(formData.get('outlet_address'))
+      this.$store.commit('outlet/SET_REGISTRATION', formData)
+      this.$store.dispatch('outlet/registOutlet')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            this.dialog = true
+          } else {
+            this.loading = false
+          }
+        }).catch((error) => {
+          const message = error.response.data.messageelse
+          this.errorMessage = message
+          this.dialog2 = true
+          this.loading = false
+        })
     }
   }
 }
