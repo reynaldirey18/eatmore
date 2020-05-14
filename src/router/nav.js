@@ -3,11 +3,23 @@ export const sidebar = [
     icon: 'mdi-speedometer',
     name: 'Dashboard',
     to: '/dashboard'
-  },
+  }
+]
+
+export const sidebar2 = [
   {
     icon: 'mdi-store',
     name: 'Restaurant',
-    to: '/restaurant'
+    children: [
+      {
+        name: 'List',
+        to: '/restaurant/list'
+      },
+      {
+        name: 'Profile',
+        to: '/restaurant/profile'
+      }
+    ]
   }
 ]
 
