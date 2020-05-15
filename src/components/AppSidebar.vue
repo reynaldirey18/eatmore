@@ -40,6 +40,29 @@
           <v-list-item-title>{{sidebarItem.name}}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
+      <v-list-group
+        v-for="(sidebarItem2, i) in sidebarData2"
+        :key="'main menu ' + i"
+        :value="false"
+        color="#FDB526"
+      >
+        <template v-slot:prependIcon>
+          <v-icon color="#FDB526">{{sidebarItem2.icon}}</v-icon>
+        </template>
+        <template v-slot:activator>
+          <v-list-item-title style="margin-left:-15px">{{sidebarItem2.name}}</v-list-item-title>
+        </template>
+        <v-list-item link
+          exact
+          v-for="(itemChild, a) in sidebarItem2.children"
+          :key="a"
+          :to="itemChild.to"
+          >
+          <v-list-item-content class="pl-10">
+            <v-list-item-title>{{itemChild.name}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-group>
       <v-subheader class="pl-4 text-center" v-if="mini !== true">Main Menu</v-subheader>
       <v-list-group
         v-for="(mainMenuItem, i) in mainMenuData"
@@ -69,7 +92,7 @@
 </template>
 
 <script>
-import { sidebar, mainMenu } from '@/router/nav'
+import { sidebar, sidebar2, mainMenu } from '@/router/nav'
 export default {
   name: 'AppSidebar',
   data () {
@@ -98,6 +121,9 @@ export default {
     },
     sidebarData () {
       return sidebar
+    },
+    sidebarData2 () {
+      return sidebar2
     },
     mainMenuData () {
       return mainMenu

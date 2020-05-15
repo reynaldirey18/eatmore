@@ -18,6 +18,10 @@ const DashboardPage = () => import('@/views/Dashboard')
 const RestaurantPage = () => import('@/views/Restaurant')
 const ReportPage = () => import('@/views/Report')
 
+// Restaurant
+const ListRestaurant = () => import('@/views/Restaurant/views/List')
+const ProfileRestaurant = () => import('@/views/Restaurant/views/Profile')
+
 // Forgot Password
 const LoginLink = () => import('@/views/ForgotPassword/views/LoginLink')
 const NewPassword = () => import('@/views/ForgotPassword/views/NewPassword')
@@ -136,10 +140,7 @@ const router = new VueRouter({
         {
           path: '/outlet-registration',
           name: 'Outlet Registration',
-          component: OutletRegistration,
-          meta: {
-            guest: true
-          }
+          component: OutletRegistration
         }
       ]
     },
@@ -161,9 +162,24 @@ const router = new VueRouter({
           path: '/restaurant',
           name: 'Restaurant',
           component: RestaurantPage,
-          meta: {
-            requireAuth: true
-          }
+          children: [
+            {
+              path: 'list',
+              name: 'List Outlet',
+              component: ListRestaurant,
+              meta: {
+                requireAuth: true
+              }
+            },
+            {
+              path: 'profile',
+              name: 'Profile Outlet',
+              component: ProfileRestaurant,
+              meta: {
+                requireAuth: true
+              }
+            }
+          ]
         },
         {
           path: '/promo',
