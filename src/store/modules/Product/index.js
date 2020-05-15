@@ -2,7 +2,13 @@ import actions from './actions'
 import mutations from './mutations'
 
 const state = {
-  resdata: []
+  resdata: [],
+  resmodifier: [],
+  dataProduct: null,
+  search: null,
+  page: null,
+  tax: null,
+  pageSize: null
 }
 
 export default {

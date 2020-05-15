@@ -18,7 +18,7 @@
         </v-btn>
         <v-btn
           @click.prevent="gotoAdd()"
-          color="#FDB526" class="ml-2"
+          color="#FDB526" class="text-white"
           dark>Add New Product
         </v-btn>
       </div>
