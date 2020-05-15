@@ -3,12 +3,22 @@
         <h1 class="app-title mb-10">Basic Profile</h1>
         <form @submit.prevent="handleFormSubmit">
             <v-row>
-                <v-col cols="3">
+                <v-col cols="3" v-if="logoPreview === null">
                     <app-file-upload
+                        height="170px"
+                        width="170px"
                         description="Maximum size 2 mb"
                         @onFileChange="onFileChange"
                         :value="businessLogo">
                     </app-file-upload>
+                </v-col>
+                <v-col cols="3" v-if="logoPreview !== null">
+                  <div class="app-button-upload" :style="customStyle">
+                      <div v-bind="logoPreview">
+                        <v-icon class="float-right absolute" v-if="logoPreview != null"
+                        @click="removeImage">mdi-close</v-icon>
+                      </div>
+                  </div>
                 </v-col>
                 <v-col cols="9">
                     <p class="app-title-small pa-0 ma-0 mb-2">Business Logo</p>
@@ -24,6 +34,7 @@
                 <p class="app-title-small ma-0">Business Name</p>
                 <v-text-field
                     label="Business Name"
+                    v-model="businessName"
                     placeholder="Eg. floor1 or floor for cafe & resto"
                     single-line
                     dense
@@ -33,15 +44,17 @@
             <div>
                 <p class="app-title-small ma-0">Business Description</p>
                 <v-textarea
-                outlined
-                dense
-                placeholder="Eg. All floor smoking area"
+                  v-model="businessDescription"
+                  outlined
+                  dense
+                  placeholder="Eg. All floor smoking area"
                 ></v-textarea>
             </div>
             <div>
                 <p class="app-title-small ma-0">Business Type</p>
                 <v-select
                 dense
+                v-model="selectedType"
                 :items="businessTypeList"
                 outlined
                 ></v-select>
@@ -83,6 +96,9 @@
 
 <script>
 import AppFileUpload from '@/components/AppFileUpload'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('outlet')
+
 export default {
   name: 'ComponentBasicProfile',
   components: {
@@ -91,6 +107,7 @@ export default {
   data () {
     return {
       accept: '',
+      selectedType: 1,
       businessTypeList: [
         {
           text: 'Restaurant',
@@ -100,10 +117,42 @@ export default {
       tagList: ['Smooking Area', 'Contain Pork', 'Cafe', 'Cake', 'Sweet', 'No Smoking'],
       tagInputValue: '',
       businessLogo: null,
+      logoPreview: null,
       businessName: '',
       businessDescription: '',
       businessType: '',
       tags: []
+    }
+  },
+  computed: {
+    ...mapState({
+      dataProfil: state => state.dataProfil
+    }),
+    customStyle () {
+      return {
+        width: '170px',
+        height: '170px'
+      }
+    }
+  },
+  mounted () {
+    this.$store.dispatch('outlet/viewOutlet')
+  },
+  watch: {
+    dataProfil (newVal) {
+      this.businessName = newVal.outlet_name
+      this.businessDescription = newVal.outlet_description
+      this.logoPreview = {
+        style: `
+              position: absolute;
+              background-image: url('${newVal.outlet_logo}');
+              background-color: transparent;
+              background-size: 100% auto;
+              position: absolute;
+              width: 100%;
+              height: 100%;
+            `
+      }
     }
   },
   methods: {
@@ -145,7 +194,26 @@ export default {
     },
     handleFormSubmit (e) {
       console.log('submit')
+    },
+    removeImage () {
+      this.logoPreview = null
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.app-button-upload {
+  display: flex;
+  min-width: 140px;
+  height: 140px;
+  background: #F4F5F6;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+</style>

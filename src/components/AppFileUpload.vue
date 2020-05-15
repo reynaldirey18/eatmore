@@ -9,7 +9,7 @@
               @click="removeImage()">mdi-close</v-icon>
             </div>
         </div>
-        <p class="text-center" style="width:140px">{{description}}</p>
+        <p class="text-center">{{description}}</p>
         <input :multiple="multiple" class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
     </div>
 </template>

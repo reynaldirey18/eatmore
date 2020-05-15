@@ -11,7 +11,8 @@ const state = {
   orderNumber: 1,
   isLoaded: false,
   outletCategory: null,
-  outletTag: null
+  outletTag: null,
+  dataProfil: null
 }
 
 export default {

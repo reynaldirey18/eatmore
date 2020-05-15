@@ -60,6 +60,24 @@ const getList = ({ commit }) => {
         commit('SET_LIST', res.data)
         commit('SET_SELECTED', res.data[indexOutlet])
         commit('IS_LOADED')
+        Cookies.set('id-outlet', res.data[indexOutlet].outlet_id)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const viewOutlet = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    const idOutlet = Cookies.get('id-outlet')
+    axios.get('http://api.eatmore.id/outlet_service/' + idOutlet, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        const res = response.data
+        commit('SET_PROFIL', res.data)
       }, error => {
         reject(error)
       })
@@ -70,5 +88,6 @@ export default {
   registOutlet,
   getCategory,
   getTag,
-  getList
+  getList,
+  viewOutlet
 }

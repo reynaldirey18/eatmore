@@ -107,6 +107,7 @@ export default {
     setOutlet (val) {
       const newIndex = this.outletList.indexOf(val) + 1
       Cookies.set('index-outlet', newIndex)
+      this.$store.dispatch('outlet/getList')
       this.$router.go()
     }
   }
