@@ -124,7 +124,7 @@
               </v-row>
             </div>
             <v-btn block color="#FDB526" dark type="submit" class="mt-6">Continue</v-btn>
-            <v-btn text block color="#F32626" class="mt-2">Back</v-btn>
+            <v-btn text block color="#F32626" class="mt-2" @click="getBack">Back</v-btn>
           </v-form>
         </ValidationObserver>
       </v-list-item-content>
@@ -192,6 +192,11 @@ export default {
     }
   },
   methods: {
+    getBack () {
+      setTimeout(() => {
+        this.$router.push('/restaurant/list')
+      }, 200)
+    },
     handleTriggerUpload () {
       this.$refs.file.click()
     },
