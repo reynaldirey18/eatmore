@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 Vue.use(axios)
 
 const token = Cookies.get('token')
+const indexOutlet = Cookies.get('index-outlet') - 1
 
 const registOutlet = ({ state }) => {
   return new Promise((resolve, reject) => {
@@ -55,7 +56,9 @@ const getList = ({ commit }) => {
       }
     })
       .then(response => {
-        commit('SET_LIST', response.data.data)
+        const res = response.data
+        commit('SET_LIST', res.data)
+        commit('SET_SELECTED', res.data[indexOutlet])
         commit('IS_LOADED')
       }, error => {
         reject(error)

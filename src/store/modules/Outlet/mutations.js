@@ -13,8 +13,13 @@ const SET_TAG = (state, payload) => {
 const SET_LIST = (state, payload) => {
   state.outletList = payload
   state.lengthList = payload.length
-  state.selectedOutlet = payload[0]
-  state.orderNumber = payload.indexOf(state.selectedOutlet) + 1
+  // state.selectedOutlet = payload[0]
+  // state.orderNumber = payload.indexOf(state.selectedOutlet) + 1
+}
+
+const SET_SELECTED = (state, payload) => {
+  state.selectedOutlet = payload
+  state.orderNumber = state.outletList.indexOf(state.selectedOutlet) + 1
 }
 
 const IS_LOADED = (state) => {
@@ -26,5 +31,6 @@ export default {
   SET_CATEGORY,
   SET_TAG,
   SET_LIST,
+  SET_SELECTED,
   IS_LOADED
 }
