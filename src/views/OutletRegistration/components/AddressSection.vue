@@ -144,6 +144,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.dispatch('outlet/getTag')
     this.$refs.map.$mapPromise.then(map => {
       this.map = map
     })

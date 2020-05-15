@@ -2,7 +2,7 @@
   <div>
     <div class="mt-4 d-flex flex-row justify-space-between">
       <h1 class="app-title">Outlet List</h1>
-      <v-btn color="#FDB526" dark small width="160px" @click="goToAdd">Add New Outlet</v-btn>
+      <v-btn color="#FDB526" dark small width="160px" @click.prevent="goRegister">Add New Outlet</v-btn>
     </div>
     <v-card class="mt-6" outlined>
       <div class="table">
@@ -72,6 +72,11 @@ export default {
   },
   mounted () {
     this.$store.dispatch('outlet/getList')
+  },
+  methods: {
+    goRegister () {
+      this.$router.push('/outlet-registration')
+    }
   }
 }
 </script>

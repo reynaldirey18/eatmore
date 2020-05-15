@@ -5,7 +5,9 @@ const state = {
   dataRegistration: null,
   tokenRegist: null,
   outletList: null,
-  lengthList: null
+  lengthList: null,
+  outletCategory: null,
+  outletTag: null
 }
 
 export default {
