@@ -9,25 +9,15 @@
       flat
     >
       <v-toolbar-title>
-        <!-- <v-overflow-btn
-          class="my-2"
-          :items="dropdown_font"
-          label="Outlet"
-          target="#dropdown-example"
-          background-color="white"
-          :elevation="0"
-          shaped
-          style="border-radius: 0;border-right:1px solid rgba(0, 0, 0, 0.05)"
-        ></v-overflow-btn> -->
         <v-menu bottom offset-y>
           <template v-slot:activator="{ on }">
             <div class="outlet-list d-flex flex-row justify-space-between align-center cursor-pointer border-right px-2" v-on="on">
               <div>
                 <v-icon color="black">mdi-store</v-icon>
               </div>
-              <div class="d-flex flex-column ml-4 mt-5">
-                <p class="mb-0 text-bold-sm">Outlet 1</p>
-                <p class="black40">Restaurant</p>
+              <div class="d-flex flex-column ml-4 mt-5" v-if="isLoaded">
+                <p class="mb-0 text-bold-sm">Outlet {{ orderNumber }}</p>
+                <p class="black40">{{ selectedOutlet.outlet_name }}</p>
               </div>
               <div>
                 <v-icon color="black" class="ml-10">mdi-menu-down</v-icon>
@@ -39,7 +29,7 @@
               <v-list-item
                 v-for="(item, i) in outletList"
                 :key="i"
-                @click="actionItem(item.to)"
+                @click="setOutlet(item)"
               >
                 <v-list-item-title>{{ item.outlet_name }}</v-list-item-title>
               </v-list-item>
@@ -69,6 +59,7 @@
             <v-list-item
               v-for="(item, i) in items"
               :key="i"
+              @click="actionItem(item.to)"
             >
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item>
@@ -100,8 +91,13 @@ export default {
   },
   computed: {
     ...mapState({
-      outletList: state => state.outletList
-    })
+      outletList: state => state.outletList,
+      selectedOutlet: state => state.selectedOutlet,
+      orderNumber: state => state.orderNumber
+    }),
+    isLoaded () {
+      return this.$store.getters['outlet/didItLoad']
+    }
   },
   mounted () {
     this.$store.dispatch('outlet/getList')
@@ -110,6 +106,9 @@ export default {
     actionItem () {
       Cookies.remove('token')
       this.$router.go()
+    },
+    setOutlet (val) {
+      console.log(val)
     }
   }
 }

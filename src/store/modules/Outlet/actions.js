@@ -56,6 +56,7 @@ const getList = ({ commit }) => {
     })
       .then(response => {
         commit('SET_LIST', response.data.data)
+        commit('IS_LOADED')
       }, error => {
         reject(error)
       })
