@@ -74,10 +74,6 @@
                   placeholder="Eg. Cafe, Cake, Sweet, No smoking "
                   auto-select-first
                   :value="tagInputValue"
-                  @change="onTagValueChange"
-                  @input="onTagInput"
-                  @keyup.enter="submitTag"
-                  @keyup.tab="submitTag"
                 ></v-autocomplete>
               </ValidationProvider>
               <v-btn block color="#FDB526" dark class="mt-6" type="submit" :loading="loading">Create Outlet</v-btn>
@@ -169,32 +165,6 @@ export default {
     },
     getBack () {
       this.$emit('back', 1)
-    },
-    onTagValueChange (e) {
-      console.log(e)
-    },
-    onTagInput (e) {
-      console.log(e)
-    },
-    submitTag (e) {
-      const value = e.target.value
-      if (value) {
-        const stringToMatch = new RegExp(value, 'g')
-        const filter = this.tagList.filter(item => {
-          return !!item.match(stringToMatch)
-        })
-
-        if (filter.length === 0) {
-          const filterValue = this.tags.filter(item => {
-            return item === value
-          })
-          if (filterValue.length === 0) {
-            e.target.value = ''
-            this.tagList.push(value)
-            this.tags.push(value)
-          }
-        }
-      }
     },
     handleMapClick (e) {
       const lat = e.latLng.lat()

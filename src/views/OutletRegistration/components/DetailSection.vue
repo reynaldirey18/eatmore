@@ -20,7 +20,8 @@
             <span class="text-yellow mt-2">Pro tips: Use logo with dimension 1:1</span>
             <v-btn color="#FAFAFA" width="125" class="mt-4" @click="handleTriggerUpload">Upload Image</v-btn>
             <input class="d-none" type="file" @change="handleFileChange" ref="file" />
-            <p class="error--text mt-3" v-if="logoError === true">Please upload an image</p>
+            <p class="error--text mt-3" v-if="logoError === true || errorExtention === true">Please upload an image</p>
+            <p class="error--text mt-3" v-if="errorSize === true">Allowed file Max 2 MB</p>
           </div>
         </div>
         <ValidationObserver ref="form" v-slot="{ handleSubmit }">
@@ -115,6 +116,8 @@ export default {
       show2: false,
       outletLogo: null,
       logoError: false,
+      errorExtention: false,
+      errorSize: false,
       name: null,
       email: null,
       password: null,
@@ -157,7 +160,20 @@ export default {
     handleFileChange (e) {
       const input = e.target || this.$refs.file
       const file = input.files ? input.files[0] : null
-      this.onFileChange(file)
+
+      const allowed = ['png', 'jpg', 'jpeg', 'PNG', 'JPG']
+      const extention = file.name.split('.').pop(-1)
+
+      if (!allowed.includes(extention)) {
+        this.errorExtention = true
+      } else if (parseInt(file.size) > 2000000) {
+        this.errorExtention = false
+        this.errorSize = true
+      } else {
+        this.errorExtention = false
+        this.errorSize = false
+        this.onFileChange(file)
+      }
     },
     onFileChange (file) {
       this.outletLogo = file
