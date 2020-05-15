@@ -92,6 +92,36 @@
               <div>
                 <p class="error--text mt-2 ml-3" v-if="serviceError === true">Please choose at least one</p>
               </div>
+              <v-row class="mt-4" v-if="delivery === true">
+                <v-col cols="6">
+                  <p class="label-form">Delivery Cost</p>
+                  <ValidationProvider v-slot="{ errors }" name="Cost" rules="required">
+                    <v-text-field
+                      v-model="deliveryCost"
+                      :error-messages="errors"
+                      placeholder="10000"
+                      prefix="Rp."
+                      outlined
+                      dense
+                    >
+                    </v-text-field>
+                  </ValidationProvider>
+                </v-col>
+                <v-col cols="6">
+                  <p class="label-form">Delivery Maximum Distance</p>
+                  <ValidationProvider v-slot="{ errors }" name="Max Distance" rules="required">
+                    <v-text-field
+                      v-model="maxDistance"
+                      :error-messages="errors"
+                      placeholder="10.5"
+                      suffix="KM"
+                      outlined
+                      dense
+                    >
+                    </v-text-field>
+                  </ValidationProvider>
+                </v-col>
+              </v-row>
             </div>
             <v-btn block color="#FDB526" dark type="submit" class="mt-6">Continue</v-btn>
             <v-btn text block color="#F32626" class="mt-2">Back</v-btn>
@@ -128,6 +158,8 @@ export default {
       dineIn: false,
       takeaway: false,
       delivery: false,
+      deliveryCost: null,
+      maxDistance: null,
       serviceError: false
     }
   },
@@ -153,6 +185,9 @@ export default {
     delivery (val) {
       if (val === true) {
         this.serviceError = false
+      } else {
+        this.deliveryCost = null
+        this.maxDistance = null
       }
     }
   },
@@ -216,6 +251,8 @@ export default {
         }
         if (this.delivery === true) {
           businessService.push('Delivery')
+          dataSection1.outlet_cost_delivery = this.deliveryCost
+          dataSection1.outlet_max_distance = this.maxDistance
         }
         businessService.forEach((element, index) => {
           var key = 'outlet_service[' + index + ']'
