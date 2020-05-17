@@ -33,7 +33,7 @@
                   color="#FAFAFA" class="text-center w-full">
                     <span class="text--primary">Upload Image</span>
                   </v-btn>
-                  <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
+                  <input class="d-none" type="file" @change="handleFileChange" ref="file" />
                 </v-col>
                 <!-- product Information -->
                 <v-col cols="9" class="pr-7">
@@ -279,6 +279,7 @@
                       dense
                       :items="TaxList"
                       v-model="taxData"
+                      :reduce="text => text.value"
                       outlined
                       ></v-select>
                     </div>
@@ -569,51 +570,84 @@ export default {
     },
     // submit
 
+    closeAndNavigate () {
+      setTimeout(() => {
+        this.$router.push('/products')
+      }, 200)
+    },
     submitForm () {
       this.loading = true
-
+      var tempProduct = {}
       if (this.tax !== null) {
         this.taxActive = true
       } else {
         this.taxActive = false
       }
-      var tempProduct
+      if (this.switch1 === true) {
+        this.recipe = true
+      } else {
+        this.recipe = true
+      }
+      // tempProduct.product_image = this.ProductImage
       tempProduct.product_name = this.productName
       tempProduct.product_category_id = this.category
       tempProduct.unit_id = this.unit
+      tempProduct.recipe_stock_cost_tracker = this.recipe
       tempProduct.tax = this.taxActive
-      tempProduct.tax_id = this.tax
-      tempProduct.product_tags = this.tags
-      tempProduct.productImage = this.ProductImage
-      tempProduct.varian = this.VariantDynamic
-      tempProduct.topping = this.topingsList
-      tempProduct.tracker = this.productDynamic
-      tempProduct.image = this.ProductImage
-
-      this.VariantDynamic.forEach((element, index) => {
-        var vid = 'product_variants[' + index + '][modifier_id]'
-        tempProduct[vid] = element.id
-        var vname = 'product_variants[' + index + '][variant_name]'
-        tempProduct[vname] = element.name
-        var vsku = 'product_variants[' + index + '][variant_sku]'
-        tempProduct[vsku] = element.sku
-        var vsell = 'product_variants[' + index + '][variant_sell_price]'
-        tempProduct[vsell] = element.sell
-        var vbuy = 'product_variants[' + index + '][variant_buy_price]'
-        tempProduct[vbuy] = element.buy
-        var vmin = 'product_variants[' + index + '][variant_min_qty]'
-        tempProduct[vmin] = element.min
+      tempProduct.tax_id = this.taxData
+      this.tags.forEach((element, index) => {
+        var tags = 'product_tags[' + index + ']'
+        tempProduct[tags] = element
       })
-      this.$store.commit('product/set_addProduct', tempProduct)
+      this.topingsList.forEach((element, index) => {
+        var toping = 'product_modifiers[' + index + '][modifier_id]'
+        tempProduct[toping] = element.product_id
+      })
+      this.name.forEach((element, index) => {
+        var vname = 'product_variants[' + index + '][variant_name]'
+        tempProduct[vname] = element
+      })
+      this.sku.forEach((data, index) => {
+        var vsku = 'product_variants[' + index + '][variant_sku]'
+        tempProduct[vsku] = data
+      })
+      this.price.forEach((element, index) => {
+        var vsell = 'product_variants[' + index + '][variant_sell_price]'
+        tempProduct[vsell] = element
+      })
+      this.cost.forEach((element, index) => {
+        var vbuy = 'product_variants[' + index + '][variant_buy_price]'
+        tempProduct[vbuy] = element
+      })
+      this.qty.forEach((element, index) => {
+        var vmin = 'product_variants[' + index + '][variant_qty_perday]'
+        tempProduct[vmin] = element
+      })
+      this.min.forEach((element, index) => {
+        var vmin = 'product_variants[' + index + '][variant_min_qty]'
+        tempProduct[vmin] = element
+      })
+
+      var formData = new FormData()
+      for (var key in tempProduct) {
+        formData.append(key, tempProduct[key])
+      }
+      this.$store.commit('product/set_addProduct', formData)
       this.$store.dispatch('product/sendAddProduct')
         .then(response => {
+          console.log(response)
           const res = response.data
           if (res.status) {
+            this.loading = false
             this.popupSuccess = true
+            this.closeAndNavigate()
           } else {
             this.loading = false
+            this.popupSuccess = true
             console.log(res.errors)
           }
+          this.popupSuccess = true
+          this.closeAndNavigate()
         }).catch((error) => {
           const message = error.response.data.message
           if (error.response.status === 400) {

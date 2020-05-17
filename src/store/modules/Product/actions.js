@@ -31,7 +31,8 @@ const sendAddProduct = ({ state }) => {
   return new Promise((resolve, reject) => {
     axios.post('http://api.eatmore.id/product_service/', state.dataProduct, {
       headers: {
-        authorization: `Bearer ${userToken}`
+        authorization: `Bearer ${userToken}`,
+        'Content-Type': 'multipart/form-data'
       }
     })
       .then(response => {
