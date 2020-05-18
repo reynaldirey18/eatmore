@@ -156,7 +156,6 @@
 import dailyGross from './component/daily.vue'
 import dayAmount from './component/dayamount.vue'
 import hourAmount from './component/houramount.vue'
-import Cookies from 'js-cookie'
 
 export default {
   components: {
@@ -216,17 +215,6 @@ export default {
           profit: '1.000.000'
         }
       ]
-    }
-  },
-  mounted () {
-    const fromSignup = Cookies.get('fromSignup')
-    console.log(fromSignup)
-    if (fromSignup) {
-      console.log('ok123')
-      Cookies.remove('fromSignup')
-      setTimeout(() => {
-        this.$router.go()
-      }, 200)
     }
   }
 }

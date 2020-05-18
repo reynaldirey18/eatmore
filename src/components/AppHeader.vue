@@ -16,8 +16,8 @@
                 <v-icon color="black">mdi-store</v-icon>
               </div>
               <div class="d-flex flex-column ml-4 mt-5">
-                <p class="mb-0 text-bold-sm">Outlet {{ orderNumber }}</p>
-                <p class="black40">{{ selectedOutlet.outlet_name }}</p>
+                <p class="mb-0 text-bold-sm">Outlet</p>
+                <p class="black40">{{ account }}</p>
               </div>
               <div>
                 <v-icon color="black" class="ml-10">mdi-menu-down</v-icon>
@@ -72,6 +72,7 @@
 
 <script>
 import Cookies from 'js-cookie'
+import axios from 'axios'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers('outlet')
 
@@ -80,7 +81,6 @@ export default {
   data () {
     return {
       account: null,
-      dropdown_font: ['Outlet 1', 'Outlet 2'],
       items: [
         {
           title: 'Logout',
@@ -91,15 +91,26 @@ export default {
   },
   mounted () {
     this.$store.dispatch('outlet/getList')
+    const token = Cookies.get('token')
+    axios.get('http://api.eatmore.id/profile_service/', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        const res = response.data
+        this.account = res.data.outlet_name
+        Cookies.set('id-outlet', res.data.outlet_id)
+      }, error => {
+        console.log(error)
+      })
   },
   computed: {
     isLoaded () {
       return this.$store.getters['outlet/didItLoad']
     },
     ...mapState({
-      outletList: state => state.outletList,
-      selectedOutlet: state => state.selectedOutlet,
-      orderNumber: state => state.orderNumber
+      outletList: state => state.outletList
     })
   },
   methods: {
@@ -108,9 +119,8 @@ export default {
       this.$router.go()
     },
     setOutlet (val) {
-      const newIndex = this.outletList.indexOf(val) + 1
-      Cookies.set('index-outlet', newIndex)
       this.$store.commit('outlet/SET_ID_OUTLET', val.outlet_id)
+      Cookies.set('id-outlet', val.outlet_id)
       this.$store.dispatch('outlet/getList')
       this.refreshToken()
     },

@@ -19,11 +19,6 @@ const SET_LIST = (state, payload) => {
   state.lengthList = payload.length
 }
 
-const SET_SELECTED = (state, payload) => {
-  state.selectedOutlet = payload
-  state.orderNumber = state.outletList.indexOf(state.selectedOutlet) + 1
-}
-
 const IS_LOADED = (state) => {
   state.isLoaded = true
 }
@@ -42,7 +37,6 @@ export default {
   SET_CATEGORY,
   SET_TAG,
   SET_LIST,
-  SET_SELECTED,
   IS_LOADED,
   SET_PROFIL,
   SET_EDIT

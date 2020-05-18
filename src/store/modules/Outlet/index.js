@@ -7,8 +7,6 @@ const state = {
   tokenRegist: null,
   outletList: null,
   lengthList: null,
-  selectedOutlet: null,
-  orderNumber: 1,
   isLoaded: false,
   outletCategory: null,
   outletTag: null,

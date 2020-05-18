@@ -95,6 +95,7 @@
           <v-btn
             @click.prevent="refreshToken"
             color="#FDB526" class="mt-3 w-full"
+            :loading="loading2"
             width="100%"
             dark>
             <span class="text-capitalize">Okay</span>
@@ -137,6 +138,7 @@ export default {
       dialog: false,
       dialog2: false,
       loading: false,
+      loading2: false,
       address: null,
       detailAddress: null,
       tagInputValue: '',
@@ -177,6 +179,7 @@ export default {
   },
   methods: {
     navigate () {
+      Cookies.remove('fromSignup')
       if (this.fromSignup) {
         setTimeout(() => {
           this.$router.push('/dashboard')

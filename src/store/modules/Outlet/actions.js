@@ -74,7 +74,6 @@ const getTag = ({ commit }) => {
 
 const getList = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    const indexOutlet = Cookies.get('index-outlet') - 1
     const token = Cookies.get('token')
     axios.get('http://api.eatmore.id/outlet_service/', {
       headers: {
@@ -84,9 +83,7 @@ const getList = ({ commit }) => {
       .then(response => {
         const res = response.data
         commit('SET_LIST', res.data)
-        commit('SET_SELECTED', res.data[indexOutlet])
         commit('IS_LOADED')
-        Cookies.set('id-outlet', res.data[indexOutlet].outlet_id)
       }, error => {
         reject(error)
       })
