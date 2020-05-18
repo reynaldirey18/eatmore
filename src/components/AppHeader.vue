@@ -99,16 +99,15 @@ export default {
       return this.$store.getters['outlet/didItLoad']
     }
   },
-  mounted () {
-    this.$store.dispatch('outlet/getList')
-  },
   methods: {
     actionItem () {
       Cookies.remove('token')
       this.$router.go()
     },
     setOutlet (val) {
-      console.log(val)
+      const newIndex = this.outletList.indexOf(val) + 1
+      Cookies.set('index-outlet', newIndex)
+      this.$router.go()
     }
   }
 }

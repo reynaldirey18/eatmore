@@ -100,8 +100,12 @@ export default {
           if (res.status) {
             this.$store.commit('auth/SET_TOKEN', res.data.token)
             Cookies.set('token', res.data.token, { expires: 1 })
+            const indexOutlet = Cookies.get('index-outlet')
+            if (!indexOutlet) {
+              Cookies.set('index-outlet', 1)
+            }
             setTimeout(() => {
-              this.$router.push('/dashboard')
+              this.$router.go()
             }, 20)
           }
         }).catch((error) => {

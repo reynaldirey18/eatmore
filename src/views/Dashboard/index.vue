@@ -215,6 +215,9 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    this.$store.dispatch('outlet/getList')
   }
 }
 </script>
