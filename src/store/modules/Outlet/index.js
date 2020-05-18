@@ -13,7 +13,8 @@ const state = {
   outletCategory: null,
   outletTag: null,
   idOutlet: null,
-  dataProfil: null
+  dataProfil: null,
+  editProfil: null
 }
 
 export default {

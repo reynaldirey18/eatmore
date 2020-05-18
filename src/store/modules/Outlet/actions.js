@@ -93,11 +93,11 @@ const getList = ({ commit }) => {
   })
 }
 
-const viewOutlet = ({ commit }) => {
+const viewProfile = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const token = Cookies.get('token')
-    const idOutlet = Cookies.get('id-outlet')
-    axios.get('http://api.eatmore.id/outlet_service/' + idOutlet, {
+    // const idOutlet = Cookies.get('id-outlet')
+    axios.get('http://api.eatmore.id/profile_service/', {
       headers: {
         Authorization: 'Bearer ' + token
       }
@@ -111,11 +111,28 @@ const viewOutlet = ({ commit }) => {
   })
 }
 
+const editProfile = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
+    axios.patch('http://api.eatmore.id/profile_service/', state.editProfil, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 export default {
   registOutlet,
   refreshToken,
   getCategory,
   getTag,
   getList,
-  viewOutlet
+  viewProfile,
+  editProfile
 }

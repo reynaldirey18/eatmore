@@ -9,13 +9,13 @@
       flat
     >
       <v-toolbar-title>
-        <v-menu bottom offset-y>
+        <v-menu bottom offset-y v-if="isLoaded">
           <template v-slot:activator="{ on }">
             <div class="outlet-list d-flex flex-row justify-space-between align-center cursor-pointer border-right px-2" v-on="on">
               <div>
                 <v-icon color="black">mdi-store</v-icon>
               </div>
-              <div class="d-flex flex-column ml-4 mt-5" v-if="isLoaded">
+              <div class="d-flex flex-column ml-4 mt-5">
                 <p class="mb-0 text-bold-sm">Outlet {{ orderNumber }}</p>
                 <p class="black40">{{ selectedOutlet.outlet_name }}</p>
               </div>
@@ -89,15 +89,18 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.$store.dispatch('outlet/getList')
+  },
   computed: {
+    isLoaded () {
+      return this.$store.getters['outlet/didItLoad']
+    },
     ...mapState({
       outletList: state => state.outletList,
       selectedOutlet: state => state.selectedOutlet,
       orderNumber: state => state.orderNumber
-    }),
-    isLoaded () {
-      return this.$store.getters['outlet/didItLoad']
-    }
+    })
   },
   methods: {
     actionItem () {
@@ -107,8 +110,24 @@ export default {
     setOutlet (val) {
       const newIndex = this.outletList.indexOf(val) + 1
       Cookies.set('index-outlet', newIndex)
+      this.$store.commit('outlet/SET_ID_OUTLET', val.outlet_id)
       this.$store.dispatch('outlet/getList')
-      this.$router.go()
+      this.refreshToken()
+    },
+    refreshToken () {
+      this.$store.dispatch('outlet/refreshToken')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            Cookies.set('token', res.data.token, { expires: 1 })
+            this.$store.commit('auth/SET_TOKEN', res.data.token)
+            this.$router.go()
+          } else {
+            console.log(res.errors)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
     }
   }
 }

@@ -258,7 +258,7 @@ export default {
             this.loading = false
           }
         }).catch((error) => {
-          const message = error.response.data.messageelse
+          const message = error.response.data.message
           this.errorMessage = message
           this.dialog2 = true
           this.loading = false

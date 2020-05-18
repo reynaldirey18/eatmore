@@ -32,6 +32,10 @@ const SET_PROFIL = (state, payload) => {
   state.dataProfil = payload
 }
 
+const SET_EDIT = (state, payload) => {
+  state.editProfil = payload
+}
+
 export default {
   SET_REGISTRATION,
   SET_ID_OUTLET,
@@ -40,5 +44,6 @@ export default {
   SET_LIST,
   SET_SELECTED,
   IS_LOADED,
-  SET_PROFIL
+  SET_PROFIL,
+  SET_EDIT
 }
