@@ -58,6 +58,9 @@ export default {
         return []
       }
     }
+  },
+  mounted () {
+    this.$store.dispatch('outlet/getList')
   }
 }
 </script>
