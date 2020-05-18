@@ -15,7 +15,7 @@
                     <p>Make sure the photo clearly.</p>
                     <p>Pro tips: Use logo with dimension 1:1</p>
                     <v-btn @click="handleTriggerUpload"><span class="text--primary">Upload Image</span></v-btn>
-                    <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
+                    <input class="" type="file" @change="handleFileChange" :accept="accept" ref="file" />
                 </v-col>
             </v-row>
              <div>
