@@ -17,6 +17,36 @@ const registOutlet = ({ state }) => {
   })
 }
 
+const getCategory = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/outlet_service/references/outlet-category', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        commit('SET_CATEGORY', response.data.data)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const getTag = ({ commit }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/outlet_service/references/product-tags', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        commit('SET_TAG', response.data.data)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 const getList = ({ commit }) => {
   return new Promise((resolve, reject) => {
     axios.get('http://api.eatmore.id/outlet_service/', {
@@ -25,8 +55,8 @@ const getList = ({ commit }) => {
       }
     })
       .then(response => {
-        console.log(response)
         commit('SET_LIST', response.data.data)
+        commit('IS_LOADED')
       }, error => {
         reject(error)
       })
@@ -35,5 +65,7 @@ const getList = ({ commit }) => {
 
 export default {
   registOutlet,
+  getCategory,
+  getTag,
   getList
 }

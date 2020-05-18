@@ -140,7 +140,10 @@ const router = new VueRouter({
         {
           path: '/outlet-registration',
           name: 'Outlet Registration',
-          component: OutletRegistration
+          component: OutletRegistration,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },

@@ -8,21 +8,34 @@
       elevation="0"
       flat
     >
-      <v-toolbar-title style="
-        dispay: block;
-        width: 200px;
-        height: 63px;
-      ">
-        <v-overflow-btn
-          class="my-2"
-          :items="dropdown_font"
-          label="Outlet"
-          target="#dropdown-example"
-          background-color="white"
-          :elevation="0"
-          shaped
-          style="border-radius: 0;border-right:1px solid rgba(0, 0, 0, 0.05)"
-        ></v-overflow-btn>
+      <v-toolbar-title>
+        <v-menu bottom offset-y>
+          <template v-slot:activator="{ on }">
+            <div class="outlet-list d-flex flex-row justify-space-between align-center cursor-pointer border-right px-2" v-on="on">
+              <div>
+                <v-icon color="black">mdi-store</v-icon>
+              </div>
+              <div class="d-flex flex-column ml-4 mt-5" v-if="isLoaded">
+                <p class="mb-0 text-bold-sm">Outlet {{ orderNumber }}</p>
+                <p class="black40">{{ selectedOutlet.outlet_name }}</p>
+              </div>
+              <div>
+                <v-icon color="black" class="ml-10">mdi-menu-down</v-icon>
+              </div>
+            </div>
+          </template>
+          <v-card>
+            <v-list>
+              <v-list-item
+                v-for="(item, i) in outletList"
+                :key="i"
+                @click="setOutlet(item)"
+              >
+                <v-list-item-title>{{ item.outlet_name }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-card>
+        </v-menu>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu bottom offset-y>
@@ -59,6 +72,8 @@
 
 <script>
 import Cookies from 'js-cookie'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('outlet')
 
 export default {
   name: 'AppHeader',
@@ -74,10 +89,26 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState({
+      outletList: state => state.outletList,
+      selectedOutlet: state => state.selectedOutlet,
+      orderNumber: state => state.orderNumber
+    }),
+    isLoaded () {
+      return this.$store.getters['outlet/didItLoad']
+    }
+  },
+  mounted () {
+    this.$store.dispatch('outlet/getList')
+  },
   methods: {
     actionItem () {
       Cookies.remove('token')
       this.$router.go()
+    },
+    setOutlet (val) {
+      console.log(val)
     }
   }
 }
@@ -88,5 +119,8 @@ export default {
   border: 1px solid #FDB526;
   box-sizing: border-box;
   background-blend-mode: normal;
+}
+.outlet-list {
+  height: 62px;
 }
 </style>

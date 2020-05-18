@@ -131,6 +131,9 @@ export default {
       serviceError: false
     }
   },
+  mounted () {
+    this.$store.dispatch('outlet/getCategory')
+  },
   watch: {
     outletLogo (val) {
       if (val !== null) {
