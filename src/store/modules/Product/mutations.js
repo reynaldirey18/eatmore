@@ -17,8 +17,20 @@ const mutations = {
   SET_Modifier (state, payload) {
     state.resmodifier = payload
   },
+  SET_Categories (state, payload) {
+    state.categories = payload
+  },
+  SET_DataCategories (state, payload) {
+    state.dataCategories = payload
+  },
   SET_Tax (state, payload) {
     state.tax = payload
+  },
+  SET_idCategory (state, payload) {
+    state.idCategory = payload
+  },
+  SET_categoryEdit (state, payload) {
+    state.dataEditCate = payload
   }
 }
 export default mutations

@@ -8,7 +8,11 @@ const state = {
   search: null,
   page: null,
   tax: null,
-  pageSize: null
+  pageSize: null,
+  dataCategories: null,
+  categories: [],
+  idCategory: null,
+  dataEditCate: null
 }
 
 export default {
