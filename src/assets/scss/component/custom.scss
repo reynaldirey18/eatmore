@@ -96,9 +96,23 @@
     caret-color: #C5870E !important;
   }
 }
+// image in table
+.photo {
+  width: 48px;
+  height: 48px;
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    object-fit: cover;
+  }
+}
 // border div
 .border-bottom {
   border-bottom: 1px solid #E0E0E0;
+}
+.border-right {
+  border-right: 1px solid #E0E0E0;
 }
 // width
 .w-full {

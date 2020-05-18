@@ -22,7 +22,7 @@
             </v-list-item>
           </v-tab>
           <v-tab-item>
-            <BasicProfile />
+            <basic-profile v-if="isLoaded"></basic-profile>
           </v-tab-item>
           <v-tab-item>
             <Location />
@@ -65,6 +65,7 @@ import {
   Reviews,
   GoogleBusiness
 } from '../components'
+
 export default {
   name: 'AppRestaurant',
   components: {
@@ -118,7 +119,13 @@ export default {
           title: 'Google Business',
           subtitle: 'Set your Google Business account'
         }
-      ]
+      ],
+      basicProfile: null
+    }
+  },
+  computed: {
+    isLoaded () {
+      return this.$store.getters['outlet/didItLoad']
     }
   }
 }
