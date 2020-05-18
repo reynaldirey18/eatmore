@@ -1,97 +1,97 @@
 <template>
-    <div class="px-4 py-6">
-        <h1 class="app-title mb-10">Basic Profile</h1>
-        <form @submit.prevent="handleFormSubmit">
-            <v-row>
-                <v-col cols="3" v-if="logoPreview === null">
-                    <app-file-upload
-                        height="170px"
-                        width="170px"
-                        description="Maximum size 2 mb"
-                        @onFileChange="onFileChange"
-                        :value="businessLogo">
-                    </app-file-upload>
-                </v-col>
-                <v-col cols="3" v-if="logoPreview !== null">
-                  <div class="app-button-upload" :style="customStyle">
-                      <div v-bind="logoPreview">
-                        <v-icon class="float-right absolute" v-if="logoPreview != null"
-                        @click="removeImage">mdi-close</v-icon>
-                      </div>
-                  </div>
-                </v-col>
-                <v-col cols="9">
-                    <p class="app-title-small pa-0 ma-0 mb-2">Business Logo</p>
-                    <div>
-                      <p class="pa-0 ma-0">This logo will appear when customer find your restaurant.</p>
-                      <p class="meteor-primary">Pro tips: Use logo with dimension 1:1</p>
-                    </div>
-                    <v-btn @click="handleTriggerUpload"><span class="blue2">Upload Image</span></v-btn>
-                    <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
-                </v-col>
-            </v-row>
-            <div>
-                <p class="app-title-small ma-0">Business Name</p>
-                <v-text-field
-                    label="Business Name"
-                    v-model="businessName"
-                    placeholder="Eg. floor1 or floor for cafe & resto"
-                    single-line
-                    dense
-                    outlined
-                ></v-text-field>
+  <div class="px-4 py-6">
+    <h1 class="app-title mb-10">Basic Profile</h1>
+    <form @submit.prevent="handleFormSubmit">
+      <v-row>
+        <v-col cols="3" v-if="logoPreview === null">
+          <app-file-upload
+            height="170px"
+            width="170px"
+            description="Maximum size 2 mb"
+            @onFileChange="onFileChange"
+            :value="businessLogo">
+          </app-file-upload>
+        </v-col>
+        <v-col cols="3" v-if="logoPreview !== null">
+          <div class="app-button-upload" :style="customStyle">
+            <div v-bind="logoPreview">
+              <v-icon class="float-right absolute" v-if="logoPreview != null"
+              @click="removeImage">mdi-close</v-icon>
             </div>
-            <div>
-                <p class="app-title-small ma-0">Business Description</p>
-                <v-textarea
-                  v-model="businessDescription"
-                  outlined
-                  dense
-                  placeholder="Eg. All floor smoking area"
-                ></v-textarea>
-            </div>
-            <div>
-                <p class="app-title-small ma-0">Business Type</p>
-                <v-select
-                dense
-                v-model="selectedType"
-                :items="businessTypeList"
-                outlined
-                ></v-select>
-            </div>
-            <div>
-                <p class="app-title-small ma-0">Tags</p>
-                <v-autocomplete
-                    ref="tagAutocomplete"
-                    v-model="tags"
-                    :items="tagList"
-                    chips
-                    small-chips
-                    deletable-chips
-                    full-width
-                    hide-details
-                    hide-no-data
-                    hide-selected
-                    multiple
-                    single-line
-                    outlined
-                    dense
-                    flat
-                    placeholder="Eg. Cafe, Cake, Sweet, No smoking "
-                    auto-select-first
-                    :value="tagInputValue"
-                    @change="onTagValueChange"
-                    @input="onTagInput"
-                    @keyup.enter="submitTag"
-                    @keyup.tab="submitTag"
-                ></v-autocomplete>
-                <p class="black20">This tag will help customer to find your restaurant</p>
-            </div>
-            <div class="mt-8 d-flex justify-end align-end">
-                <v-btn @click.prevent="handleFormSubmit" color="#FDB526" dark><span class="text-capitalize">save change</span></v-btn>
-            </div>
-        </form>
-    </div>
+          </div>
+        </v-col>
+        <v-col cols="9">
+          <p class="app-title-small pa-0 ma-0 mb-2">Business Logo</p>
+          <div>
+            <p class="pa-0 ma-0">This logo will appear when customer find your restaurant.</p>
+            <p class="meteor-primary">Pro tips: Use logo with dimension 1:1</p>
+          </div>
+          <v-btn @click="handleTriggerUpload"><span class="blue2">Upload Image</span></v-btn>
+          <input class="d-none" type="file" @change="handleFileChange" :accept="accept" ref="file" />
+        </v-col>
+      </v-row>
+      <div>
+        <p class="app-title-small ma-0">Business Name</p>
+        <v-text-field
+          label="Business Name"
+          v-model="businessName"
+          placeholder="Eg. floor1 or floor for cafe & resto"
+          single-line
+          dense
+          outlined
+        ></v-text-field>
+      </div>
+      <div>
+        <p class="app-title-small ma-0">Business Description</p>
+        <v-textarea
+          v-model="businessDescription"
+          outlined
+          dense
+          placeholder="Eg. All floor smoking area"
+        ></v-textarea>
+      </div>
+      <div>
+        <p class="app-title-small ma-0">Business Category</p>
+        <v-select
+          dense
+          v-model="selectedType"
+          :items="businessTypeList"
+          outlined
+        ></v-select>
+      </div>
+      <div>
+        <p class="app-title-small ma-0">Tags</p>
+        <v-autocomplete
+          ref="tagAutocomplete"
+          v-model="tags"
+          :items="tagList"
+          chips
+          small-chips
+          deletable-chips
+          full-width
+          hide-details
+          hide-no-data
+          hide-selected
+          multiple
+          single-line
+          outlined
+          dense
+          flat
+          placeholder="Eg. Cafe, Cake, Sweet"
+          auto-select-first
+          :value="tagInputValue"
+          @change="onTagValueChange"
+          @input="onTagInput"
+          @keyup.enter="submitTag"
+          @keyup.tab="submitTag"
+        ></v-autocomplete>
+        <p class="black20">This tag will help customer to find your restaurant</p>
+      </div>
+      <div class="mt-8 d-flex justify-end align-end">
+        <v-btn @click.prevent="handleFormSubmit" color="#FDB526" dark><span class="text-capitalize">save change</span></v-btn>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>

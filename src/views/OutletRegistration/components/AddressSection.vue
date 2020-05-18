@@ -73,7 +73,7 @@
                   outlined
                   dense
                   flat
-                  placeholder="Eg. Cafe, Cake, Sweet, No smoking "
+                  placeholder="Eg. Cafe, Cake, Sweet"
                   auto-select-first
                   :value="tagInputValue"
                 ></v-autocomplete>
@@ -139,7 +139,6 @@ export default {
       loading: false,
       address: null,
       detailAddress: null,
-      tagList: ['Smooking Area', 'Contain Pork', 'Cafe', 'Cake', 'Sweet', 'No Smoking'],
       tagInputValue: '',
       tags: [],
       map: null,
