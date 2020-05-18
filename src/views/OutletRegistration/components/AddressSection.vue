@@ -178,7 +178,6 @@ export default {
   methods: {
     navigate () {
       if (this.fromSignup) {
-        Cookies.set('index-outlet', 1)
         setTimeout(() => {
           this.$router.push('/dashboard')
         }, 200)
@@ -253,6 +252,7 @@ export default {
           const res = response.data
           if (res.status) {
             this.$store.commit('outlet/SET_ID_OUTLET', res.data.insert_id)
+            Cookies.set('id-outlet', res.data.insert_id)
             this.dialog = true
           } else {
             this.loading = false

@@ -113,7 +113,7 @@
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
           <v-btn
-            @click.prevent="dialog = false"
+            @click.prevent="closeAndNavigate"
             color="#FDB526" class="mt-3 w-full"
             width="100%"
             dark>
@@ -211,6 +211,9 @@ export default {
     }
   },
   methods: {
+    closeAndNavigate () {
+      this.$router.go()
+    },
     handleTriggerUpload () {
       this.$refs.file.click()
     },
