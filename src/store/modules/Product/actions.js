@@ -84,9 +84,82 @@ const taxs = ({ commit, state }) => {
     })
   })
 }
+// categories
+const getCategories = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/product_service/references/product-categories', {
+      params: {
+        search: state.search,
+        page: state.page,
+        pageSize: state.pageSize
+      },
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    }).then(response => {
+      const res = response.data
+      resolve(response)
+      if (res.status) {
+        commit('SET_Categories', res.data)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
+
+const postCategories = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    axios.post('http://api.eatmore.id/product_service/references/product-categories', state.dataCategories, {
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const deleteCategory = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    axios.delete('http://api.eatmore.id/product_service/references/product-categories/' + state.idCategory, {
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const editCategory = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    axios.put('http://api.eatmore.id/product_service/references/product-categories/' + state.idCategory, state.dataEditCate, {
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 export default {
   sendAddProduct,
   getProduct,
   modifier,
+  getCategories,
+  postCategories,
+  editCategory,
+  deleteCategory,
   taxs
 }
