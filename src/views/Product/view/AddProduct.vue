@@ -392,6 +392,41 @@
         </v-btn>
       </div>
     </ModalSuccess>
+    <!-- dialog success -->
+    <v-dialog v-model="dialog" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <img src="@/assets/img/success.png" alt="success" class="mx-auto">
+        <v-card-title class="title-card mx-auto">Add Product Success</v-card-title>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="closeAndNavigate"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- dialog failed -->
+    <v-dialog v-model="dialog2" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+        <v-card-title class="title-card mx-auto">Add Product Failed</v-card-title>
+        <p class="mx-auto">{{ errorMessage }}</p>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="dialog2 = false"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -418,6 +453,7 @@ export default {
       active: false,
       switch1: false,
       dialog: false,
+      dialog2: false,
       ProductImage: null,
       loading: false,
       tagList: ['JunkFood', 'Chicken', 'Contain Park'],
@@ -637,17 +673,14 @@ export default {
         .then(response => {
           console.log(response)
           const res = response.data
-          if (res.status) {
+          if (res.status === true) {
             this.loading = false
-            this.popupSuccess = true
-            this.closeAndNavigate()
+            this.dialog = true
           } else {
             this.loading = false
-            this.popupSuccess = true
+            this.dialog2 = true
             console.log(res.errors)
           }
-          this.popupSuccess = true
-          this.closeAndNavigate()
         }).catch((error) => {
           const message = error.response.data.message
           if (error.response.status === 400) {

@@ -10,8 +10,7 @@ Vue.use(VueAxios, axios)
 
 const getProduct = ({ commit, state }) => {
   return new Promise((resolve, reject) => {
-    axios.get('http://api.eatmore.id/product_service/?page=1&pageSize=1000', {
-      params: { fields: ['product_id', 'product_name', 'product_image'] },
+    axios.get('http://api.eatmore.id/product_service/?page=1&pageSize=1000&fields=product_id&fields=product_name&fields=product_image', {
       headers: {
         authorization: `Bearer ${userToken}`
       }
