@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <app-sidebar></app-sidebar>
-    <app-header></app-header>
+    <app-header v-if="isLoaded"></app-header>
     <v-content class="app-content">
       <div class="ml-0 mt-3">
         <v-breadcrumbs :items="breadcrumbItems">
@@ -35,6 +35,9 @@ export default {
     AppHeader
   },
   computed: {
+    isLoaded () {
+      return this.$store.getters['outlet/didItLoad']
+    },
     breadcrumbItems () {
       const isLength = this.$route.matched.length > 0
       if (isLength) {
