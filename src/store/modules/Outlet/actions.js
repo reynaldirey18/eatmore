@@ -27,6 +27,7 @@ const getCategory = ({ commit }) => {
     })
       .then(response => {
         commit('SET_CATEGORY', response.data.data)
+        commit('IS_LOADED')
       }, error => {
         reject(error)
       })
@@ -35,7 +36,7 @@ const getCategory = ({ commit }) => {
 
 const getTag = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    axios.get('http://api.eatmore.id/outlet_service/references/product-tags', {
+    axios.get('http://api.eatmore.id/product_service/references/product-tags', {
       headers: {
         Authorization: 'Bearer ' + token
       }

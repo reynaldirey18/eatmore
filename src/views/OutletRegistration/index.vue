@@ -2,7 +2,7 @@
   <div>
     <div class="outlet-regist pt-10 pb-6">
       <img src="@/assets/img/Eatmore logo-01 1.png" alt="Eatmore logo" class="logo">
-      <div class="step-1" v-show="step == 1">
+      <div class="step-1" v-show="step == 1" v-if="isLoaded">
         <outlet-detail @continue="setStep" @dataForm="setData"></outlet-detail>
       </div>
       <div class="step-2" v-show="step == 2">
@@ -27,6 +27,15 @@ export default {
       step: 1,
       dataSection1: null
     }
+  },
+  computed: {
+    isLoaded () {
+      return this.$store.getters['outlet/didItLoad']
+    }
+  },
+  mounted () {
+    this.$store.dispatch('outlet/getCategory')
+    this.$store.dispatch('outlet/getTag')
   },
   methods: {
     setStep (val) {

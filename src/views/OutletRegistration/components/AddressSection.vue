@@ -57,8 +57,10 @@
                 <v-autocomplete
                   ref="tagAutocomplete"
                   v-model="tags"
-                  :items="tagList"
+                  :items="outletTag"
                   :error-messages="errors"
+                  item-text="tag_name"
+                  item-value="tag_name"
                   chips
                   small-chips
                   deletable-chips
@@ -122,6 +124,10 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState } = createNamespacedHelpers('outlet')
+
 export default {
   name: 'address-section',
   props: ['dataSection1'],
@@ -143,8 +149,12 @@ export default {
       errorMessage: null
     }
   },
+  computed: {
+    ...mapState({
+      outletTag: state => state.outletTag
+    })
+  },
   mounted () {
-    this.$store.dispatch('outlet/getTag')
     this.$refs.map.$mapPromise.then(map => {
       this.map = map
     })
