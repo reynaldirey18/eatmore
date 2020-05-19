@@ -29,7 +29,7 @@
         </gmap-map>
       </div>
       <ValidationObserver ref="form" v-slot="{ handleSubmit }">
-        <v-form @submit.prevent="handleSubmit(submitForm)">
+        <v-form @submit.prevent="handleSubmit(saveChange)">
           <p class="label-form">Address</p>
           <ValidationProvider v-slot="{ errors }" name="Address" rules="required">
             <v-text-field
@@ -52,10 +52,46 @@
             </v-text-field>
           </ValidationProvider>
           <div class="mt-8 d-flex justify-end align-end">
-            <v-btn @click.prevent="handleFormSubmit" color="#FDB526" dark><span class="text-capitalize">save change</span></v-btn>
+            <v-btn type="submit" color="#FDB526" dark :loading="loading">save change</v-btn>
           </div>
         </v-form>
       </ValidationObserver>
+
+      <!-- dialog success -->
+      <v-dialog v-model="dialog" persistent max-width="350">
+        <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+          <img src="@/assets/img/success.png" alt="success" class="mx-auto">
+          <v-card-title class="title-card mx-auto">Data has been saved</v-card-title>
+          <v-card-actions class="pa-0">
+            <v-spacer></v-spacer>
+            <v-btn
+              @click.prevent="dialog = false"
+              color="#FDB526" class="mt-3 w-full"
+              width="100%"
+              dark>
+              <span class="text-capitalize">Okay</span>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <!-- dialog failed -->
+      <v-dialog v-model="dialog2" persistent max-width="350">
+        <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+          <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+          <v-card-title class="title-card mx-auto">Failed to save data</v-card-title>
+          <p class="mx-auto">{{ errorMessage }}</p>
+          <v-card-actions class="pa-0">
+            <v-spacer></v-spacer>
+            <v-btn
+              @click.prevent="dialog2 = false"
+              color="#FDB526" class="mt-3 w-full"
+              width="100%"
+              dark>
+              <span class="text-capitalize">Okay</span>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -74,7 +110,11 @@ export default {
       marker: null,
       coordText: '',
       mapCenter: { lat: -6.9034443, lng: 107.5731165 },
-      addressText: ''
+      addressText: '',
+      loading: false,
+      dialog: false,
+      dialog2: false,
+      errorMessage: null
     }
   },
   mounted () {
@@ -95,6 +135,7 @@ export default {
       this.detailAddress = newVal.outlet_address_detail
       this.mapCenter.lat = newVal.outlet_latitude
       this.mapCenter.lng = newVal.outlet_longitude
+      this.coordText = `${newVal.outlet_latitude}, ${newVal.outlet_longitude}`
     },
     coordText (newVal, oldVal) {
       if (newVal !== oldVal) {
@@ -127,6 +168,34 @@ export default {
       this.mapCenter.lng = addressData.geometry.location.lng()
       this.coordText = `${this.mapCenter.lat}, ${this.mapCenter.lng}`
       this.address = addressData.formatted_address
+    },
+    saveChange () {
+      var allData = this.dataProfil
+      allData.outlet_address = this.address
+      allData.outlet_address_detail = this.detailAddress
+      const [lat, lng] = this.coordText.split(',')
+      allData.outlet_latitude = lat
+      allData.outlet_longitude = lng
+      var formData = new FormData()
+      for (var key in allData) {
+        formData.append(key, allData[key])
+      }
+
+      this.$store.commit('outlet/SET_EDIT', formData)
+      this.$store.dispatch('outlet/editProfile')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            this.dialog = true
+          } else {
+            this.loading = false
+          }
+        }).catch((error) => {
+          const message = error.response.data.message
+          this.errorMessage = message
+          this.dialog2 = true
+          this.loading = false
+        })
     }
   }
 }
