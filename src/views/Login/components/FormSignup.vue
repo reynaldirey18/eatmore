@@ -118,6 +118,8 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   data () {
     return {
@@ -155,6 +157,8 @@ export default {
           const res = response.data
           if (res.status) {
             this.dialog = true
+            Cookies.set('fromSignup', true)
+            Cookies.set('token', res.data.token)
           } else {
             this.loading = false
             console.log(res.errors)

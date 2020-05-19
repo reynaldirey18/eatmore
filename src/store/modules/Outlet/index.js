@@ -12,6 +12,7 @@ const state = {
   isLoaded: false,
   outletCategory: null,
   outletTag: null,
+  idOutlet: null,
   dataProfil: null
 }
 
