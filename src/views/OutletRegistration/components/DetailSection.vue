@@ -70,9 +70,11 @@
               <p class="label-form">Business Category</p>
               <ValidationProvider v-slot="{ errors }" name="Category" rules="required">
                 <v-select
-                  :items="categoryItems"
+                  :items="outletCategory"
                   :error-messages="errors"
                   v-model="selectedCategory"
+                  item-text="param_value"
+                  item-value="param_id"
                   outlined
                   dense
                 ></v-select>
@@ -134,6 +136,9 @@
 
 <script>
 import AppFileUpload from '@/components/AppFileUpload'
+import { createNamespacedHelpers } from 'vuex'
+
+const { mapState } = createNamespacedHelpers('outlet')
 
 export default {
   name: 'detail-section',
@@ -154,7 +159,6 @@ export default {
       reType: null,
       contact: null,
       selectedCategory: null,
-      categoryItems: ['Resto1'],
       dineIn: false,
       takeaway: false,
       delivery: false,
@@ -163,8 +167,10 @@ export default {
       serviceError: false
     }
   },
-  mounted () {
-    this.$store.dispatch('outlet/getCategory')
+  computed: {
+    ...mapState({
+      outletCategory: state => state.outletCategory
+    })
   },
   watch: {
     outletLogo (val) {
@@ -246,7 +252,7 @@ export default {
         dataSection1.outlet_name = this.name
         dataSection1.outlet_email = this.email
         dataSection1.outlet_phone = this.contact
-        dataSection1.outlet_category = 3
+        dataSection1.outlet_category = this.selectedCategory
         var businessService = []
         if (this.dineIn === true) {
           businessService.push('Dine In')
@@ -256,8 +262,9 @@ export default {
         }
         if (this.delivery === true) {
           businessService.push('Delivery')
-          dataSection1.outlet_cost_delivery = this.deliveryCost
-          dataSection1.outlet_max_distance = this.maxDistance
+          dataSection1.outlet_delivery = true
+          dataSection1.outlet_delivery_cost = this.deliveryCost
+          dataSection1.outlet_delivery_max_km = this.maxDistance
         }
         businessService.forEach((element, index) => {
           var key = 'outlet_service[' + index + ']'
