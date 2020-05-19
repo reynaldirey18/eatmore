@@ -243,7 +243,7 @@ export default {
     },
     saveChange () {
       this.loading = true
-      var allData = this.dataProfil
+      var allData = {}
       if (this.logoPreview === null && this.outletLogo === null) {
         this.logoError = true
       } else {

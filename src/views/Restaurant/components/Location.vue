@@ -170,7 +170,7 @@ export default {
       this.address = addressData.formatted_address
     },
     saveChange () {
-      var allData = this.dataProfil
+      var allData = {}
       allData.outlet_address = this.address
       allData.outlet_address_detail = this.detailAddress
       const [lat, lng] = this.coordText.split(',')

@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     saveChange () {
-      var allData = this.dataProfil
+      var allData = {}
       allData.outlet_email = this.businessEmail
       var formData = new FormData()
       for (var key in allData) {
