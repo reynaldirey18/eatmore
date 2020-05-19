@@ -10,13 +10,13 @@ const client = axios.create({
 client.interceptors.response.use((response) => {
   if (response.status === 401) {
     Cookies.remove('token')
-    this.$router.push('/login')
+    window.location.replace(VUE_APP_API_URL)
   }
   return response
 }, (error) => {
   if (error.response && error.response.data) {
     Cookies.remove('token')
-    this.$router.push('/login')
+    window.location.replace(VUE_APP_API_URL)
     return Promise.reject(error.response.data)
   }
   return Promise.reject(error.message)
