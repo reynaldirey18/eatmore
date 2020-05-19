@@ -15,7 +15,8 @@ const state = {
   editProfil: null,
   year: null,
   month: null,
-  specialHours: null
+  specialHours: null,
+  dataSpecialHours: null
 }
 
 export default {

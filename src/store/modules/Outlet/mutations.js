@@ -43,6 +43,10 @@ const SET_MONTH = (state, payload) => {
   state.month = payload
 }
 
+const SET_CREATE_SPECIAL = (state, payload) => {
+  state.dataSpecialHours = payload
+}
+
 export default {
   SET_REGISTRATION,
   SET_ID_OUTLET,
@@ -54,5 +58,6 @@ export default {
   SET_EDIT,
   SET_SPECIAL_HOURS,
   SET_YEAR,
-  SET_MONTH
+  SET_MONTH,
+  SET_CREATE_SPECIAL
 }
