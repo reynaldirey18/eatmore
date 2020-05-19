@@ -20,9 +20,10 @@ axios.interceptors.response.use((response) => {
   }
   return response
 }, (error) => {
-  if (error.response && error.response.data) {
+  if (error.response.status === 401) {
     Cookies.remove('token')
     window.location.replace(VUE_APP_API_URL)
+  } else {
     return Promise.reject(error.response.data)
   }
   return Promise.reject(error.message)
