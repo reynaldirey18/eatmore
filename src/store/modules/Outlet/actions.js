@@ -4,12 +4,33 @@ import Cookies from 'js-cookie'
 
 Vue.use(axios)
 
-const token = Cookies.get('token')
-const indexOutlet = Cookies.get('index-outlet') - 1
-
 const registOutlet = ({ state }) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://api.eatmore.id/outlet_service/', state.dataRegistration)
+    const token = Cookies.get('token')
+    axios.post('http://api.eatmore.id/outlet_service/', state.dataRegistration, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const refreshToken = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
+    axios.post('http://api.eatmore.id/auth_service/refresh-token/', {
+      outlet_id: state.idOutlet
+    },
+    {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
       .then(response => {
         resolve(response)
       }, error => {
@@ -20,6 +41,7 @@ const registOutlet = ({ state }) => {
 
 const getCategory = ({ commit }) => {
   return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
     axios.get('http://api.eatmore.id/outlet_service/references/outlet-category', {
       headers: {
         Authorization: 'Bearer ' + token
@@ -36,6 +58,7 @@ const getCategory = ({ commit }) => {
 
 const getTag = ({ commit }) => {
   return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
     axios.get('http://api.eatmore.id/product_service/references/product-tags', {
       headers: {
         Authorization: 'Bearer ' + token
@@ -51,6 +74,8 @@ const getTag = ({ commit }) => {
 
 const getList = ({ commit }) => {
   return new Promise((resolve, reject) => {
+    const indexOutlet = Cookies.get('index-outlet') - 1
+    const token = Cookies.get('token')
     axios.get('http://api.eatmore.id/outlet_service/', {
       headers: {
         Authorization: 'Bearer ' + token
@@ -70,6 +95,7 @@ const getList = ({ commit }) => {
 
 const viewOutlet = ({ commit }) => {
   return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
     const idOutlet = Cookies.get('id-outlet')
     axios.get('http://api.eatmore.id/outlet_service/' + idOutlet, {
       headers: {
@@ -87,6 +113,7 @@ const viewOutlet = ({ commit }) => {
 
 export default {
   registOutlet,
+  refreshToken,
   getCategory,
   getTag,
   getList,

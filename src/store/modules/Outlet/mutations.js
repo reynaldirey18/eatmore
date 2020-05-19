@@ -2,6 +2,10 @@ const SET_REGISTRATION = (state, payload) => {
   state.dataRegistration = payload
 }
 
+const SET_ID_OUTLET = (state, payload) => {
+  state.idOutlet = payload
+}
+
 const SET_CATEGORY = (state, payload) => {
   state.outletCategory = payload
 }
@@ -30,6 +34,7 @@ const SET_PROFIL = (state, payload) => {
 
 export default {
   SET_REGISTRATION,
+  SET_ID_OUTLET,
   SET_CATEGORY,
   SET_TAG,
   SET_LIST,

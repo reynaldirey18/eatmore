@@ -93,7 +93,7 @@
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
           <v-btn
-            @click.prevent="closeAndNavigate"
+            @click.prevent="refreshToken"
             color="#FDB526" class="mt-3 w-full"
             width="100%"
             dark>
@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import { createNamespacedHelpers } from 'vuex'
 
 const { mapState } = createNamespacedHelpers('outlet')
@@ -146,7 +147,8 @@ export default {
       coordText: '',
       mapCenter: { lat: -6.9034443, lng: 107.5731165 },
       addressText: '',
-      errorMessage: null
+      errorMessage: null,
+      fromSignup: false
     }
   },
   computed: {
@@ -159,6 +161,12 @@ export default {
       this.map = map
     })
     this.marker = this.$refs.marker
+
+    const isFirst = Cookies.get('fromSignup')
+    if (isFirst) {
+      this.fromSignup = isFirst
+    }
+    console.log(this.fromSignup)
   },
   watch: {
     coordText (newVal, oldVal) {
@@ -169,10 +177,33 @@ export default {
     }
   },
   methods: {
-    closeAndNavigate () {
-      setTimeout(() => {
-        this.$router.push('/login')
-      }, 200)
+    navigate () {
+      if (this.fromSignup) {
+        Cookies.set('index-outlet', 1)
+        setTimeout(() => {
+          this.$router.push('/dashboard')
+        }, 200)
+      } else {
+        setTimeout(() => {
+          this.$router.push('/restaurant/list')
+        }, 200)
+      }
+    },
+    refreshToken () {
+      this.$store.dispatch('outlet/refreshToken')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            Cookies.set('token', res.data.token, { expires: 1 })
+            this.$store.commit('auth/SET_TOKEN', res.data.token)
+            this.navigate()
+          } else {
+            this.loading = false
+            console.log(res.errors)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
     },
     getBack () {
       this.$emit('back', 1)
@@ -222,6 +253,7 @@ export default {
         .then(response => {
           const res = response.data
           if (res.status) {
+            this.$store.commit('outlet/SET_ID_OUTLET', res.data.insert_id)
             this.dialog = true
           } else {
             this.loading = false

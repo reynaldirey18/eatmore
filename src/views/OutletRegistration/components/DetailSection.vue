@@ -126,7 +126,7 @@
               </v-row>
             </div>
             <v-btn block color="#FDB526" dark type="submit" class="mt-6">Continue</v-btn>
-            <v-btn text block color="#F32626" class="mt-2" @click="getBack">Back</v-btn>
+            <v-btn text block color="#F32626" class="mt-2" @click="getBack" v-if="fromSignup === false">Back</v-btn>
           </v-form>
         </ValidationObserver>
       </v-list-item-content>
@@ -136,6 +136,7 @@
 
 <script>
 import AppFileUpload from '@/components/AppFileUpload'
+import Cookies from 'js-cookie'
 import { createNamespacedHelpers } from 'vuex'
 
 const { mapState } = createNamespacedHelpers('outlet')
@@ -164,13 +165,20 @@ export default {
       delivery: false,
       deliveryCost: null,
       maxDistance: null,
-      serviceError: false
+      serviceError: false,
+      fromSignup: false
     }
   },
   computed: {
     ...mapState({
       outletCategory: state => state.outletCategory
     })
+  },
+  mounted () {
+    const isFirst = Cookies.get('fromSignup')
+    if (isFirst) {
+      this.fromSignup = isFirst
+    }
   },
   watch: {
     outletLogo (val) {
