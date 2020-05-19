@@ -12,7 +12,10 @@ const state = {
   outletTag: null,
   idOutlet: null,
   dataProfil: null,
-  editProfil: null
+  editProfil: null,
+  year: null,
+  month: null,
+  specialHours: null
 }
 
 export default {

@@ -38,7 +38,6 @@
           :event-overlap-mode="mode"
           :event-overlap-threshold="30"
           :show-month-on-first="false"
-          @change="getEvents"
           @click:date="showDialog"
         ></v-calendar>
       </v-sheet>
@@ -152,7 +151,7 @@
                     v-model="menu3"
                     :close-on-content-click="false"
                     :nudge-right="40"
-                    :return-value.sync="time"
+                    :return-value.sync="timeOpen"
                     transition="scale-transition"
                     offset-y
                     max-width="290px"
@@ -186,7 +185,7 @@
                     v-model="menu4"
                     :close-on-content-click="false"
                     :nudge-right="40"
-                    :return-value.sync="time"
+                    :return-value.sync="timeEnd"
                     transition="scale-transition"
                     offset-y
                     max-width="290px"
@@ -258,6 +257,11 @@ export default {
         }
       ]
     }
+  },
+  mounted () {
+    this.$store.commit('outlet/SET_YEAR', moment().format('YYYY'))
+    this.$store.commit('outlet/SET_MONTH', moment().format('MM'))
+    this.$store.dispatch('outlet/getSpecialHours')
   },
   computed: {
     formatedDateTitle () {

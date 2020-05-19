@@ -124,6 +124,27 @@ const editProfile = ({ state }) => {
   })
 }
 
+const getSpecialHours = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
+    axios.get('http://api.eatmore.id/profile_service/special-business-hours', {
+      params: {
+        year: state.year,
+        month: state.month
+      },
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        const res = response.data
+        commit('SET_SPECIAL_HOURS', res.data)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 export default {
   registOutlet,
   refreshToken,
@@ -131,5 +152,6 @@ export default {
   getTag,
   getList,
   viewProfile,
-  editProfile
+  editProfile,
+  getSpecialHours
 }
