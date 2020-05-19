@@ -12,21 +12,21 @@ import Cookies from 'js-cookie'
 
 Vue.use(require('vue-moment'))
 
-const { VUE_APP_API_URL } = process.env
+const link = window.location.origin
 axios.interceptors.response.use((response) => {
   if (response.status === 401) {
     Cookies.remove('token')
-    window.location.replace(VUE_APP_API_URL)
+    window.location.replace(link)
   }
-  return response
+  return Promise.resolve(response)
 }, (error) => {
   if (error.response.status === 401) {
     Cookies.remove('token')
-    window.location.replace(VUE_APP_API_URL)
+    window.location.replace(link)
   } else {
-    return Promise.reject(error.response.data)
+    return Promise.reject(error)
   }
-  return Promise.reject(error.message)
+  return Promise.reject(error)
 })
 
 Vue.config.productionTip = false
