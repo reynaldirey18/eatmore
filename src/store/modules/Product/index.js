@@ -12,7 +12,12 @@ const state = {
   dataCategories: null,
   categories: [],
   idCategory: null,
-  dataEditCate: null
+  dataEditCate: null,
+  idRecipes: null,
+  resVariant: [],
+  resVariantDetail: [],
+  idVariantDetail: null,
+  name: []
 }
 
 export default {

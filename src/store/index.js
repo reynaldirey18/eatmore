@@ -7,6 +7,7 @@ import productModule from './modules/Product'
 import employeeModule from './modules/Employee'
 import roleModule from './modules/system/role'
 import outletModule from './modules/Outlet'
+import inventories from './modules/inventories'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     product: productModule,
     employee: employeeModule,
     role: roleModule,
-    outlet: outletModule
+    outlet: outletModule,
+    inventories: inventories
   }
 })

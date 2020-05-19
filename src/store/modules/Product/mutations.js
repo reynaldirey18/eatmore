@@ -31,6 +31,22 @@ const mutations = {
   },
   SET_categoryEdit (state, payload) {
     state.dataEditCate = payload
+  },
+  SET_idRecipes (state, payload) {
+    state.idRecipes = payload
+  },
+  SET_resVariant (state, payload) {
+    state.resVariant = payload
+  },
+  SET_resVariantDetail (state, payload) {
+    state.resVariantDetail = payload
+  },
+  SET_idVatiantDetail (state, payload) {
+    state.idVariantDetail = payload
+  },
+  SET_name (state, payload) {
+    state.name = payload
+    console.log(state.name)
   }
 }
 export default mutations

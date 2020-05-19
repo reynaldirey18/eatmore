@@ -15,7 +15,7 @@
           <div>
             <v-tabs hide-slider background-color="#FBFBFB" color="dark" vertical>
               <v-tab
-                v-for="(tabItem, i) in menuItems"
+                v-for="(tabItem, i) in resVariant"
                 :key="i"
                 @click="tabActive = i"
                 style="
@@ -28,10 +28,10 @@
                     <v-list-item-content class="d-flex">
                       <div class="text pr-4">
                         <div>
-                        <v-list-item-title class="text-start text-capitalize app-title-small">{{tabItem.title}}</v-list-item-title>
-                        <v-list-item-subtitle class="text-start text-capitalize app-subtitle-small">{{tabItem.subtitle}}</v-list-item-subtitle>
+                        <v-list-item-title class="text-start text-capitalize app-title-small">{{tabItem.variant_name}}</v-list-item-title>
+                        <v-list-item-subtitle class="text-start text-capitalize app-subtitle-small">{{tabItem.variant_sku}}</v-list-item-subtitle>
                         </div>
-                        <v-badge
+                        <!-- <v-badge
                           v-if="tabItem.status === 'warning'"
                           color="#FDB526"
                           dot
@@ -42,14 +42,14 @@
                           color="#F32626"
                           dot
                         >
-                        </v-badge>
+                        </v-badge> -->
                       </div>
                     </v-list-item-content>
                 </v-list-item>
               </v-tab>
             </v-tabs>
           </div>
-            <div class="pa-2 text-center center" v-if="menuItems < 1">
+            <div class="pa-2 text-center center" v-if="resVariant.length < 1">
               <v-img
                   class="center"
                   :src="eatmoreLogo"
@@ -78,9 +78,9 @@
               </app-file-upload>
               </div>
               <div class="pa-2">
-                <p class="text-bold-xl pb-0 mb-1">Baso</p>
-                <p class="text-bold pb-0 mb-1">{{dataPass.title}}</p>
-                <p class="text-grey pb-0 mb-0">{{dataPass.subtitle}}</p>
+                <p class="text-bold-xl pb-0 mb-1">{{name.product_name}}</p>
+                <p class="text-bold pb-0 mb-1">{{titlee}}</p>
+                <p class="text-grey pb-0 mb-0">{{subtitlee}}</p>
               </div>
             </v-col>
             <v-col cols="12" class="mb-0 pb-0">
@@ -91,6 +91,7 @@
                 outlined
                 single-line
                 counter
+                v-model="description"
                 :rules="rules"
                 name="input-7-4"
                 label="Eg. All floor smoking area"
@@ -103,6 +104,7 @@
                 suffix="Pcs"
                 single-line
                 dense
+                v-model="recipeQty"
                 filled
                 outlined
                 hide-details
@@ -240,6 +242,9 @@
 
 <script>
 import AppFileUpload from '@/components/AppFileUpload'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('product')
+const { mapStateInvent } = createNamespacedHelpers('inventories')
 export default {
   name: 'recipes-edit',
   components: {
@@ -248,7 +253,15 @@ export default {
   computed: {
     eatmoreLogo () {
       return require('@/assets/img/NotFound.png')
-    }
+    },
+    ...mapState([
+      'resVariant',
+      'resVariantDetail',
+      'name'
+    ]),
+    ...mapStateInvent([
+      'resInvent'
+    ])
   },
   data () {
     return {
@@ -262,6 +275,8 @@ export default {
       subtitle: 'Learn More',
       rules: [v => v.length <= 225 || 'Max 225 characters'],
       ProductImage: null,
+      titlee: null,
+      subtitlee: null,
       selected: [],
       headers: [
         {
@@ -311,17 +326,31 @@ export default {
         }
       ],
       IngrediantsDy: [],
-      name: [],
       qyt: [],
       unit: [],
-      dataPass: []
+      dataPass: [],
+      recipeQty: null,
+      description: null
     }
   },
   watch: {
+    dataPass (val) {
+      this.recipeQty = val.ingredient_qty
+      this.description = val.ingredient_description
+    }
+  },
+  mounted () {
+    this.$store.commit('product/SET_idRecipes', this.$route.params.id)
+    this.$store.dispatch('product/getVariantlist')
+    this.$store.dispatch('inventories/getInventories')
   },
   methods: {
     menuchanges (val) {
-      this.dataPass = val
+      this.titlee = val.variant_name
+      this.subtitlee = val.variant_sku
+      this.$store.commit('product/SET_idVatiantDetail', val.ingredient_ids[0])
+      this.$store.dispatch('product/getEditRecipes')
+      this.dataPass = this.resVariantDetail
     },
     addvariant (val) {
       this.IngrediantsDy = val
