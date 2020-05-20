@@ -6,52 +6,51 @@
         <p class="app-title-small" style="margin-bottom: 0px">Daily Bussiness</p>
         <div>
           <v-btn
-            v-for="(day, i) in dayList"
+            v-for="(day, i) in businessHours"
             :key="'day' +i"
             class="btn-daylist"
-            :color="day.active ? '#FDB526' : '#999999'"
-            :style="day.active ? 'background-color:#FFF8E9': ''"
+            :color="day.is_active ? '#FDB526' : '#999999'"
+            :style="day.is_active ? 'background-color:#FFF8E9': ''"
             height="44"
             outlined
             max-width="125"
-            @click="day.active = !day.active"
+            @click="day.is_active = !day.is_active"
           >
-            <span class="text-capitalize">{{day.name}}</span>
+            <span class="text-capitalize">{{day.hour_day}}</span>
           </v-btn>
         </div>
       </div>
       <div class="mt-8">
-        <div
-          v-for="(day, i) in dayActive"
-          :key="'dayActive' + i"
-        >
-          <p class="app-subtitle text-capitalize">{{day.name}}</p>
-          <v-row>
-            <v-col cols="6">
-              <div>
-                <p class="app-title-small ma-0">Time Open</p>
-                <v-text-field
-                    placeholder="Eg. 11:00"
-                    v-model="day.timeOpen"
+        <div v-for="(item, index) in businessHours" :key="index">
+          <div v-if="item.is_active">
+            <p class="app-subtitle text-capitalize">{{ item.hour_day }}</p>
+            <v-row>
+              <v-col cols="6">
+                <div>
+                  <p class="app-title-small ma-0">Time Open</p>
+                  <v-text-field
+                      placeholder="Eg. 11:00"
+                      v-model="item.hour_start_time"
+                      single-line
+                      dense
+                      outlined
+                  ></v-text-field>
+                </div>
+              </v-col>
+              <v-col cols="6">
+                <div>
+                  <p class="app-title-small ma-0">Time Close</p>
+                  <v-text-field
+                    placeholder="Eg. 21:00"
+                    v-model="item.hour_end_time"
                     single-line
                     dense
                     outlined
-                ></v-text-field>
-              </div>
-            </v-col>
-            <v-col cols="6">
-              <div>
-                <p class="app-title-small ma-0">Time Close</p>
-                <v-text-field
-                  placeholder="Eg. 21:00"
-                  v-model="day.timeClose"
-                  single-line
-                  dense
-                  outlined
-                ></v-text-field>
-              </div>
-            </v-col>
-          </v-row>
+                  ></v-text-field>
+                </div>
+              </v-col>
+            </v-row>
+          </div>
         </div>
       </div>
       <div class="mt-8 d-flex justify-end align-end">
@@ -68,37 +67,6 @@ const { mapState } = createNamespacedHelpers('outlet')
 export default {
   data () {
     return {
-      dayList: [
-        {
-          name: 'Monday',
-          active: false
-        },
-        {
-          name: 'Tuesday',
-          active: true
-        },
-        {
-          name: 'Wednesday',
-          active: false
-        },
-        {
-          name: 'Thursday',
-          active: false
-        },
-        {
-          name: 'Friday',
-          active: false
-        },
-        {
-          name: 'Saturday',
-          active: false
-        },
-        {
-          name: 'Sunday',
-          active: false
-        }
-      ],
-      dayActive: []
     }
   },
   mounted () {
@@ -108,21 +76,6 @@ export default {
     ...mapState({
       businessHours: state => state.businessHours
     })
-  },
-  watch: {
-    businessHours (val) {
-      val.forEach(element => {
-        var day = {
-          name: element.hour_day,
-          active: element.is_active,
-          timeOpen: element.hour_start_time,
-          timeClose: element.hour_end_time
-        }
-        if (day.active) {
-          this.dayActive.push(day)
-        }
-      })
-    }
   },
   methods: {
     handleFormSubmit () {
