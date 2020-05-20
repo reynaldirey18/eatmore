@@ -51,6 +51,14 @@ const SET_BUSINESS_HOURS = (state, payload) => {
   state.businessHours = payload
 }
 
+const UPDATE_TIME_BUSINESS = (state, payload) => {
+  state.businessHours = payload
+}
+
+const NEW_BUSINESS_TIME = (state, payload) => {
+  state.newBusinessHours = payload
+}
+
 export default {
   SET_REGISTRATION,
   SET_ID_OUTLET,
@@ -64,5 +72,7 @@ export default {
   SET_YEAR,
   SET_MONTH,
   SET_CREATE_SPECIAL,
-  SET_BUSINESS_HOURS
+  SET_BUSINESS_HOURS,
+  UPDATE_TIME_BUSINESS,
+  NEW_BUSINESS_TIME
 }
