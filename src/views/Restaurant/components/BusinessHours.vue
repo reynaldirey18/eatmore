@@ -25,13 +25,14 @@
           v-for="(day, i) in dayActive"
           :key="'dayActive' + i"
         >
-          <p class="app-subtitle">{{day.name}}</p>
+          <p class="app-subtitle text-capitalize">{{day.name}}</p>
           <v-row>
             <v-col cols="6">
               <div>
                 <p class="app-title-small ma-0">Time Open</p>
                 <v-text-field
                     placeholder="Eg. 11:00"
+                    v-model="day.timeOpen"
                     single-line
                     dense
                     outlined
@@ -43,6 +44,7 @@
                 <p class="app-title-small ma-0">Time Close</p>
                 <v-text-field
                   placeholder="Eg. 21:00"
+                  v-model="day.timeClose"
                   single-line
                   dense
                   outlined
@@ -60,6 +62,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('outlet')
+
 export default {
   data () {
     return {
@@ -70,7 +75,7 @@ export default {
         },
         {
           name: 'Tuesday',
-          active: false
+          active: true
         },
         {
           name: 'Wednesday',
@@ -92,12 +97,35 @@ export default {
           name: 'Sunday',
           active: false
         }
-      ]
+      ],
+      dayActive: []
     }
   },
+  mounted () {
+    this.$store.dispatch('outlet/getBusinessHours')
+  },
   computed: {
-    dayActive () {
-      return this.dayList.filter(day => day.active)
+    ...mapState({
+      businessHours: state => state.businessHours
+    })
+    // dayActive () {
+    //   return this.dayList.filter(day => day.active)
+    // }
+  },
+  watch: {
+    businessHours (val) {
+      console.log(val)
+      val.forEach(element => {
+        var day = {
+          name: element.hour_day,
+          active: element.is_active,
+          timeOpen: element.hour_start_time,
+          timeClose: element.hour_end_time
+        }
+        if (day.active) {
+          this.dayActive.push(day)
+        }
+      })
     }
   },
   methods: {

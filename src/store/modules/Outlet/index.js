@@ -16,7 +16,8 @@ const state = {
   year: null,
   month: null,
   specialHours: null,
-  dataSpecialHours: null
+  dataSpecialHours: null,
+  businessHours: null
 }
 
 export default {

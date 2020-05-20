@@ -47,6 +47,10 @@ const SET_CREATE_SPECIAL = (state, payload) => {
   state.dataSpecialHours = payload
 }
 
+const SET_BUSINESS_HOURS = (state, payload) => {
+  state.businessHours = payload
+}
+
 export default {
   SET_REGISTRATION,
   SET_ID_OUTLET,
@@ -59,5 +63,6 @@ export default {
   SET_SPECIAL_HOURS,
   SET_YEAR,
   SET_MONTH,
-  SET_CREATE_SPECIAL
+  SET_CREATE_SPECIAL,
+  SET_BUSINESS_HOURS
 }
