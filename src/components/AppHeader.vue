@@ -9,15 +9,15 @@
       flat
     >
       <v-toolbar-title>
-        <v-menu bottom offset-y>
+        <v-menu bottom offset-y v-if="isLoaded">
           <template v-slot:activator="{ on }">
             <div class="outlet-list d-flex flex-row justify-space-between align-center cursor-pointer border-right px-2" v-on="on">
               <div>
                 <v-icon color="black">mdi-store</v-icon>
               </div>
-              <div class="d-flex flex-column ml-4 mt-5" v-if="isLoaded">
-                <p class="mb-0 text-bold-sm">Outlet {{ orderNumber }}</p>
-                <p class="black40">{{ selectedOutlet.outlet_name }}</p>
+              <div class="d-flex flex-column ml-4 mt-5">
+                <p class="mb-0 text-bold-sm">Outlet</p>
+                <p class="black40">{{ account }}</p>
               </div>
               <div>
                 <v-icon color="black" class="ml-10">mdi-menu-down</v-icon>
@@ -72,6 +72,7 @@
 
 <script>
 import Cookies from 'js-cookie'
+import axios from 'axios'
 import { createNamespacedHelpers } from 'vuex'
 const { mapState } = createNamespacedHelpers('outlet')
 
@@ -80,7 +81,6 @@ export default {
   data () {
     return {
       account: null,
-      dropdown_font: ['Outlet 1', 'Outlet 2'],
       items: [
         {
           title: 'Logout',
@@ -89,15 +89,29 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.$store.dispatch('outlet/getList')
+    const token = Cookies.get('token')
+    axios.get('http://api.eatmore.id/profile_service/', {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        const res = response.data
+        this.account = res.data.outlet_name
+        Cookies.set('id-outlet', res.data.outlet_id)
+      }, error => {
+        console.log(error)
+      })
+  },
   computed: {
-    ...mapState({
-      outletList: state => state.outletList,
-      selectedOutlet: state => state.selectedOutlet,
-      orderNumber: state => state.orderNumber
-    }),
     isLoaded () {
       return this.$store.getters['outlet/didItLoad']
-    }
+    },
+    ...mapState({
+      outletList: state => state.outletList
+    })
   },
   methods: {
     actionItem () {
@@ -105,10 +119,25 @@ export default {
       this.$router.go()
     },
     setOutlet (val) {
-      const newIndex = this.outletList.indexOf(val) + 1
-      Cookies.set('index-outlet', newIndex)
+      this.$store.commit('outlet/SET_ID_OUTLET', val.outlet_id)
+      Cookies.set('id-outlet', val.outlet_id)
       this.$store.dispatch('outlet/getList')
-      this.$router.go()
+      this.refreshToken()
+    },
+    refreshToken () {
+      this.$store.dispatch('outlet/refreshToken')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            Cookies.set('token', res.data.token, { expires: 1 })
+            this.$store.commit('auth/SET_TOKEN', res.data.token)
+            this.$router.go()
+          } else {
+            console.log(res.errors)
+          }
+        }).catch((error) => {
+          console.log(error)
+        })
     }
   }
 }

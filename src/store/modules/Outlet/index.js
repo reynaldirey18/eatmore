@@ -7,13 +7,16 @@ const state = {
   tokenRegist: null,
   outletList: null,
   lengthList: null,
-  selectedOutlet: null,
-  orderNumber: 1,
   isLoaded: false,
   outletCategory: null,
   outletTag: null,
   idOutlet: null,
-  dataProfil: null
+  dataProfil: null,
+  editProfil: null,
+  year: null,
+  month: null,
+  specialHours: null,
+  dataSpecialHours: null
 }
 
 export default {
