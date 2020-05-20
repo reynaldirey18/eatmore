@@ -73,7 +73,7 @@
                   outlined
                   dense
                   flat
-                  placeholder="Eg. Cafe, Cake, Sweet, No smoking "
+                  placeholder="Eg. Cafe, Cake, Sweet"
                   auto-select-first
                   :value="tagInputValue"
                 ></v-autocomplete>
@@ -95,6 +95,7 @@
           <v-btn
             @click.prevent="refreshToken"
             color="#FDB526" class="mt-3 w-full"
+            :loading="loading2"
             width="100%"
             dark>
             <span class="text-capitalize">Okay</span>
@@ -137,9 +138,9 @@ export default {
       dialog: false,
       dialog2: false,
       loading: false,
+      loading2: false,
       address: null,
       detailAddress: null,
-      tagList: ['Smooking Area', 'Contain Pork', 'Cafe', 'Cake', 'Sweet', 'No Smoking'],
       tagInputValue: '',
       tags: [],
       map: null,
@@ -178,8 +179,8 @@ export default {
   },
   methods: {
     navigate () {
+      Cookies.remove('fromSignup')
       if (this.fromSignup) {
-        Cookies.set('index-outlet', 1)
         setTimeout(() => {
           this.$router.push('/dashboard')
         }, 200)
@@ -254,12 +255,13 @@ export default {
           const res = response.data
           if (res.status) {
             this.$store.commit('outlet/SET_ID_OUTLET', res.data.insert_id)
+            Cookies.set('id-outlet', res.data.insert_id)
             this.dialog = true
           } else {
             this.loading = false
           }
         }).catch((error) => {
-          const message = error.response.data.messageelse
+          const message = error.response.data.message
           this.errorMessage = message
           this.dialog2 = true
           this.loading = false

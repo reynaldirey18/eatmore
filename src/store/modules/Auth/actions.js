@@ -5,7 +5,7 @@ Vue.use(axios)
 
 const signUp = ({ state }) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://api.eatmore.id/auth_service/registration', state.dataRegistration)
+    axios.post('http://api.eatmore.id/auth_service/erp/registration', state.dataRegistration)
       .then(response => {
         resolve(response)
       }, error => {
@@ -16,7 +16,7 @@ const signUp = ({ state }) => {
 
 const logIn = ({ state }) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://api.eatmore.id/auth_service/login', state.dataLogin)
+    axios.post('http://api.eatmore.id/auth_service/erp/login', state.dataLogin)
       .then(response => {
         resolve(response)
       }, error => {
@@ -27,7 +27,7 @@ const logIn = ({ state }) => {
 
 const sendLink = ({ state }) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://api.eatmore.id/auth_service/forgot-password', state.dataForgot)
+    axios.post('http://api.eatmore.id/auth_service/erp/forgot-password', state.dataForgot)
       .then(response => {
         resolve(response)
       }, error => {
@@ -38,7 +38,7 @@ const sendLink = ({ state }) => {
 
 const resetPassword = ({ state }) => {
   return new Promise((resolve, reject) => {
-    axios.post('http://api.eatmore.id/auth_service/change-password', state.dataReset, {
+    axios.post('http://api.eatmore.id/auth_service/erp/change-password', state.dataReset, {
       headers: {
         Authorization: 'Bearer ' + state.tokenReset
       }

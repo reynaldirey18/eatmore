@@ -74,7 +74,6 @@ const getTag = ({ commit }) => {
 
 const getList = ({ commit }) => {
   return new Promise((resolve, reject) => {
-    const indexOutlet = Cookies.get('index-outlet') - 1
     const token = Cookies.get('token')
     axios.get('http://api.eatmore.id/outlet_service/', {
       headers: {
@@ -84,20 +83,18 @@ const getList = ({ commit }) => {
       .then(response => {
         const res = response.data
         commit('SET_LIST', res.data)
-        commit('SET_SELECTED', res.data[indexOutlet])
         commit('IS_LOADED')
-        Cookies.set('id-outlet', res.data[indexOutlet].outlet_id)
       }, error => {
         reject(error)
       })
   })
 }
 
-const viewOutlet = ({ commit }) => {
+const viewProfile = ({ commit }) => {
   return new Promise((resolve, reject) => {
     const token = Cookies.get('token')
-    const idOutlet = Cookies.get('id-outlet')
-    axios.get('http://api.eatmore.id/outlet_service/' + idOutlet, {
+    // const idOutlet = Cookies.get('id-outlet')
+    axios.get('http://api.eatmore.id/profile_service/', {
       headers: {
         Authorization: 'Bearer ' + token
       }
@@ -111,11 +108,67 @@ const viewOutlet = ({ commit }) => {
   })
 }
 
+const editProfile = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
+    axios.patch('http://api.eatmore.id/profile_service/', state.editProfil, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const getSpecialHours = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
+    axios.get('http://api.eatmore.id/profile_service/special-business-hours', {
+      params: {
+        year: state.year,
+        month: state.month
+      },
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        const res = response.data
+        commit('SET_SPECIAL_HOURS', res.data)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const postSpecialHours = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
+    axios.post('http://api.eatmore.id/profile_service/special-business-hours', state.dataSpecialHours, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 export default {
   registOutlet,
   refreshToken,
   getCategory,
   getTag,
   getList,
-  viewOutlet
+  viewProfile,
+  editProfile,
+  getSpecialHours,
+  postSpecialHours
 }

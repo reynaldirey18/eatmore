@@ -119,14 +119,17 @@ export default {
           title: 'Google Business',
           subtitle: 'Set your Google Business account'
         }
-      ],
-      basicProfile: null
+      ]
     }
   },
   computed: {
     isLoaded () {
       return this.$store.getters['outlet/didItLoad']
     }
+  },
+  mounted () {
+    this.$store.dispatch('outlet/getCategory')
+    this.$store.dispatch('outlet/getTag')
   }
 }
 </script>
