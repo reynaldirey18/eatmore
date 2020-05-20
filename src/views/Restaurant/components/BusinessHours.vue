@@ -108,13 +108,9 @@ export default {
     ...mapState({
       businessHours: state => state.businessHours
     })
-    // dayActive () {
-    //   return this.dayList.filter(day => day.active)
-    // }
   },
   watch: {
     businessHours (val) {
-      console.log(val)
       val.forEach(element => {
         var day = {
           name: element.hour_day,
