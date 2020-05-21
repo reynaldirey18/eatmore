@@ -10,7 +10,7 @@ Vue.use(VueAxios, axios)
 
 const getInventories = ({ commit, state }) => {
   return new Promise((resolve, reject) => {
-    axios.get('http://api.eatmore.id//inventories', {
+    axios.get('http://api.eatmore.id/product_service/inventories', {
       params: {
         page: state.page,
         pageSize: state.pageSize
@@ -29,7 +29,25 @@ const getInventories = ({ commit, state }) => {
     })
   })
 }
+const getInventoriesById = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/product_service/inventories/' + state.idInvent, {
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    }).then(response => {
+      const res = response.data
+      resolve(response)
+      if (res.status) {
+        commit('SET_restInventById', res.data)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
 
 export default {
-  getInventories
+  getInventories,
+  getInventoriesById
 }

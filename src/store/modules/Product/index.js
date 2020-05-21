@@ -17,7 +17,11 @@ const state = {
   resVariant: [],
   resVariantDetail: [],
   idVariantDetail: null,
-  name: []
+  name: [],
+  unitList: [],
+  datarecipes: [],
+  inventById: [],
+  idInvent: null
 }
 
 export default {

@@ -3,7 +3,9 @@ import mutations from './mutations'
 import getters from './getters'
 
 const state = {
-  resInvent: []
+  resInvent: [],
+  idInvent: null,
+  resByIdInvent: []
 }
 
 export default {

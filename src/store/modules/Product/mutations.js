@@ -46,7 +46,18 @@ const mutations = {
   },
   SET_name (state, payload) {
     state.name = payload
-    console.log(state.name)
+  },
+  SET_Unit (state, payload) {
+    state.unitList = payload
+  },
+  SET_dataRecipesEdit (state, payload) {
+    state.datarecipes = payload
+  },
+  SET_RestInventByid (state, payload) {
+    state.inventById = payload
+  },
+  SET_IdInvent (state, payload) {
+    state.idInvent = payload
   }
 }
 export default mutations
