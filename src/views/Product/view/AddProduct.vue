@@ -381,7 +381,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <ModalSuccess  :title="'Product Success Added'" :dialog="popupSuccess"  @close="popupSuccess = false">
+    <ModalSuccess  :title="'Product Success Added'" :dialog5="popupSuccess"  @close="popupSuccess = false">
       <div v-slot.v-card-actions>
         <v-btn
           color="#FDB526" class="mt-3 w-full"
@@ -454,6 +454,7 @@ export default {
       switch1: false,
       dialog: false,
       dialog2: false,
+      dialog5: false,
       ProductImage: null,
       loading: false,
       tagList: ['JunkFood', 'Chicken', 'Contain Park'],

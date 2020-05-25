@@ -31,6 +31,33 @@ const mutations = {
   },
   SET_categoryEdit (state, payload) {
     state.dataEditCate = payload
+  },
+  SET_idRecipes (state, payload) {
+    state.idRecipes = payload
+  },
+  SET_resVariant (state, payload) {
+    state.resVariant = payload
+  },
+  SET_resVariantDetail (state, payload) {
+    state.resVariantDetail = payload
+  },
+  SET_idVatiantDetail (state, payload) {
+    state.idVariantDetail = payload
+  },
+  SET_name (state, payload) {
+    state.name = payload
+  },
+  SET_Unit (state, payload) {
+    state.unitList = payload
+  },
+  SET_dataRecipesEdit (state, payload) {
+    state.datarecipes = payload
+  },
+  SET_RestInventByid (state, payload) {
+    state.inventById = payload
+  },
+  SET_IdInvent (state, payload) {
+    state.idInvent = payload
   }
 }
 export default mutations

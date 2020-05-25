@@ -7,7 +7,7 @@
     </v-row>
 
     <v-card class="mt-5" style="height:auto;">
-      <div class="pa-10 text-center center" v-if="product.length < 1">
+      <div class="pa-10 text-center center" v-if="resdata.length < 1">
         <v-img
             class="center"
             :src="eatmoreLogo"
@@ -17,10 +17,10 @@
         <p class="text-blood">No Recipe In Here</p>
         <p>Add your catalog product and start to selling</p>
       </div>
-      <div v-if="product.length > 1">
+      <div v-if="resdata.length > 1">
         <v-data-table
           :headers="headers"
-          :items="product"
+          :items="resdata"
           :search="search"
           :page.sync="page"
           :items-per-page="itemsPerPage"
@@ -28,14 +28,14 @@
           class="elevation-1"
           @page-count="pageCount = $event"
         >
-          <template v-slot:item.name="{item}">
+          <template v-slot:item.product_name="{item}">
             <v-row>
               <v-col cols="2" class="pa-1">
                 <v-img src="https://asset.winnetnews.com/image/cache/slide/post/image-doyan-jengkol-ketahui-manfaat-dan-dampak-untuk-kamu.jpg" style="width:90px; height:48px; border-radius: 4px;" aspect-ratio="1.7"></v-img>
               </v-col>
               <v-col cols="10">
-                <span class="text-blood">{{item.name}}</span><br>
-                <span>{{item.number}}</span>
+                <span class="text-blood">{{item.product_name}}</span><br>
+                <span>{{item.product_id}}</span>
               </v-col>
             </v-row>
           </template>
@@ -45,20 +45,21 @@
               <div class="text-grey-sm" v-else-if="item.stock == 'Untracked'">{{item.stock}}</div>
               <div class="text-red" v-else-if="item.stock == 'Out Of Stock'">{{item.stock}}</div>
               <div class="text-yellow" v-else-if="item.stock == 'Warning'">{{item.stock}}</div>
+              <div class="text-green" v-else-if="item.stock == 'available'">{{item.stock}}</div>
             </div>
           </template>
-          <template v-slot:item.actions>
-            <div class="pt-4"><p class="text-blue cursor-pointer"  @click="goToEdit()">Edit</p></div>
+          <template v-slot:item.actions={item}>
+            <div class="pt-4"><p class="text-blue cursor-pointer"  @click="goToEdit(item)">Edit</p></div>
           </template>
-          <template v-slot:item.other>
-            <v-btn icon @click="goToEdit()">
+          <template v-slot:item.other={item}>
+            <v-btn icon @click="goToEdit(item)">
               <v-icon>mdi-dots-horizontal</v-icon>
             </v-btn>
           </template>
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{product.length}} Recipes
+          Show {{itemsPerPage}} of {{resdata.length}} Recipes
           </div>
           <div>
           <v-pagination
@@ -106,6 +107,9 @@
 
 <script>
 import AppFileUpload from '@/components/AppDocUpload'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('product')
+
 export default {
   name: 'product',
   components: {
@@ -114,7 +118,10 @@ export default {
   computed: {
     eatmoreLogo () {
       return require('@/assets/img/NotFound.png')
-    }
+    },
+    ...mapState([
+      'resdata'
+    ])
   },
   data () {
     return {
@@ -123,9 +130,9 @@ export default {
       pageCount: 0,
       itemsPerPage: 10,
       headers: [
-        { text: 'Product Name', value: 'name' },
-        { text: 'Quantity/Unit', align: 'center', value: 'quality' },
-        { text: 'Ingredient Amount', align: 'center', value: 'amount' },
+        { text: 'Product Name', value: 'product_name' },
+        { text: 'Quantity/Unit', align: 'center', value: 'recipe_qty' },
+        { text: 'Ingredient Amount', align: 'center', value: 'ingredient_amount' },
         { text: 'Ingredient Stock', align: 'center', value: 'stock' },
         { text: '', value: 'actions', align: 'end', sortable: false },
         { text: '', value: 'other', sortable: false }
@@ -178,6 +185,9 @@ export default {
   },
   watch: {
   },
+  mounted () {
+    this.$store.dispatch('product/getRecipes')
+  },
   methods: {
     handleTriggerUpload () {
       this.$refs.file.click()
@@ -191,9 +201,11 @@ export default {
     onFileChange (file) {
       this.docExcel = file
     },
-    goToEdit () {
+    goToEdit (data) {
+      console.log(data)
+      this.$store.commit('product/SET_name', data)
       setTimeout(() => {
-        this.$router.push('/products/edit-recipes')
+        this.$router.push('/products/edit-recipes/' + data.product_id)
       }, 1000)
     }
   }

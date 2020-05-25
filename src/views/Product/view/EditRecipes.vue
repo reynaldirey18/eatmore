@@ -5,176 +5,202 @@
         <h1 class="title">Edit Recipes</h1>
       </v-col>
     </v-row>
-    <v-card class="ml-3">
-      <v-row>
-        <v-col cols="3" class="app-box-grey"><p class="app-sub pb-0 mb-0">Product Variants</p></v-col>
-        <v-col cols="9" class="app-box"><p class="app-sub pb-0 mb-0">Product Information</p></v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="3" class="app-box-grey">
-          <div>
-            <v-tabs hide-slider background-color="#FBFBFB" color="dark" vertical>
-              <v-tab
-                v-for="(tabItem, i) in menuItems"
-                :key="i"
-                @click="tabActive = i"
-                style="
-                  width: 100%;
-                  justify-content: flex-start;
-                  padding: 30px 00px;
-                "
-              >
-                <v-list-item @click="menuchanges(tabItem)" two-line class="py-1" :style="tabActive === i  ? 'background-color: #F2F2F2' : ''">
-                    <v-list-item-content class="d-flex">
-                      <div class="text pr-4">
-                        <div>
-                        <v-list-item-title class="text-start text-capitalize app-title-small">{{tabItem.title}}</v-list-item-title>
-                        <v-list-item-subtitle class="text-start text-capitalize app-subtitle-small">{{tabItem.subtitle}}</v-list-item-subtitle>
-                        </div>
-                        <v-badge
-                          v-if="tabItem.status === 'warning'"
-                          color="#FDB526"
-                          dot
-                        >
-                        </v-badge>
-                        <v-badge
-                          v-else-if="tabItem.status === 'danger'"
-                          color="#F32626"
-                          dot
-                        >
-                        </v-badge>
-                      </div>
-                    </v-list-item-content>
-                </v-list-item>
-              </v-tab>
-            </v-tabs>
-          </div>
-            <div class="pa-2 text-center center" v-if="menuItems < 1">
-              <v-img
-                  class="center"
-                  :src="eatmoreLogo"
-                  width="100%"
-                  height="100%"
-              />
-              <p class="text-grey pb-0 mb-0">There is no product variants. Add product variant to make a variety of products.</p>
-              <v-btn
-                @click.prevent="handleFormSubmit"
-                text
-                color="#FDB526" class="text-center pa-0 ma-0"
-                dark>
-                <span class="text-capitalize">Learn More</span>
-              </v-btn>
-            </div>
-        </v-col>
-        <v-col cols="9">
-          <div>
-            <v-col cols="12" class="d-flex flex-row">
-              <div class="pt-1">
-              <app-file-upload
-                  height="102px"
-                  width="92px"
-                  @onFileChange="onFileChange"
-                  :value="ProductImage">
-              </app-file-upload>
-              </div>
-              <div class="pa-2">
-                <p class="text-bold-xl pb-0 mb-1">Baso</p>
-                <p class="text-bold pb-0 mb-1">{{dataPass.title}}</p>
-                <p class="text-grey pb-0 mb-0">{{dataPass.subtitle}}</p>
-              </div>
-            </v-col>
-            <v-col cols="12" class="mb-0 pb-0">
-              <p class="text-blood-sm">Recipes Description</p>
-              <v-textarea
-               class="mb-0 pb-0"
-                filled
-                outlined
-                single-line
-                counter
-                :rules="rules"
-                name="input-7-4"
-                label="Eg. All floor smoking area"
-              ></v-textarea>
-            </v-col>
-            <v-col cols="12" class="mt-0 pt-0">
-              <p class="text-blood-sm">Recipe Quantity</p>
-              <v-text-field
-                label="Eg: 1"
-                suffix="Pcs"
-                single-line
-                dense
-                filled
-                outlined
-                hide-details
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
+    <ValidationObserver ref="form" v-slot="{ handleSubmit }">
+      <v-form @submit.prevent="handleSubmit(submitForm)">
+        <v-card class="ml-3">
+          <v-row>
+            <v-col cols="3" class="app-box-grey"><p class="app-sub pb-0 mb-0">Product Variants</p></v-col>
+            <v-col cols="9" class="app-box"><p class="app-sub pb-0 mb-0">Product Information</p></v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="3" class="app-box-grey">
               <div>
-                <p class="text-blood">Ingredients</p>
-                <div
-                :key="index.id"
-                v-for="(row, index) in IngrediantsDy">
-                  <v-row>
-                    <v-col cols="4">
-                      <p class="app-title-small ma-0">Inventory Name</p>
-                      <v-text-field
-                          label="Variant Name"
-                          placeholder="Eg. Garam"
-                          v-model="row.name"
-                          single-line
-                          dense
-                          filled
-                          outlined
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="3">
-                      <p class="app-title-small ma-0">Quantity</p>
-                      <v-text-field
-                          label="SKU"
-                          placeholder="Eg. 01"
-                          v-model="qyt[index]"
-                          single-line
-                          dense
-                          filled
-                          outlined
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="4">
-                      <p class="app-title-small ma-0">Unit</p>
-                      <v-select
-                      dense
-                      :items="UnitList"
-                      outlined
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="auto">
-                      <div class="pt-7">
-                        <v-icon  @click.prevent="removeConfigurationRow(index)" medium color="red" class="cursor-pointer">mdi-delete</v-icon>
-                      </div>
-                    </v-col>
-                  </v-row>
+                <v-tabs hide-slider background-color="#FBFBFB" color="dark" vertical>
+                  <v-tab
+                    v-for="(tabItem, i) in resVariant"
+                    :key="i"
+                    @click="tabActive = i"
+                    style="
+                      width: 100%;
+                      justify-content: flex-start;
+                      padding: 30px 00px;
+                    "
+                  >
+                    <v-list-item @click="menuchanges(tabItem)" two-line class="py-1" :style="tabActive === i  ? 'background-color: #F2F2F2' : ''">
+                        <v-list-item-content class="d-flex">
+                          <div class="text pr-4">
+                            <div>
+                            <v-list-item-title class="text-start text-capitalize app-title-small">{{tabItem.variant_name}}</v-list-item-title>
+                            <v-list-item-subtitle class="text-start text-capitalize app-subtitle-small">{{tabItem.variant_sku}}</v-list-item-subtitle>
+                            </div>
+                            <!-- <v-badge
+                              v-if="tabItem.status === 'warning'"
+                              color="#FDB526"
+                              dot
+                            >
+                            </v-badge>
+                            <v-badge
+                              v-else-if="tabItem.status === 'danger'"
+                              color="#F32626"
+                              dot
+                            >
+                            </v-badge> -->
+                          </div>
+                        </v-list-item-content>
+                    </v-list-item>
+                  </v-tab>
+                </v-tabs>
+              </div>
+                <div class="pa-2 text-center center" v-if="resVariant.length < 1">
+                  <v-img
+                      class="center"
+                      :src="eatmoreLogo"
+                      width="100%"
+                      height="100%"
+                  />
+                  <p class="text-grey pb-0 mb-0">There is no product variants. Add product variant to make a variety of products.</p>
+                  <v-btn
+                    @click.prevent="handleFormSubmit"
+                    text
+                    color="#FDB526" class="text-center pa-0 ma-0"
+                    dark>
+                    <span class="text-capitalize">Learn More</span>
+                  </v-btn>
                 </div>
-                <v-btn
-                  width="100%"
-                  @click.prevent="dialog = true"
-                  color="#FAFAFA" class="text-center w-full"
-                  dark>
-                  <span class="text-blue-sm">Add Ingredients</span>
-                </v-btn>
+            </v-col>
+            <v-col cols="9">
+              <div>
+                <v-col cols="12" class="d-flex flex-row">
+                  <div class="pt-1">
+                  <app-file-upload
+                      height="102px"
+                      width="92px"
+                      @onFileChange="onFileChange"
+                      :value="ProductImage">
+                  </app-file-upload>
+                  </div>
+                  <div class="pa-2">
+                    <p class="text-bold-xl pb-0 mb-1">{{name.product_name}}</p>
+                    <p class="text-bold pb-0 mb-1">{{titlee}}</p>
+                    <p class="text-grey pb-0 mb-0">{{subtitlee}}</p>
+                  </div>
+                </v-col>
+                <v-col cols="12" class="mb-0 pb-0">
+                  <p class="text-blood-sm">Recipes Description</p>
+                  <ValidationProvider v-slot="{ errors }" name="Recipes Description" rules="required">
+                    <v-textarea
+                    class="mb-0 pb-0"
+                      filled
+                      outlined
+                      single-line
+                      :error-messages="errors"
+                      counter
+                      v-model="description"
+                      :rules="rules"
+                      name="input-7-4"
+                      label="Eg. All floor smoking area"
+                    ></v-textarea>
+                  </ValidationProvider>
+                </v-col>
+                <v-col cols="12" class="mt-0 pt-0">
+                  <p class="text-blood-sm">Recipe Quantity</p>
+                  <ValidationProvider v-slot="{ errors }" name="Recipes Quantity" rules="required">
+                    <v-text-field
+                      label="Eg: 1"
+                      suffix="Pcs"
+                      single-line
+                      dense
+                      v-model="recipeQty"
+                      :error-messages="errors"
+                      filled
+                      outlined
+                      hide-details
+                    ></v-text-field>
+                  </ValidationProvider>
+                </v-col>
+                <v-col cols="12">
+                  <div>
+                    <p class="text-blood">Ingredients</p>
+                    <div
+                    :key="index.id"
+                    v-for="(row, index) in IngrediantsDy">
+                      <v-row>
+                        <v-col cols="4">
+                          <p class="app-title-small ma-0">Inventory Name</p>
+                          <ValidationProvider v-slot="{ errors }" name="Inventory Name" rules="required">
+                            <v-text-field
+                                label="Variant Name"
+                                placeholder="Eg. Garam"
+                                v-model="inventName[index]"
+                                :error-messages="errors"
+                                single-line
+                                disabled
+                                dense
+                                filled
+                                outlined
+                            ></v-text-field>
+                          </ValidationProvider>
+                        </v-col>
+                        <v-col cols="3">
+                          <p class="app-title-small ma-0">Quantity</p>
+                          <ValidationProvider v-slot="{ errors }" name="Quantity" rules="required">
+                            <v-text-field
+                                label="SKU"
+                                placeholder="Eg. 01"
+                                v-model="qytInvent[index]"
+                                :error-messages="errors"
+                                single-line
+                                dense
+                                filled
+                                outlined
+                            ></v-text-field>
+                          </ValidationProvider>
+                        </v-col>
+                        <v-col cols="4">
+                          <p class="app-title-small ma-0">Unit</p>
+                          <ValidationProvider v-slot="{ errors }" name="Quantity" rules="required">
+                            <v-select
+                            dense
+                            :items="UnitListt"
+                            v-model="unitInvent[index]"
+                            :error-messages="errors"
+                            :reduce="text => text.value"
+                            outlined
+                            ></v-select>
+                          </ValidationProvider>
+                        </v-col>
+                        <v-col cols="auto">
+                          <div class="pt-7">
+                            <v-icon  @click.prevent="removeConfigurationRow(index,row)" medium color="red" class="cursor-pointer">mdi-delete</v-icon>
+                          </div>
+                        </v-col>
+                      </v-row>
+                    </div>
+                    <v-btn
+                      width="100%"
+                      @click.prevent="showIngredients"
+                      color="#FAFAFA" class="text-center w-full"
+                      dark>
+                      <span class="text-blue-sm">Add Ingredients</span>
+                    </v-btn>
+                  </div>
+                </v-col>
+                <v-col cols="12" class="d-flex flex-row-reverse">
+                  <v-btn
+                    color="#FDB526"
+                    type="submit"
+                    :loading="loading"
+                    class="text-center float-right"
+                    dark>
+                    <span class="text-capitalize">Save Recipes</span>
+                  </v-btn>
+                </v-col>
               </div>
             </v-col>
-            <v-col cols="12" class="d-flex flex-row-reverse">
-              <v-btn
-                color="#FDB526"
-                class="text-center float-right"
-                dark>
-                <span class="text-capitalize">Save Recipes</span>
-              </v-btn>
-            </v-col>
-          </div>
-        </v-col>
-      </v-row>
-    </v-card>
+          </v-row>
+        </v-card>
+      </v-form>
+    </ValidationObserver>
     <!-- modal -->
     <v-dialog v-model="dialog" persistent max-width="450">
       <v-card class="pa-2">
@@ -198,7 +224,7 @@
         <div class="my-5" style="max-height: 364px; overflow-x:auto">
           <v-data-table
             :headers="headers"
-            :items="toppingsList"
+            :items="restInventories"
             :search="search"
             :items-per-page="itemsPerPage"
             hide-default-header
@@ -212,8 +238,8 @@
                   <v-img src="https://goodminds.id/handsome/wp-content/uploads/2019/04/18.-Ragam-Menu-Takjil-Buka-Puasa-yang-Praktis-dan-Menyegarkan.jpg" style="width:120px; height:48px; border-radius: 4px;" aspect-ratio="1.7"></v-img>
                 </v-col>
                 <v-col cols="10">
-                  <span class="text-blood">{{item.name}}</span><br>
-                  <span>{{item.code}}</span>
+                  <span class="text-blood">{{item.inventory_name}}</span><br>
+                  <span>{{item.inventory_sku}}</span>
                 </v-col>
               </v-row>
             </template>
@@ -240,6 +266,8 @@
 
 <script>
 import AppFileUpload from '@/components/AppFileUpload'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('product')
 export default {
   name: 'recipes-edit',
   components: {
@@ -248,7 +276,14 @@ export default {
   computed: {
     eatmoreLogo () {
       return require('@/assets/img/NotFound.png')
-    }
+    },
+    ...mapState([
+      'resVariant',
+      'resVariantDetail',
+      'name',
+      'inventById',
+      'unitList'
+    ])
   },
   data () {
     return {
@@ -262,7 +297,11 @@ export default {
       subtitle: 'Learn More',
       rules: [v => v.length <= 225 || 'Max 225 characters'],
       ProductImage: null,
+      titlee: null,
+      loading: false,
+      subtitlee: null,
       selected: [],
+      UnitListt: [],
       headers: [
         {
           text: '',
@@ -270,7 +309,6 @@ export default {
           sortable: false,
           value: 'avatar'
         },
-        { text: '', value: 'name' },
         { text: '', value: 'other', sortable: false }
       ],
       menuItems: [
@@ -290,12 +328,6 @@ export default {
           status: null
         }
       ],
-      UnitList: [
-        {
-          text: 'Sendok Makan (SDM)',
-          value: 1
-        }
-      ],
       toppingsList: [
         {
           id: 1,
@@ -311,24 +343,90 @@ export default {
         }
       ],
       IngrediantsDy: [],
-      name: [],
       qyt: [],
       unit: [],
-      dataPass: []
+      dataPass: [],
+      recipeQty: null,
+      description: null,
+      restByIdinvent: [],
+      restInventories: [],
+      inventName: [],
+      qytInvent: [],
+      tempDeleteIngre: [],
+      unitInvent: [],
+      inventId: []
     }
   },
   watch: {
+    unitList (newval) {
+      newval.forEach((item, index) => {
+        this.UnitListt.push({
+          text: item.unit_name,
+          value: item.unit_id
+        })
+      })
+    },
+    dataPass (val) {
+      this.recipeQty = val.ingredient_qty
+      this.description = val.ingredient_description
+      this.IngrediantsDy = val.em_product_ingredient_details
+      this.IngrediantsDy.forEach((data, idx) => {
+        this.qytInvent.push(data.ingredient_det_qty)
+        this.unitList.forEach((temp, index) => {
+          if (temp.unit_id === data.unit_id) {
+            this.unitInvent.push({
+              text: temp.unit_name,
+              value: temp.unit_id
+            })
+          }
+        })
+
+        this.$store.commit('product/SET_IdInvent', data.inventory_id)
+        this.$store.dispatch('product/getInventById')
+        console.log(this.inventById)
+        this.inventName[idx] = this.inventById.inventory_name
+      })
+    }
+  },
+  mounted () {
+    this.$store.commit('product/SET_idRecipes', this.$route.params.id)
+    this.$store.dispatch('product/getVariantlist')
+    this.$store.dispatch('inventories/getInventories')
+    this.$store.dispatch('product/getunitlist')
+    this.getInventories()
   },
   methods: {
+    showIngredients () {
+      this.$store.dispatch('product/getunitlist')
+      this.getInventories()
+      this.dialog = true
+    },
+    getInventories () {
+      this.restInventories = this.$store.state.inventories.resInvent
+      this.restByIdinvent = this.$store.state.inventories.resByIdInvent
+    },
     menuchanges (val) {
-      this.dataPass = val
+      this.titlee = val.variant_name
+      this.subtitlee = val.variant_sku
+      this.$store.commit('product/SET_idVatiantDetail', val.ingredient_ids[0])
+      this.$store.dispatch('product/getEditRecipes')
+      this.dataPass = this.resVariantDetail
     },
     addvariant (val) {
       this.IngrediantsDy = val
       this.dialog = false
+      this.IngrediantsDy.forEach((val, idx) => {
+        this.inventName[idx] = val.inventory_name
+        this.inventId[idx] = val.inventory_id
+      })
     },
-    removeConfigurationRow: function (index) {
+    removeConfigurationRow: function (index, val) {
       this.IngrediantsDy.splice(index, 1)
+      val.forEach((data, idx) => {
+        this.tempDeleteIngre[idx] = data
+      })
+      this.inventName[index].splice(index, 1)
+      this.inventId[index].splice(index, 1)
     },
     handleTriggerUpload () {
       this.$refs.file.click()
@@ -341,6 +439,71 @@ export default {
     },
     onFileChange (file) {
       this.ProductImage = file
+    },
+    // submit
+
+    closeAndNavigate () {
+      setTimeout(() => {
+        this.$router.push('/products')
+      }, 200)
+    },
+    submitForm () {
+      this.loading = true
+      var tempProduct = {}
+      // tempProduct.ingredient_image = this.ProductImage
+      tempProduct.ingredient_qty = this.recipeQty
+      tempProduct.ingredient_description = this.description
+
+      if (this.tempDeleteIngre !== null) {
+        this.inventId.forEach((element, index) => {
+          var idInvent = 'ingredient_recipes[' + index + '][inventory_id]'
+          tempProduct[idInvent] = element
+        })
+      }
+      this.qytInvent.forEach((element, index) => {
+        var qty = 'ingredient_recipes[' + index + '][ingredient_det_id]'
+        tempProduct[qty] = element
+      })
+      this.unitInvent.forEach((element, index) => {
+        var unit = 'ingredient_recipes[' + index + '][unit_id]'
+        tempProduct[unit] = element.value
+      })
+      if (this.tempDeleteIngre !== null) {
+        this.tempDeleteIngre.forEach((data, index) => {
+          var del = 'ingredient_recipes[' + index + '][ingredient_det_qty]'
+          tempProduct[del] = data
+        })
+      }
+
+      var formData = new FormData()
+      for (var key in tempProduct) {
+        formData.append(key, tempProduct[key])
+      }
+      this.$store.commit('product/SET_dataRecipesEdit', formData)
+      this.$store.dispatch('product/sendUpdateRecipes')
+        .then(response => {
+          console.log(response)
+          const res = response.data
+          if (res.status === true) {
+            this.loading = false
+          } else {
+            this.loading = false
+            console.log(res.errors)
+          }
+        })
+        .catch((error) => {
+          const message = error.response.data.message
+          if (error.response.status === 400) {
+            // this.$refs.form.setErrors({
+            //   Email: [message],
+            //   Username: [message]
+            // })
+            this.loading = false
+          } else {
+            this.errorMessage = message
+            this.loading = false
+          }
+        })
     }
   }
 }

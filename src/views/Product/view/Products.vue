@@ -25,7 +25,7 @@
     </div>
 
     <v-card class="mt-5" style="height:auto;">
-      <div class="pa-10 text-center center" v-if="product.length < 1">
+      <div class="pa-10 text-center center" v-if="resdata.length < 1">
         <v-img
             class="center"
             :src="eatmoreLogo"
@@ -41,7 +41,7 @@
           <span class="text-capitalize">Add New Floor</span>
         </v-btn>
       </div>
-      <div v-if="product.length > 1">
+      <div v-if="resdata.length > 1">
         <v-data-table
           :headers="headers"
           :items="resdata"
@@ -75,15 +75,15 @@
           <template v-slot:item.actions>
             <div class="pt-4"><p class="text-blue cursor-pointer"  @click="dialog = true">Quick Edit</p></div>
           </template>
-          <template v-slot:item.other>
-            <v-btn icon @click="goToEdit()">
+          <template v-slot:item.other={item}>
+            <v-btn icon @click="goToEdit(item)">
               <v-icon>mdi-dots-horizontal</v-icon>
             </v-btn>
           </template>
         </v-data-table>
         <div class="d-flex justify-space-between mt-3">
           <div class="ma-4">
-          Show {{itemsPerPage}} of {{product.length}} Products
+          Show {{itemsPerPage}} of {{resdata.length}} Products
           </div>
           <div>
           <v-pagination
@@ -239,7 +239,7 @@ export default {
         this.$router.push('/products/add-product')
       }, 1000)
     },
-    goToEdit () {
+    goToEdit (item) {
       setTimeout(() => {
         this.$router.push('/products/edit-product')
       }, 1000)
