@@ -16,6 +16,8 @@ const state = {
   year: null,
   month: null,
   specialHours: null,
+  events: null,
+  eventsLoaded: false,
   dataSpecialHours: null,
   businessHours: null,
   newBusinessHours: null

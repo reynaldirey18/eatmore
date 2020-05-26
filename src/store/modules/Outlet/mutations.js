@@ -33,6 +33,23 @@ const SET_EDIT = (state, payload) => {
 
 const SET_SPECIAL_HOURS = (state, payload) => {
   state.specialHours = payload
+  var listEvent = []
+  payload.forEach(element => {
+    var startTime = element.hour_start_date + ' ' + element.hour_start_time
+    var endTime = element.hour_end_date + ' ' + element.hour_end_time
+    const event = {
+      name: '',
+      start: startTime,
+      end: endTime,
+      color: 'blue'
+    }
+    listEvent.push(event)
+  })
+  state.events = listEvent
+}
+
+const EVENTS_LOADED = (state) => {
+  state.eventsLoaded = true
 }
 
 const SET_YEAR = (state, payload) => {
@@ -69,6 +86,7 @@ export default {
   SET_PROFIL,
   SET_EDIT,
   SET_SPECIAL_HOURS,
+  EVENTS_LOADED,
   SET_YEAR,
   SET_MONTH,
   SET_CREATE_SPECIAL,

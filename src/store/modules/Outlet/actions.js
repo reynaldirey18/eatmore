@@ -139,6 +139,7 @@ const getSpecialHours = ({ commit, state }) => {
       .then(response => {
         const res = response.data
         commit('SET_SPECIAL_HOURS', res.data)
+        commit('EVENTS_LOADED')
       }, error => {
         reject(error)
       })
