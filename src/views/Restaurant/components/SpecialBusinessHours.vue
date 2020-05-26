@@ -28,7 +28,7 @@
           <v-icon color="#3D87F4">mdi-chevron-double-right</v-icon>
         </v-btn>
       </v-sheet>
-      <v-sheet height="600">
+      <v-sheet height="600" v-if="eventsLoaded">
         <v-calendar
           ref="calendar"
           color="#FDB526"
@@ -183,7 +183,7 @@
                     <div>
                       <p class="app-title-small ma-0">Time End</p>
                       <v-menu
-                        ref="menu"
+                        ref="menu2"
                         v-model="menu4"
                         :close-on-content-click="false"
                         :nudge-right="40"
@@ -208,7 +208,7 @@
                           v-model="timeEnd"
                           full-width
                           format="24h"
-                          @click:minute="$refs.menu.save(timeEnd)"
+                          @click:minute="$refs.menu2.save(timeEnd)"
                         ></v-time-picker>
                       </v-menu>
                     </div>
@@ -266,6 +266,9 @@
 
 <script>
 import * as moment from 'moment'
+import { createNamespacedHelpers } from 'vuex'
+const { mapState } = createNamespacedHelpers('outlet')
+
 export default {
   data () {
     return {
@@ -285,15 +288,20 @@ export default {
       loading: false,
       value: moment().format('YYYY-MM-DD'),
       mode: 'stack',
-      type: 'month',
-      events: []
+      type: 'month'
     }
   },
   mounted () {
     this.getData()
-    this.events = this.$store.getters['outlet/events']
+    // this.events = this.$store.getters['outlet/events']
   },
   computed: {
+    eventsLoaded () {
+      return this.$store.getters['outlet/eventsLoaded']
+    },
+    ...mapState({
+      events: state => state.events
+    }),
     formatedDateTitle () {
       return moment(this.value).format('MMMM, YYYY')
     },
