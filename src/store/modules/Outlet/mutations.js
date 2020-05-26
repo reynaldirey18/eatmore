@@ -64,6 +64,10 @@ const SET_CREATE_SPECIAL = (state, payload) => {
   state.dataSpecialHours = payload
 }
 
+const SET_ID_EVENT = (state, payload) => {
+  state.idClickedEvent = payload
+}
+
 const SET_BUSINESS_HOURS = (state, payload) => {
   state.businessHours = payload
 }
@@ -90,6 +94,7 @@ export default {
   SET_YEAR,
   SET_MONTH,
   SET_CREATE_SPECIAL,
+  SET_ID_EVENT,
   SET_BUSINESS_HOURS,
   UPDATE_TIME_BUSINESS,
   NEW_BUSINESS_TIME

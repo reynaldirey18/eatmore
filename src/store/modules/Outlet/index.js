@@ -16,6 +16,7 @@ const state = {
   year: null,
   month: null,
   specialHours: null,
+  idClickedEvent: null,
   events: null,
   eventsLoaded: false,
   dataSpecialHours: null,
