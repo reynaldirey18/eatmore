@@ -218,7 +218,7 @@
 
               <v-card-actions class="d-flex flex-column justify-center">
                 <v-btn color="#FDB526" dark block type="submit" class="mx-auto" :loading="loading">Save Changes</v-btn>
-                <v-btn color="red" text block @click="dialog = false" class="mt-3 mx-auto">Delete</v-btn>
+                <v-btn color="red" text block @click="deleteHour" class="mt-3 mx-auto">Delete</v-btn>
               </v-card-actions>
             </v-form>
           </ValidationObserver>
@@ -230,7 +230,8 @@
     <v-dialog v-model="dialog2" persistent max-width="350">
       <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
         <img src="@/assets/img/success.png" alt="success" class="mx-auto">
-        <v-card-title class="title-card mx-auto">Data has been saved</v-card-title>
+        <v-card-title class="title-card mx-auto">Success</v-card-title>
+        <p class="mx-auto message">{{ successMessage }}</p>
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
           <v-btn
@@ -247,8 +248,8 @@
     <v-dialog v-model="dialog3" persistent max-width="350">
       <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
         <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
-        <v-card-title class="title-card mx-auto">Failed to save data</v-card-title>
-        <p class="mx-auto">{{ errorMessage }}</p>
+        <v-card-title class="title-card mx-auto">Failed</v-card-title>
+        <p class="mx-auto message">{{ errorMessage }}</p>
         <v-card-actions class="pa-0">
           <v-spacer></v-spacer>
           <v-btn
@@ -284,6 +285,7 @@ export default {
       dialog: false,
       dialog2: false,
       dialog3: false,
+      successMessage: null,
       errorMessage: null,
       loading: false,
       value: moment().format('YYYY-MM-DD'),
@@ -300,6 +302,7 @@ export default {
       return this.$store.getters['outlet/eventsLoaded']
     },
     ...mapState({
+      specialHours: state => state.specialHours,
       events: state => state.events
     }),
     formatedDateTitle () {
@@ -326,6 +329,11 @@ export default {
     showDialog () {
       this.startDate = this.value
       this.endDate = this.value
+      this.specialHours.forEach(element => {
+        if (element.hour_start_date === this.value) {
+          this.$store.commit('outlet/SET_ID_EVENT', element.hour_id)
+        }
+      })
       this.dialog = true
     },
     nextDay () {
@@ -333,6 +341,23 @@ export default {
     },
     prevDay () {
       this.value = moment(this.value).subtract(24, 'h')
+    },
+    deleteHour () {
+      this.$store.dispatch('outlet/deleteSpecialHours')
+        .then(response => {
+          const res = response.data
+          if (res.status) {
+            this.successMessage = res.message
+            this.dialog2 = true
+          } else {
+            this.loading = false
+          }
+        }).catch((error) => {
+          const message = error.response.data.message
+          this.errorMessage = message
+          this.dialog3 = true
+          this.loading = false
+        })
     },
     saveChange () {
       const allData = {
@@ -348,6 +373,7 @@ export default {
         .then(response => {
           const res = response.data
           if (res.status) {
+            this.successMessage = res.message
             this.dialog2 = true
           } else {
             this.loading = false
@@ -364,4 +390,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.message::first-letter {
+  text-transform: capitalize
+}
 </style>

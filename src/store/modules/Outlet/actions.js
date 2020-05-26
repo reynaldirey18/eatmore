@@ -162,6 +162,22 @@ const postSpecialHours = ({ state }) => {
   })
 }
 
+const deleteSpecialHours = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    const token = Cookies.get('token')
+    axios.delete('http://api.eatmore.id/profile_service/special-business-hours/' + state.idClickedEvent, {
+      headers: {
+        Authorization: 'Bearer ' + token
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
 const getBusinessHours = ({ commit, state }) => {
   return new Promise((resolve, reject) => {
     const token = Cookies.get('token')
@@ -205,6 +221,7 @@ export default {
   editProfile,
   getSpecialHours,
   postSpecialHours,
+  deleteSpecialHours,
   getBusinessHours,
   updateBusinessHours
 }
