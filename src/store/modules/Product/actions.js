@@ -10,7 +10,7 @@ Vue.use(VueAxios, axios)
 
 const getProduct = ({ commit, state }) => {
   return new Promise((resolve, reject) => {
-    axios.get('http://api.eatmore.id/product_service/?page=1&pageSize=1000&fields=product_id&fields=product_name&fields=product_image', {
+    axios.get('http://api.eatmore.id/product_service/?page=1&pageSize=100&fields=product_id&fields=product_name&fields=product_image', {
       headers: {
         authorization: `Bearer ${userToken}`
       }
@@ -78,6 +78,26 @@ const taxs = ({ commit, state }) => {
       resolve(response)
       if (res.status) {
         commit('SET_Tax', res.data)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
+const getunitlist = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/product_service/references/product-units', {
+      params: {
+        search: state.search
+      },
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    }).then(response => {
+      const res = response.data
+      resolve(response)
+      if (res.status) {
+        commit('SET_Unit', res.data)
       }
     }, error => {
       reject(error)
@@ -152,6 +172,97 @@ const editCategory = ({ state }) => {
       })
   })
 }
+const getRecipes = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/product_service/recipes?page=1&pageSize=10&fields=product_id&fields=product_name&fields=product_image', {
+      // params: {
+      //   search: state.search,
+      //   page: state.page,
+      //   pageSize: state.pageSize,
+      //   fields: ['product_id', 'product_name', 'product_image']
+      // },
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    }).then(response => {
+      const res = response.data
+      resolve(response)
+      if (res.status) {
+        commit('SET_ResData', res.data)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
+const getEditRecipes = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/product_service/recipes/' + state.idVariantDetail, {
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    }).then(response => {
+      const res = response.data
+      resolve(response)
+      if (res.status) {
+        commit('SET_resVariantDetail', res.data)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
+const getVariantlist = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/product_service/' + state.idRecipes + '/variants', {
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    }).then(response => {
+      const res = response.data
+      resolve(response)
+      if (res.status) {
+        commit('SET_resVariant', res.data)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
+
+const sendUpdateRecipes = ({ state }) => {
+  return new Promise((resolve, reject) => {
+    axios.put('http://api.eatmore.id/product_service/recipes/' + state.idVariantDetail, state.datarecipes, {
+      headers: {
+        authorization: `Bearer ${userToken}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+      .then(response => {
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+  })
+}
+
+const getInventById = ({ commit, state }) => {
+  return new Promise((resolve, reject) => {
+    axios.get('http://api.eatmore.id/product_service/inventories/' + state.idInvent, {
+      headers: {
+        authorization: `Bearer ${userToken}`
+      }
+    }).then(response => {
+      const res = response.data
+      resolve(response)
+      if (res.status) {
+        commit('SET_RestInventByid', res.data)
+      }
+    }, error => {
+      reject(error)
+    })
+  })
+}
 
 export default {
   sendAddProduct,
@@ -161,5 +272,11 @@ export default {
   postCategories,
   editCategory,
   deleteCategory,
-  taxs
+  getInventById,
+  taxs,
+  getEditRecipes,
+  getRecipes,
+  getVariantlist,
+  sendUpdateRecipes,
+  getunitlist
 }

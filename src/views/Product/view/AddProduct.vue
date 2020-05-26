@@ -381,7 +381,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <ModalSuccess  :title="'Product Success Added'" :dialog="popupSuccess"  @close="popupSuccess = false">
+    <ModalSuccess  :title="'Product Success Added'" :dialog5="popupSuccess"  @close="popupSuccess = false">
       <div v-slot.v-card-actions>
         <v-btn
           color="#FDB526" class="mt-3 w-full"
@@ -393,7 +393,7 @@
       </div>
     </ModalSuccess>
     <!-- dialog success -->
-    <v-dialog v-model="dialog" persistent max-width="350">
+    <v-dialog v-model="dialogsuccess" persistent max-width="350">
       <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
         <img src="@/assets/img/success.png" alt="success" class="mx-auto">
         <v-card-title class="title-card mx-auto">Add Product Success</v-card-title>
@@ -454,6 +454,7 @@ export default {
       switch1: false,
       dialog: false,
       dialog2: false,
+      dialog5: false,
       ProductImage: null,
       loading: false,
       tagList: ['JunkFood', 'Chicken', 'Contain Park'],
@@ -497,6 +498,7 @@ export default {
       productDynamic: [0],
       VariantDynamic: [0],
       popupSuccess: false,
+      dialogsuccess: false,
       // models
       productName: null,
       category: null,
@@ -675,7 +677,7 @@ export default {
           const res = response.data
           if (res.status === true) {
             this.loading = false
-            this.dialog = true
+            this.dialogsuccess = true
           } else {
             this.loading = false
             this.dialog2 = true

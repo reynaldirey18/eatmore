@@ -415,7 +415,7 @@ const router = new VueRouter({
               }
             },
             {
-              path: 'edit-recipes',
+              path: 'edit-recipes/:id',
               name: 'Edit Recipes',
               component: editRecipes,
               meta: {
