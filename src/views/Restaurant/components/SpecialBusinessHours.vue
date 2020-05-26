@@ -11,7 +11,7 @@
         <v-btn
           icon
           class="ma-2"
-          @click="$refs.calendar.prev()"
+          @click="prevMonth"
         >
           <v-icon color="#3D87F4">mdi-chevron-double-left</v-icon>
         </v-btn>
@@ -23,7 +23,7 @@
         <v-btn
           icon
           class="ma-2"
-          @click="$refs.calendar.next()"
+          @click="nextMonth"
         >
           <v-icon color="#3D87F4">mdi-chevron-double-right</v-icon>
         </v-btn>
@@ -317,8 +317,8 @@ export default {
   },
   methods: {
     getData () {
-      this.$store.commit('outlet/SET_YEAR', moment().format('YYYY'))
-      this.$store.commit('outlet/SET_MONTH', moment().format('MM'))
+      this.$store.commit('outlet/SET_YEAR', moment(this.value).format('YYYY'))
+      this.$store.commit('outlet/SET_MONTH', moment(this.value).format('MM'))
       this.$store.dispatch('outlet/getSpecialHours')
     },
     closeAndNavigate () {
@@ -335,6 +335,14 @@ export default {
         }
       })
       this.dialog = true
+    },
+    nextMonth () {
+      this.$refs.calendar.next()
+      this.getData()
+    },
+    prevMonth () {
+      this.$refs.calendar.prev()
+      this.getData()
     },
     nextDay () {
       this.value = moment(this.value).add(24, 'h')
