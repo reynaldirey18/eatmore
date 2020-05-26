@@ -16,7 +16,12 @@ const events = (state) => {
   return listEvent
 }
 
+const dayActive = (state) => {
+  return state.businessHours.filter(day => day.is_active)
+}
+
 export default {
   didItLoad,
-  events
+  events,
+  dayActive
 }

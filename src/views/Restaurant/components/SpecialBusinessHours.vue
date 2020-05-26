@@ -329,8 +329,8 @@ export default {
     saveChange () {
       const allData = {
         hour_day: moment(this.startDate).format('dddd'),
-        hour_date: this.startDate,
-        hour_end_data: this.endDate,
+        hour_start_date: this.startDate,
+        hour_end_date: this.endDate,
         hour_start_time: this.timeOpen,
         hour_end_time: this.timeEnd,
         hour_description: '-'
