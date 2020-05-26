@@ -50,7 +50,7 @@
               Special Hour
               <v-spacer></v-spacer>
               <v-icon class="float-right"
-              @click.prevent="dialog = false">mdi-close</v-icon>
+              @click.prevent="closeDialog">mdi-close</v-icon>
             </v-card-title>
           </div>
 
@@ -216,9 +216,12 @@
                 </v-row>
               </div>
 
-              <v-card-actions class="d-flex flex-column justify-center">
+              <v-card-actions class="d-flex flex-column justify-center" v-if="editHours">
                 <v-btn color="#FDB526" dark block type="submit" class="mx-auto" :loading="loading">Save Changes</v-btn>
                 <v-btn color="red" text block @click="deleteHour" class="mt-3 mx-auto">Delete</v-btn>
+              </v-card-actions>
+              <v-card-actions class="d-flex flex-column justify-center" v-else>
+                <v-btn color="#FDB526" dark block type="submit" class="mx-auto" :loading="loading">Submit Special Hour</v-btn>
               </v-card-actions>
             </v-form>
           </ValidationObserver>
@@ -279,8 +282,8 @@ export default {
       menu4: false,
       startDate: null,
       endDate: null,
-      timeOpen: '10:00',
-      timeEnd: '22:00',
+      timeOpen: null,
+      timeEnd: null,
       isClosed: false,
       dialog: false,
       dialog2: false,
@@ -288,6 +291,7 @@ export default {
       successMessage: null,
       errorMessage: null,
       loading: false,
+      editHours: false,
       value: moment().format('YYYY-MM-DD'),
       mode: 'stack',
       type: 'month'
@@ -325,12 +329,24 @@ export default {
       this.getData()
       this.dialog2 = false
       this.dialog = false
+      this.editHours = false
+      this.timeOpen = null
+      this.timeEnd = null
+    },
+    closeDialog () {
+      this.dialog = false
+      this.editHours = false
+      this.timeOpen = null
+      this.timeEnd = null
     },
     showDialog () {
       this.startDate = this.value
       this.endDate = this.value
       this.specialHours.forEach(element => {
         if (element.hour_start_date === this.value) {
+          this.editHours = true
+          this.timeOpen = element.hour_start_time
+          this.timeEnd = element.hour_end_time
           this.$store.commit('outlet/SET_ID_EVENT', element.hour_id)
         }
       })
@@ -376,22 +392,45 @@ export default {
         hour_end_time: this.timeEnd,
         hour_description: '-'
       }
-      this.$store.commit('outlet/SET_CREATE_SPECIAL', allData)
-      this.$store.dispatch('outlet/postSpecialHours')
-        .then(response => {
-          const res = response.data
-          if (res.status) {
-            this.successMessage = res.message
-            this.dialog2 = true
-          } else {
+      const editData = {
+        hour_start_time: this.timeOpen,
+        hour_end_time: this.timeEnd
+      }
+      if (this.editHours) {
+        this.$store.commit('outlet/SET_CREATE_SPECIAL', editData)
+        this.$store.dispatch('outlet/editSpecialHours')
+          .then(response => {
+            const res = response.data
+            if (res.status) {
+              this.successMessage = res.message
+              this.dialog2 = true
+            } else {
+              this.loading = false
+            }
+          }).catch((error) => {
+            const message = error.response.data.message
+            this.errorMessage = message
+            this.dialog3 = true
             this.loading = false
-          }
-        }).catch((error) => {
-          const message = error.response.data.message
-          this.errorMessage = message
-          this.dialog3 = true
-          this.loading = false
-        })
+          })
+      } else {
+        this.$store.commit('outlet/SET_CREATE_SPECIAL', allData)
+        this.$store.dispatch('outlet/postSpecialHours')
+          .then(response => {
+            const res = response.data
+            if (res.status) {
+              this.successMessage = res.message
+              this.dialog2 = true
+            } else {
+              this.loading = false
+            }
+          }).catch((error) => {
+            const message = error.response.data.message
+            this.errorMessage = message
+            this.dialog3 = true
+            this.loading = false
+          })
+      }
     }
   }
 }
