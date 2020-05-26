@@ -10,7 +10,7 @@ Vue.use(VueAxios, axios)
 
 const getProduct = ({ commit, state }) => {
   return new Promise((resolve, reject) => {
-    axios.get('http://api.eatmore.id/product_service/?page=1&pageSize=1000&fields=product_id&fields=product_name&fields=product_image', {
+    axios.get('http://api.eatmore.id/product_service/?page=1&pageSize=100&fields=product_id&fields=product_name&fields=product_image', {
       headers: {
         authorization: `Bearer ${userToken}`
       }
@@ -174,13 +174,13 @@ const editCategory = ({ state }) => {
 }
 const getRecipes = ({ commit, state }) => {
   return new Promise((resolve, reject) => {
-    axios.get('http://api.eatmore.id/product_service/recipes', {
-      params: {
-        search: state.search,
-        page: state.page,
-        pageSize: state.pageSize,
-        fields: ['product_id', 'product_name', 'product_image']
-      },
+    axios.get('http://api.eatmore.id/product_service/recipes?page=1&pageSize=10&fields=product_id&fields=product_name&fields=product_image', {
+      // params: {
+      //   search: state.search,
+      //   page: state.page,
+      //   pageSize: state.pageSize,
+      //   fields: ['product_id', 'product_name', 'product_image']
+      // },
       headers: {
         authorization: `Bearer ${userToken}`
       }
@@ -196,7 +196,6 @@ const getRecipes = ({ commit, state }) => {
   })
 }
 const getEditRecipes = ({ commit, state }) => {
-  console.log(state.idVariantDetail)
   return new Promise((resolve, reject) => {
     axios.get('http://api.eatmore.id/product_service/recipes/' + state.idVariantDetail, {
       headers: {

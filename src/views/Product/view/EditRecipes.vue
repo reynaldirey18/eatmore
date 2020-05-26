@@ -96,7 +96,6 @@
                       :error-messages="errors"
                       counter
                       v-model="description"
-                      :rules="rules"
                       name="input-7-4"
                       label="Eg. All floor smoking area"
                     ></v-textarea>
@@ -123,7 +122,7 @@
                     <p class="text-blood">Ingredients</p>
                     <div
                     :key="index.id"
-                    v-for="(row, index) in IngrediantsDy">
+                    v-for="(row, index) in inventName">
                       <v-row>
                         <v-col cols="4">
                           <p class="app-title-small ma-0">Inventory Name</p>
@@ -171,7 +170,7 @@
                         </v-col>
                         <v-col cols="auto">
                           <div class="pt-7">
-                            <v-icon  @click.prevent="removeConfigurationRow(index,row)" medium color="red" class="cursor-pointer">mdi-delete</v-icon>
+                            <v-icon  @click.prevent="removeConfigurationRow(index)" medium color="red" class="cursor-pointer">mdi-delete</v-icon>
                           </div>
                         </v-col>
                       </v-row>
@@ -257,6 +256,41 @@
             width="100%"
             dark>
             <span class="text-capitalize">Add Ingrediants</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- dialog success -->
+    <v-dialog v-model="dialogSuccess" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <img src="@/assets/img/success.png" alt="success" class="mx-auto">
+        <v-card-title class="title-card mx-auto">Update Recipes Success</v-card-title>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="closeAndNavigate"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!-- dialog failed -->
+    <v-dialog v-model="dialogFailed" persistent max-width="350">
+      <v-card class="pa-8 pb-10 d-flex flex-column justify-center">
+        <v-icon color="#F32626" size="100px">mdi-alert-circle-outline</v-icon>
+        <v-card-title class="title-card mx-auto">Add Product Failed</v-card-title>
+        <p class="mx-auto">{{ errorMessage }}</p>
+        <v-card-actions class="pa-0">
+          <v-spacer></v-spacer>
+          <v-btn
+            @click.prevent="dialogFailed = false"
+            color="#FDB526" class="mt-3 w-full"
+            width="100%"
+            dark>
+            <span class="text-capitalize">Okay</span>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -354,7 +388,14 @@ export default {
       qytInvent: [],
       tempDeleteIngre: [],
       unitInvent: [],
-      inventId: []
+      tempIngredient: [],
+      inventId: [],
+      tempEditQty: [],
+      tempEditId: [],
+      tempNameInv: [],
+      tempIdInvent: [],
+      dialogFailed: false,
+      dialogSuccess: false
     }
   },
   watch: {
@@ -371,6 +412,8 @@ export default {
       this.description = val.ingredient_description
       this.IngrediantsDy = val.em_product_ingredient_details
       this.IngrediantsDy.forEach((data, idx) => {
+        this.tempEditId.push(data.ingredient_det_id)
+        this.tempEditQty.push(data.ingredient_det_qty)
         this.qytInvent.push(data.ingredient_det_qty)
         this.unitList.forEach((temp, index) => {
           if (temp.unit_id === data.unit_id) {
@@ -383,8 +426,8 @@ export default {
 
         this.$store.commit('product/SET_IdInvent', data.inventory_id)
         this.$store.dispatch('product/getInventById')
-        console.log(this.inventById)
-        this.inventName[idx] = this.inventById.inventory_name
+        this.tempIngredient = val.em_product_ingredient_details
+        this.inventName.push(data.em_inventory.inventory_name)
       })
     }
   },
@@ -406,6 +449,11 @@ export default {
       this.restByIdinvent = this.$store.state.inventories.resByIdInvent
     },
     menuchanges (val) {
+      this.dataPass = []
+      this.qytInvent = []
+      this.inventName = []
+      this.unitInvent = []
+      this.selected = []
       this.titlee = val.variant_name
       this.subtitlee = val.variant_sku
       this.$store.commit('product/SET_idVatiantDetail', val.ingredient_ids[0])
@@ -413,20 +461,21 @@ export default {
       this.dataPass = this.resVariantDetail
     },
     addvariant (val) {
-      this.IngrediantsDy = val
       this.dialog = false
-      this.IngrediantsDy.forEach((val, idx) => {
-        this.inventName[idx] = val.inventory_name
-        this.inventId[idx] = val.inventory_id
+      this.tempNameInv = []
+      val.forEach((data, idx) => {
+        this.tempNameInv = data.inventory_name
+        this.itempIdInvent = data.inventory_id
       })
+      this.inventId.push(this.itempIdInvent)
+      this.inventName.push(this.tempNameInv)
+      console.log(this.inventName)
     },
     removeConfigurationRow: function (index, val) {
-      this.IngrediantsDy.splice(index, 1)
-      val.forEach((data, idx) => {
-        this.tempDeleteIngre[idx] = data
-      })
-      this.inventName[index].splice(index, 1)
-      this.inventId[index].splice(index, 1)
+      this.tempDeleteIngre.push(val)
+      this.inventName.splice(index, 1)
+      this.tempEditId.splice(index, 1)
+      console.log(this.selected)
     },
     handleTriggerUpload () {
       this.$refs.file.click()
@@ -448,29 +497,35 @@ export default {
       }, 200)
     },
     submitForm () {
-      this.loading = true
+      // this.loading = true
       var tempProduct = {}
       // tempProduct.ingredient_image = this.ProductImage
       tempProduct.ingredient_qty = this.recipeQty
       tempProduct.ingredient_description = this.description
 
-      if (this.tempDeleteIngre !== null) {
+      if (this.inventId !== null) {
         this.inventId.forEach((element, index) => {
-          var idInvent = 'ingredient_recipes[' + index + '][inventory_id]'
-          tempProduct[idInvent] = element
+          var idInv = 'ingredient_recipes[' + index + '][inventory_id]'
+          tempProduct[idInv] = element
         })
       }
       this.qytInvent.forEach((element, index) => {
-        var qty = 'ingredient_recipes[' + index + '][ingredient_det_id]'
+        var qty = 'ingredient_recipes[' + index + '][ingredient_det_qty]'
         tempProduct[qty] = element
       })
       this.unitInvent.forEach((element, index) => {
         var unit = 'ingredient_recipes[' + index + '][unit_id]'
         tempProduct[unit] = element.value
       })
+      this.tempEditId.forEach((element, index) => {
+        if (this.tempEditQty[index] !== this.qytInvent[index]) {
+          var id = 'ingredient_recipes[' + index + '][ingredient_det_id]'
+          tempProduct[id] = element
+        }
+      })
       if (this.tempDeleteIngre !== null) {
         this.tempDeleteIngre.forEach((data, index) => {
-          var del = 'ingredient_recipes[' + index + '][ingredient_det_qty]'
+          var del = 'ingredient_recipe_delete[' + index + ']'
           tempProduct[del] = data
         })
       }
@@ -486,8 +541,10 @@ export default {
           const res = response.data
           if (res.status === true) {
             this.loading = false
+            this.dialogSuccess = true
           } else {
             this.loading = false
+            this.dialogFailed = true
             console.log(res.errors)
           }
         })
